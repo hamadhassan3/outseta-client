@@ -6,6 +6,12 @@ import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidURLException;
+import com.outseta.exception.OutsetaParseException;
+import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
+import com.outseta.exception.api_exception.OutsetaAPIFailedException;
+import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
+import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
 import com.outseta.model.result.Person;
 
 import java.util.HashMap;
@@ -67,7 +73,7 @@ public class PeopleClient extends BaseClient {
         }
 
         @Override
-        public PeopleClientBuilder withDefaultParser(){
+        public PeopleClientBuilder withDefaultParser() throws OutsetaClientBuildException {
             super.withDefaultParser();
             return this;
         }
@@ -85,7 +91,7 @@ public class PeopleClient extends BaseClient {
         }
     }
 
-    public static PeopleClientBuilder newPeopleClientBuilder(String baseUrl) throws OutsetaClientBuildException {
+    public static PeopleClientBuilder builder(String baseUrl) throws OutsetaClientBuildException {
         return new PeopleClientBuilder(baseUrl);
     }
 
@@ -97,7 +103,7 @@ public class PeopleClient extends BaseClient {
         super(baseUrl, headers, requestMaker);
     }
 
-    public Person getPerson(String personId){
+    public Person getPerson(String personId) throws OutsetaParseException, OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaAPIUnknownException, OutsetaInvalidURLException {
 
         String result = this.get("/crm/people/" + personId, new HashMap<>());
 

@@ -6,6 +6,12 @@ import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidURLException;
+import com.outseta.exception.OutsetaParseException;
+import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
+import com.outseta.exception.api_exception.OutsetaAPIFailedException;
+import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
+import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
 import com.outseta.model.input.GetAuthTokenInput;
 import com.outseta.model.result.AuthToken;
 
@@ -68,7 +74,7 @@ public class AuthenticationClient extends BaseClient {
         }
 
         @Override
-        public AuthenticationClientBuilder withDefaultParser(){
+        public AuthenticationClientBuilder withDefaultParser() throws OutsetaClientBuildException {
             super.withDefaultParser();
             return this;
         }
@@ -86,7 +92,7 @@ public class AuthenticationClient extends BaseClient {
         }
     }
 
-    public static AuthenticationClientBuilder newAuthenticationClientBuilder(String baseUrl) throws OutsetaClientBuildException {
+    public static AuthenticationClientBuilder builder(String baseUrl) throws OutsetaClientBuildException {
         return new AuthenticationClientBuilder(baseUrl);
     }
 
@@ -99,7 +105,7 @@ public class AuthenticationClient extends BaseClient {
         super(baseUrl, headers, requestMaker);
     }
 
-    public AuthToken getAuthToken(String username, String password){
+    public AuthToken getAuthToken(String username, String password) throws OutsetaParseException, OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
 
         GetAuthTokenInput input = new GetAuthTokenInput(username, password);
 

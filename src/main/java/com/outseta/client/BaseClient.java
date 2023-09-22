@@ -3,6 +3,11 @@ package com.outseta.client;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidURLException;
+import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
+import com.outseta.exception.api_exception.OutsetaAPIFailedException;
+import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
+import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +18,7 @@ public class BaseClient {
     private String baseUrl;
     private ParserFacade parserFacade;
 
-    protected BaseClient(String baseUrl) throws OutsetaClientBuildException {
+    public BaseClient(String baseUrl) throws OutsetaClientBuildException {
 
         if(baseUrl == null) {
             throw new OutsetaClientBuildException("Error creating client. Base url cannot be null.");
@@ -29,7 +34,7 @@ public class BaseClient {
         this.parserFacade = null;
     }
 
-    protected BaseClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker) throws OutsetaClientBuildException {
+    public BaseClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker) throws OutsetaClientBuildException {
 
         if(baseUrl == null) {
             throw new OutsetaClientBuildException("Error creating client. Base url cannot be null.");
@@ -56,32 +61,38 @@ public class BaseClient {
         return this.headers.containsKey("Authorization");
     }
 
-    public void updateHeaders(Map<String, String> headers) {
+    public void updateHeaders(Map<String, String> headers) throws OutsetaClientBuildException {
+        if(headers == null){
+            throw new OutsetaClientBuildException("Cannot assign null headers.");
+        }
         this.headers.putAll(headers);
     }
 
-    public void replaceHeaders(Map<String, String> headers) {
+    public void replaceHeaders(Map<String, String> headers) throws OutsetaClientBuildException {
+        if(headers == null || !headers.containsKey("Authorization")){
+            throw new OutsetaClientBuildException("Invalid headers for authentication client. Please check headers.");
+        }
         this.headers.clear();
         this.headers.putAll(headers);
     }
 
-    protected String get(String urlSuffix, Map<String, Object> parameters) {
+    protected String get(String urlSuffix, Map<String, Object> parameters) throws OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaAPIUnknownException, OutsetaInvalidURLException {
         return this.requestMaker.get(this.baseUrl + urlSuffix, parameters, this.headers);
     }
-    protected String put(String urlSuffix, Map<String, Object> parameters, String payload) {
+    protected String put(String urlSuffix, Map<String, Object> parameters, String payload) throws OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
         return this.requestMaker.put(this.baseUrl + urlSuffix, parameters, payload, this.headers);
     }
-    protected String post(String urlSuffix, Map<String, Object> parameters, String payload) {
+    protected String post(String urlSuffix, Map<String, Object> parameters, String payload) throws OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
         return this.requestMaker.post(this.baseUrl + urlSuffix, parameters, payload, this.headers);
     }
-    protected String patch(String urlSuffix, Map<String, Object> parameters, String payload) {
-        return this.requestMaker.patch(this.baseUrl + urlSuffix, parameters, payload, this.headers);
-    }
-    protected String delete(String urlSuffix, Map<String, Object> parameters) {
+    protected String delete(String urlSuffix, Map<String, Object> parameters) throws OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
         return this.requestMaker.delete(this.baseUrl + urlSuffix, parameters, this.headers);
     }
 
-    public void setRequestMaker(RequestMaker requestMaker) {
+    public void setRequestMaker(RequestMaker requestMaker) throws OutsetaClientBuildException {
+        if(requestMaker == null) {
+            throw new OutsetaClientBuildException("Request maker cannot be null.");
+        }
         this.requestMaker = requestMaker;
     }
 
@@ -93,7 +104,10 @@ public class BaseClient {
         return baseUrl;
     }
 
-    public void setBaseUrl(String baseUrl) {
+    public void setBaseUrl(String baseUrl) throws OutsetaClientBuildException {
+        if(baseUrl == null) {
+            throw new OutsetaClientBuildException("Error creating client. Base url cannot be null.");
+        }
         this.baseUrl = baseUrl;
     }
 
@@ -105,7 +119,10 @@ public class BaseClient {
         return parserFacade;
     }
 
-    public void setParserFacade(ParserFacade parserFacade) {
+    public void setParserFacade(ParserFacade parserFacade) throws OutsetaClientBuildException {
+        if(parserFacade == null) {
+            throw new OutsetaClientBuildException("Parser facade cannot be null.");
+        }
         this.parserFacade = parserFacade;
     }
 }

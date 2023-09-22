@@ -1,5 +1,6 @@
 package com.outseta.client_helper.parser.json;
 
+import com.outseta.exception.OutsetaParseException;
 import com.outseta.model.DataComponent;
 
 /**
@@ -10,18 +11,21 @@ import com.outseta.model.DataComponent;
  */
 public class ParserFacade {
 
-    private JsonParser jsonParser;
+    private final JsonParser jsonParser;
 
     public ParserFacade(JsonParser jsonParser){
         this.jsonParser = jsonParser;
     }
 
-    public <T extends DataComponent> String objectToJsonString(T obj){
+    public <T extends DataComponent> String objectToJsonString(T obj) throws OutsetaParseException {
         return jsonParser.objectToJsonString(obj);
     }
 
-    public <T extends DataComponent> T jsonStringToObject(String jsonString, Class<T> clazz){
+    public <T extends DataComponent> T jsonStringToObject(String jsonString, Class<T> clazz) throws OutsetaParseException {
         return jsonParser.jsonStringToObject(jsonString, clazz);
     }
 
+    public JsonParser getJsonParser() {
+        return jsonParser;
+    }
 }
