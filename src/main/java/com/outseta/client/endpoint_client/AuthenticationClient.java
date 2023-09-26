@@ -12,7 +12,7 @@ import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
 import com.outseta.exception.api_exception.OutsetaAPIFailedException;
 import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
-import com.outseta.model.input.GetAuthTokenInput;
+import com.outseta.model.request.GetAuthTokenRequest;
 import com.outseta.model.result.AuthToken;
 
 import java.util.HashMap;
@@ -96,21 +96,31 @@ public class AuthenticationClient extends BaseClient {
         return new AuthenticationClientBuilder(baseUrl);
     }
 
-    protected AuthenticationClient(String baseUrl) throws OutsetaClientBuildException {
+    /**
+     * The constructor is intentionally private to ensure that builder is used.
+     * @param baseUrl The base url for the client to use.
+     * @throws OutsetaClientBuildException Thrown if the client cannot be built.
+     */
+    private AuthenticationClient(String baseUrl) throws OutsetaClientBuildException {
         super(baseUrl);
     }
 
-    public AuthenticationClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker)
+    /**
+     * The constructor is intentionally private to ensure that builder is used.
+     * @param baseUrl The base url for the client to use.
+     * @param headers The headers to use for the client.
+     * @param requestMaker The request maker to use for the client.
+     * @throws OutsetaClientBuildException Thrown if the client cannot be built.
+     */
+    private AuthenticationClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker)
             throws OutsetaClientBuildException {
         super(baseUrl, headers, requestMaker);
     }
 
-    public AuthToken getAuthToken(String username, String password) throws OutsetaParseException, OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
-
-        GetAuthTokenInput input = new GetAuthTokenInput(username, password);
+    public AuthToken getAuthToken(GetAuthTokenRequest getAuthTokenRequest) throws OutsetaParseException, OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
 
         String result = this.post("/tokens", new HashMap<>(),
-                this.getParserFacade().objectToJsonString(input));
+                this.getParserFacade().objectToJsonString(getAuthTokenRequest));
 
         return this.getParserFacade().jsonStringToObject(result, AuthToken.class);
     }

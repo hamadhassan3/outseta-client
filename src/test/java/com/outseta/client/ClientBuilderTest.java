@@ -34,7 +34,8 @@ class ClientBuilderTest {
         assertNull(baseClient.getRequestMaker());
         assertNull(baseClient.getParserFacade());
         headers.put("Authorization", "auth");
-        assertEquals(this.clientBuilder, this.clientBuilder.withHeaders(headers));
+        assertEquals(this.clientBuilder,
+                this.clientBuilder.withHeaders(headers));
         assertEquals(headers, baseClient.getHeaders());
     }
 
@@ -44,11 +45,16 @@ class ClientBuilderTest {
         headers.put("Content-Type", "application/json");
         headers.put("Accept", "application/json");
         headers.put("Authorization", "apiKey");
-        assertEquals(this.clientBuilder, this.clientBuilder.withAccessKey("accessKey"));
-        assertEquals(this.clientBuilder, this.clientBuilder.withDefaultParser());
-        assertEquals(this.clientBuilder, this.clientBuilder.withBaseUrl("http://dummyurl2.com"));
-        assertEquals(this.clientBuilder, this.clientBuilder.withRequestMaker(RequestMakerType.HTTP_CLIENT));
-        assertEquals(this.clientBuilder, this.clientBuilder.withApiKey("apiKey"));
+        assertEquals(this.clientBuilder,
+                this.clientBuilder.withAccessKey("accessKey"));
+        assertEquals(this.clientBuilder,
+                this.clientBuilder.withDefaultParser());
+        assertEquals(this.clientBuilder,
+                this.clientBuilder.withBaseUrl("http://dummyurl2.com"));
+        assertEquals(this.clientBuilder, this.clientBuilder.withRequestMaker(
+                RequestMakerType.HTTP_CLIENT));
+        assertEquals(this.clientBuilder,
+                this.clientBuilder.withApiKey("apiKey"));
         assertDoesNotThrow(() -> {
             assertEquals(baseClient, this.clientBuilder.build());
         });
@@ -83,21 +89,24 @@ class ClientBuilderTest {
     @Test
     void testBuildWithMissingApiKey() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withAccessKey("accessKey").withBaseUrl("http://dummyurl2.com").build();
+            this.clientBuilder.withAccessKey("accessKey")
+                    .withBaseUrl("http://dummyurl2.com").build();
         });
     }
 
     @Test
     void testBuildWithMissingAccessKey() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withApiKey("apiKey").withBaseUrl("http://dummyurl2.com").build();
+            this.clientBuilder.withApiKey("apiKey")
+                    .withBaseUrl("http://dummyurl2.com").build();
         });
     }
 
     @Test
     void testBuildWithMissingBaseUrl() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withApiKey("apiKey").withAccessKey("accessKey").build();
+            this.clientBuilder.withApiKey("apiKey").withAccessKey("accessKey")
+                    .build();
         });
     }
 
@@ -118,7 +127,8 @@ class ClientBuilderTest {
     @Test
     void testBuildWithDefaultParserAndRequestMaker() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withDefaultParser().withDefaultRequestMaker().build();
+            this.clientBuilder.withDefaultParser().withDefaultRequestMaker()
+                    .build();
         });
     }
 

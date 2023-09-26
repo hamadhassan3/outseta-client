@@ -19,15 +19,18 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 class ParserFacadeTest {
-    private static String objectStr;    // String representation of the test object
+    private static String objectStr;
+            // String representation of the test object
 
     private static TestDataComponent testDataComponent;   // Test object
 
     @BeforeAll
     static void setUp() {
         // Creating a test object and its json string representation
-        objectStr = "{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true,\"testNestedData\":{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true}}";
-        testDataComponent = new TestDataComponent("test", 1.0, 1, true, new TestNestedData("test", 1.0, 1, true));
+        objectStr =
+                "{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true,\"testNestedData\":{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true}}";
+        testDataComponent = new TestDataComponent("test", 1.0, 1, true,
+                new TestNestedData("test", 1.0, 1, true));
     }
 
     /**
@@ -57,7 +60,8 @@ class ParserFacadeTest {
     void testObjectToJsonStringSuccess() throws OutsetaParseException {
 
         // Mock JsonParser's objectToJsonString method
-        when(jsonParser.objectToJsonString(any(DataComponent.class))).thenReturn(objectStr);
+        when(jsonParser.objectToJsonString(
+                any(DataComponent.class))).thenReturn(objectStr);
 
         // Call the method
         String jsonString = parserFacade.objectToJsonString(testDataComponent);
@@ -73,10 +77,12 @@ class ParserFacadeTest {
     void testJsonStringToObjectSuccess() throws OutsetaParseException {
 
         // Mock JsonParser's jsonStringToObject method
-        when(jsonParser.jsonStringToObject(any(String.class), any(Class.class))).thenReturn(testDataComponent);
+        when(jsonParser.jsonStringToObject(any(String.class),
+                any(Class.class))).thenReturn(testDataComponent);
 
         // Call the method
-        TestDataComponent result = parserFacade.jsonStringToObject(objectStr, TestDataComponent.class);
+        TestDataComponent result = parserFacade.jsonStringToObject(objectStr,
+                TestDataComponent.class);
 
         // Verify the result
         assertEquals(testDataComponent, result);
@@ -90,11 +96,13 @@ class ParserFacadeTest {
     void testJsonStringToObjectFailure() throws OutsetaParseException {
 
         // Mock JsonParser's jsonStringToObject method
-        when(jsonParser.jsonStringToObject(any(String.class), any(Class.class))).thenThrow(new OutsetaParseException(""));
+        when(jsonParser.jsonStringToObject(any(String.class),
+                any(Class.class))).thenThrow(new OutsetaParseException(""));
 
         // Verify the result
         assertThrows(OutsetaParseException.class, () ->
-                parserFacade.jsonStringToObject(objectStr, TestDataComponent.class));
+                parserFacade.jsonStringToObject(objectStr,
+                        TestDataComponent.class));
     }
 
     /**
@@ -105,7 +113,8 @@ class ParserFacadeTest {
     void testObjectToJsonStringFailure() throws OutsetaParseException {
 
         // Mock JsonParser's objectToJsonString method
-        when(jsonParser.objectToJsonString(any(DataComponent.class))).thenThrow(new OutsetaParseException(""));
+        when(jsonParser.objectToJsonString(any(DataComponent.class))).thenThrow(
+                new OutsetaParseException(""));
 
         // Verify the result
         assertThrows(OutsetaParseException.class, () ->

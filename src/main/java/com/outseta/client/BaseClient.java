@@ -18,9 +18,9 @@ public class BaseClient {
     private String baseUrl;
     private ParserFacade parserFacade;
 
-    public BaseClient(String baseUrl) throws OutsetaClientBuildException {
+    protected BaseClient(String baseUrl) throws OutsetaClientBuildException {
 
-        if(baseUrl == null) {
+        if(baseUrl == null || baseUrl.isEmpty()) {
             throw new OutsetaClientBuildException("Error creating client. Base url cannot be null.");
         }
 
@@ -34,9 +34,9 @@ public class BaseClient {
         this.parserFacade = null;
     }
 
-    public BaseClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker) throws OutsetaClientBuildException {
+    protected BaseClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker) throws OutsetaClientBuildException {
 
-        if(baseUrl == null) {
+        if(baseUrl == null || baseUrl.isEmpty()) {
             throw new OutsetaClientBuildException("Error creating client. Base url cannot be null.");
         }
 

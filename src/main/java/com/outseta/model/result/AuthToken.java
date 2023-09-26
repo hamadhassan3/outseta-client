@@ -3,7 +3,7 @@ package com.outseta.model.result;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseResult;
 
-public class AuthToken extends BaseResult {
+public class AuthToken implements BaseResult {
 
     @JsonProperty("access_token")
     private String accessToken;
