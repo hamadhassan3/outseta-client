@@ -9,7 +9,8 @@ public class TestDataComponent implements DataComponent {
     private Boolean bool;
     private TestNestedData testNestedData;
 
-    public TestDataComponent(String str, Double dbl, Integer integer, Boolean bool, TestNestedData testNestedData) {
+    public TestDataComponent(String str, Double dbl, Integer integer,
+                             Boolean bool, TestNestedData testNestedData) {
         this.str = str;
         this.dbl = dbl;
         this.integer = integer;
@@ -57,20 +58,23 @@ public class TestDataComponent implements DataComponent {
         this.testNestedData = testNestedData;
     }
 
-    /** Overriding equals method for testing purposes */
+    /**
+     * Overriding equals method for testing purposes
+     */
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
 
-        if(other == this) {
+        if (other == this) {
             return true;
         }
-        if(other instanceof TestDataComponent otherTestDataComponent) {
+        if (other instanceof TestDataComponent otherTestDataComponent) {
 
             if (this.str.equals(otherTestDataComponent.str) &&
                     this.dbl.equals(otherTestDataComponent.dbl) &&
                     this.integer.equals(otherTestDataComponent.integer) &&
                     this.bool.equals(otherTestDataComponent.bool) &&
-                    this.testNestedData.equals(otherTestDataComponent.testNestedData)) {
+                    this.testNestedData.equals(
+                            otherTestDataComponent.testNestedData)) {
                 return true;
             }
         }

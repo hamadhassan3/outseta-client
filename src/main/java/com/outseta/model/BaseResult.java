@@ -1,4 +1,5 @@
 package com.outseta.model;
 
-public abstract class BaseResult implements DataComponent {
+public interface BaseResult extends DataComponent {
+    boolean equals(Object o);
 }

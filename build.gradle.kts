@@ -1,9 +1,16 @@
 plugins {
     id("java")
+    id("checkstyle")
 }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+
+checkstyle {
+    toolVersion = "10.12.3"
+    maxWarnings = 0
+    configFile = file("${rootDir}/checkstyle.xml")
+}
 
 repositories {
     mavenCentral()

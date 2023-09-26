@@ -1,4 +1,4 @@
 package com.outseta.model;
 
-public abstract class BaseInput implements DataComponent {
+public interface BaseInput extends DataComponent {
 }

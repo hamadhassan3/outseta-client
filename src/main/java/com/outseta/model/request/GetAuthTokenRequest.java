@@ -1,9 +1,9 @@
-package com.outseta.model.input;
+package com.outseta.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseInput;
 
-public class GetAuthTokenInput extends BaseInput {
+public class GetAuthTokenRequest implements BaseInput {
 
     @JsonProperty("username")
     private String username;
@@ -11,7 +11,7 @@ public class GetAuthTokenInput extends BaseInput {
     @JsonProperty("password")
     private String password;
 
-    public GetAuthTokenInput(String username, String password) {
+    public GetAuthTokenRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }

@@ -1,9 +1,25 @@
 package com.outseta.client_helper.parser.json;
 
 public class TestNestedData {
+
+    /**
+     * A String field.
+     */
     private String str;
+
+    /**
+     * A Double field.
+     */
     private Double dbl;
+
+    /**
+     * An Integer field.
+     */
     private Integer intgr;
+
+    /**
+     * A Boolean field.
+     */
     private Boolean bool;
 
     public TestNestedData(String str, Double dbl, Integer intgr, Boolean bool) {
@@ -45,12 +61,19 @@ public class TestNestedData {
         this.bool = bool;
     }
 
-    /** Overriding equals method for testing purposes */
+    /**
+     * Overriding equals method for testing purposes
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof TestNestedData)) return false;
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof TestNestedData)) {
+            return false;
+        }
         TestNestedData other = (TestNestedData) obj;
-        return this.str.equals(other.str) && this.dbl.equals(other.dbl) && this.intgr.equals(other.intgr) && this.bool.equals(other.bool);
+        return this.str.equals(other.str) && this.dbl.equals(other.dbl) &&
+                this.intgr.equals(other.intgr) && this.bool.equals(other.bool);
     }
 }

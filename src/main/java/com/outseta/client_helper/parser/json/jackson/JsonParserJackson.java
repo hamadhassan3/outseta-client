@@ -7,6 +7,11 @@ import com.outseta.client_helper.parser.json.JsonParser;
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.model.DataComponent;
 
+/**
+ * This class is a wrapper for the Jackson ObjectMapper class.
+ * It implements the JsonParser interface.
+ * It is used to convert objects to json strings and vice versa.
+ */
 public class JsonParserJackson implements JsonParser {
 
     private final ObjectMapper objectMapper;
