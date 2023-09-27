@@ -11,20 +11,53 @@ import com.outseta.model.DataComponent;
  */
 public class ParserFacade {
 
+    /**
+     * The JsonParser object used to convert objects to
+     * json strings and vice versa.
+     */
     private final JsonParser jsonParser;
 
-    public ParserFacade(JsonParser jsonParser){
-        this.jsonParser = jsonParser;
+    /**
+     * This constructor is used to initialize the JsonParser object.
+     * @param pJsonParser The JsonParser object to use.
+     */
+    public ParserFacade(final JsonParser pJsonParser) {
+        this.jsonParser = pJsonParser;
     }
 
-    public <T extends DataComponent> String objectToJsonString(T obj) throws OutsetaParseException {
+    /**
+     * This method converts an object to a json string.
+     * @param obj The object to convert.
+     * @return The json string.
+     * @param <T> The type of the object to convert.
+     * @throws OutsetaParseException If the object cannot be converted to
+     *      a json string.
+     */
+    public <T extends DataComponent> String objectToJsonString(final T obj)
+            throws OutsetaParseException {
         return jsonParser.objectToJsonString(obj);
     }
 
-    public <T extends DataComponent> T jsonStringToObject(String jsonString, Class<T> clazz) throws OutsetaParseException {
+    /**
+     * This method converts a json string to an object.
+     * @param jsonString The json string to convert.
+     * @param clazz The class of the object to convert to.
+     * @return The object.
+     * @param <T> The type of the object to convert to.
+     * @throws OutsetaParseException If the json string cannot be converted
+     *      to an object.
+     */
+    public <T extends DataComponent> T jsonStringToObject(
+            final String jsonString, final Class<T> clazz)
+            throws OutsetaParseException {
+
         return jsonParser.jsonStringToObject(jsonString, clazz);
     }
 
+    /**
+     * This method is used to get the JsonParser object.
+     * @return The JsonParser object.
+     */
     public JsonParser getJsonParser() {
         return jsonParser;
     }

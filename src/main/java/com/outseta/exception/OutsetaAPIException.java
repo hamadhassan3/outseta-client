@@ -2,62 +2,150 @@ package com.outseta.exception;
 
 import java.util.Map;
 
+/**
+ * This class is used to represent an exception that occurred while making a
+ * request to the Outseta API.
+ */
 public class OutsetaAPIException extends Exception {
 
+    /**
+     * The url on which the exception occurred.
+     */
     private String url;
+
+    /**
+     * The payload of the request that caused the exception.
+     */
     private String payload;
+
+    /**
+     * The parameters of the request that caused the exception.
+     */
     private Map<String, Object> parameters;
+
+    /**
+     * The headers of the request that caused the exception.
+     */
     private Map<String, String> headers;
+
+    /**
+     * The response code of the request that caused the exception.
+     */
     private Integer responseCode;
+
+    /**
+     * The exception that caused this exception to be thrown.
+     */
     private Exception triggeredBy;
-    public OutsetaAPIException(String reason, String url, String payload, Map<String, Object> parameters,
-                               Map<String, String> headers, Integer responseCode, Exception triggeredBy){
+
+    /**
+     * This constructor is used to create a new OutsetaAPIException object.
+     * @param reason The reason for the exception.
+     * @param pUrl The url on which the exception occurred.
+     * @param pPayload The payload of the request that caused the exception.
+     * @param pParameters The parameters of the request that caused the
+     *                   exception.
+     * @param pHeaders The headers of the request that caused the exception.
+     * @param pResponseCode The response code of the request that caused the
+     *                     exception.
+     * @param pTriggeredBy The exception that caused this exception to be
+     *                     thrown.
+     */
+    public OutsetaAPIException(final String reason, final String pUrl,
+                               final String pPayload,
+                               final Map<String, Object> pParameters,
+                               final Map<String, String> pHeaders,
+                               final Integer pResponseCode,
+                               final Exception pTriggeredBy) {
         super(reason);
-        this.url = url;
-        this.payload = payload;
-        this.parameters = parameters;
-        this.headers = headers;
-        this.responseCode = responseCode;
-        this.triggeredBy = triggeredBy;
+        this.url = pUrl;
+        this.payload = pPayload;
+        this.parameters = pParameters;
+        this.headers = pHeaders;
+        this.responseCode = pResponseCode;
+        this.triggeredBy = pTriggeredBy;
     }
 
+    /**
+     * Returns the url on which the exception occurred.
+     * @return The url on which the exception occurred.
+     */
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    /**
+     * Sets the url on which the exception occurred.
+     * @param pUrl The url on which the exception occurred.
+     */
+    public void setUrl(final String pUrl) {
+        this.url = pUrl;
     }
 
+    /**
+     * Returns the parameters of the request that caused the exception.
+     * @return The parameters of the request that caused the exception.
+     */
     public Map<String, Object> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Map<String, Object> parameters) {
-        this.parameters = parameters;
+    /**
+     * Sets the parameters of the request that caused the exception.
+     * @param pParameters The parameters of the request that caused the
+     *                    exception.
+     */
+    public void setParameters(final Map<String, Object> pParameters) {
+        this.parameters = pParameters;
     }
 
+    /**
+     * Returns the headers of the request that caused the exception.
+     * @return The headers of the request that caused the exception.
+     */
     public Map<String, String> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(Map<String, String> headers) {
-        this.headers = headers;
+    /**
+     * Sets the headers of the request that caused the exception.
+     * @param pHeaders The headers of the request that caused the exception.
+     */
+    public void setHeaders(final Map<String, String> pHeaders) {
+        this.headers = pHeaders;
     }
 
+    /**
+     * Returns the payload of the request that caused the exception.
+     * @return The payload of the request that caused the exception.
+     */
     public Integer getResponseCode() {
         return responseCode;
     }
 
-    public void setResponseCode(Integer responseCode) {
-        this.responseCode = responseCode;
+    /**
+     * Sets the payload of the request that caused the exception.
+     * @param pResponseCode The payload of the request that caused the
+     *                      exception.
+     */
+    public void setResponseCode(final Integer pResponseCode) {
+        this.responseCode = pResponseCode;
     }
 
+    /**
+     * Returns the exception that caused this exception to be thrown.
+     * @return The exception that caused this exception to be thrown.
+     */
     public Exception getTriggeredBy() {
         return triggeredBy;
     }
 
-    public void setTriggeredBy(Exception triggeredBy) {
-        this.triggeredBy = triggeredBy;
+    /**
+     * Sets the exception that caused this exception to be thrown.
+     * @param pTriggeredBy The exception that caused this exception to be
+     *                     thrown.
+     */
+    public void setTriggeredBy(final Exception pTriggeredBy) {
+        this.triggeredBy = pTriggeredBy;
     }
 }

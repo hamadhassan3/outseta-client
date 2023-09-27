@@ -14,41 +14,76 @@ import com.outseta.model.DataComponent;
  */
 public class JsonParserJackson implements JsonParser {
 
+    /**
+     * The ObjectMapper object used to convert objects to
+     * json strings and vice versa.
+     */
     private final ObjectMapper objectMapper;
 
-    public JsonParserJackson(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    /**
+     * This constructor is used to initialize the ObjectMapper object.
+     * @param pObjectMapper The ObjectMapper object to use.
+     */
+    public JsonParserJackson(final ObjectMapper pObjectMapper) {
+        this.objectMapper = pObjectMapper;
     }
 
-    public JsonParserJackson(){
+    /**
+     * This constructor is used to initialize the ObjectMapper object.
+     */
+    public JsonParserJackson() {
         this.objectMapper = new ObjectMapper();
 
         // Configure the parser here
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.objectMapper.configure(
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
+    /**
+     * This method converts an object to a json string.
+     * @param obj The object to convert.
+     * @return The json string.
+     * @param <T> The type of the object to convert.
+     * @throws OutsetaParseException If the object cannot be converted to
+     *      a json string.
+     */
     @Override
-    public <T extends DataComponent> String objectToJsonString(T obj) throws OutsetaParseException {
+    public <T extends DataComponent> String objectToJsonString(final T obj)
+            throws OutsetaParseException {
 
         String result;
 
         try {
             result = this.objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            throw new OutsetaParseException("Unable to convert " + obj.getClass().toString() + " to a json string.");
+            throw new OutsetaParseException("Unable to convert "
+                    + obj.getClass().toString() + " to a json string.");
         }
 
         return result;
     }
 
+    /**
+     * This method converts a json string to an object.
+     * @param jsonString The json string to convert.
+     * @param clazz The class of the object to convert to.
+     * @return The object.
+     * @param <T> The type of the object to convert to.
+     * @throws OutsetaParseException If the json string cannot be
+     *      converted to an object.
+     */
     @Override
-    public <T extends DataComponent> T jsonStringToObject(String jsonString, Class<T> clazz) throws OutsetaParseException {
+    public <T extends DataComponent> T jsonStringToObject(
+            final String jsonString, final Class<T> clazz)
+            throws OutsetaParseException {
+
         T result = null;
 
         try {
             result = this.objectMapper.readValue(jsonString, clazz);
         } catch (JsonProcessingException e) {
-            throw new OutsetaParseException("Unable to convert json string to " + clazz.toString() + " type.");
+            throw new OutsetaParseException("Unable to convert json string to "
+                    + clazz.toString() + " type.");
         }
 
         return result;

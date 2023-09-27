@@ -8,7 +8,6 @@ import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -30,19 +29,53 @@ import java.util.Map;
  */
 class RequestMakerHttpClient implements RequestMaker {
 
+    /**
+     * This field is used to make the HTTP requests.
+     */
     private final HttpClient httpClient;
 
-    public RequestMakerHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    /**
+     * This field is used to store the minimum success code.
+     */
+    private static final int MIN_SUCCESS_CODE = 200;
+
+    /**
+     * This field is used to store the maximum success code.
+     */
+    private static final int MAX_SUCCESS_CODE = 299;
+
+    /**
+     * This constructor is used to create a RequestMakerHttpClient object with
+     * a custom HttpClient.
+     * @param pHttpClient The HttpClient to be used to make the requests.
+     */
+    RequestMakerHttpClient(final HttpClient pHttpClient) {
+        this.httpClient = pHttpClient;
     }
 
-    public RequestMakerHttpClient() {
+    /**
+     * This constructor is used to create a RequestMakerHttpClient object with
+     * the default HttpClient.
+     */
+    RequestMakerHttpClient() {
         this.httpClient = HttpClient.newHttpClient();
     }
 
-    private HttpRequest.Builder generateRequest(String url,
-                                                Map<String, Object> parameters,
-                                                Map<String, String> headers) throws OutsetaInvalidURLException {
+    /**
+     * This method is used to generate a HttpRequest object from the url,
+     * parameters and headers.
+     * @param url The url to make the request to.
+     * @param parameters The parameters to be added to the request.
+     * @param headers The headers to be added to the request.
+     * @return The HttpRequest object.
+     * @throws OutsetaInvalidURLException If the url is invalid.
+     */
+    private HttpRequest.Builder generateRequest(final String url,
+                                                final Map<String, Object>
+                                                        parameters,
+                                                final Map<String, String>
+                                                        headers)
+            throws OutsetaInvalidURLException {
 
         HttpRequest.Builder builder = HttpRequest.newBuilder();
 
@@ -50,17 +83,18 @@ class RequestMakerHttpClient implements RequestMaker {
         StringBuilder stringBuilder = new StringBuilder(url);
 
         // Inserting all headers into request
-        if(headers != null) {
+        if (headers != null) {
             headers.forEach(builder::header);
         }
 
         // Inserting all parameters into the url
-        if(parameters != null) {
+        if (parameters != null) {
             if (!parameters.entrySet().isEmpty()) {
                 stringBuilder.append("?");
             }
 
-            parameters.forEach((key, value) -> stringBuilder.append(key).append("=").append(value).append("&"));
+            parameters.forEach((key, value) -> stringBuilder.append(key)
+                    .append("=").append(value).append("&"));
 
             // Deleting the trailing &
             if (!parameters.entrySet().isEmpty()) {
@@ -70,11 +104,9 @@ class RequestMakerHttpClient implements RequestMaker {
 
         try {
             builder.uri(URI.create(stringBuilder.toString()));
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             throw new OutsetaInvalidURLException("The url provided was null");
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new OutsetaInvalidURLException(stringBuilder.toString());
         }
 
@@ -82,27 +114,41 @@ class RequestMakerHttpClient implements RequestMaker {
     }
 
     @Override
-    public String get(String url, Map<String, Object> parameters, Map<String, String> headers) throws OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidResponseCodeException, OutsetaAPIUnknownException, OutsetaInvalidURLException {
+    public String get(final String url, final Map<String, Object> parameters,
+                      final Map<String, String> headers) throws
+                        OutsetaAPIBadRequestException,
+                        OutsetaAPIFailedException,
+                        OutsetaInvalidResponseCodeException,
+                        OutsetaAPIUnknownException,
+                        OutsetaInvalidURLException {
+
         HttpRequest httpRequest = this.generateRequest(url, parameters, headers)
                 .GET()
                 .build();
 
         HttpResponse<String> response = null;
         try {
-            response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            response = httpClient.send(httpRequest,
+                    HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            throw new OutsetaAPIBadRequestException(e.getMessage(), url, null, parameters, headers, null, e);
+            throw new OutsetaAPIBadRequestException(
+                    e.getMessage(), url, null, parameters, headers, null, e);
         } catch (InterruptedException e) {
-            throw new OutsetaAPIFailedException(e.getMessage(), url, null, parameters, headers, null, e);
+            throw new OutsetaAPIFailedException(
+                    e.getMessage(), url, null, parameters, headers, null, e);
         }
 
-        if(response == null){
-            throw new OutsetaAPIUnknownException("An unknown error occurred in the api call to " + url,
+        if (response == null) {
+            throw new OutsetaAPIUnknownException(
+                    "An unknown error occurred in the api call to " + url,
                     url, null, parameters, headers, null, null);
         }
-        if(response.statusCode() < 200 || response.statusCode() > 299) {
+
+        if (response.statusCode() < MIN_SUCCESS_CODE
+                || response.statusCode() > MAX_SUCCESS_CODE) {
             // Didn't receive success from outseta
-            throw new OutsetaInvalidResponseCodeException(response.body(), url, null, parameters,
+            throw new OutsetaInvalidResponseCodeException(
+                    response.body(), url, null, parameters,
                     headers, response.statusCode(), null);
         }
 
@@ -110,27 +156,43 @@ class RequestMakerHttpClient implements RequestMaker {
     }
 
     @Override
-    public String put(String url, Map<String, Object> parameters, String payload, Map<String, String> headers) throws OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaAPIUnknownException, OutsetaInvalidResponseCodeException, OutsetaInvalidURLException {
-        HttpRequest httpRequest = this.generateRequest(url, parameters, headers)
-                .PUT(HttpRequest.BodyPublishers.ofString(payload, StandardCharsets.UTF_8))
+    public String put(final String url, final Map<String, Object> parameters,
+                      final String payload, final Map<String, String> headers)
+                        throws
+                            OutsetaAPIBadRequestException,
+                            OutsetaAPIFailedException,
+                            OutsetaAPIUnknownException,
+                            OutsetaInvalidResponseCodeException,
+                            OutsetaInvalidURLException {
+
+        HttpRequest httpRequest = this.generateRequest(url,
+                        parameters, headers)
+                .PUT(HttpRequest.BodyPublishers.ofString(payload,
+                        StandardCharsets.UTF_8))
                 .build();
 
         HttpResponse<String> response = null;
         try {
-            response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            response = httpClient.send(httpRequest,
+                    HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            throw new OutsetaAPIBadRequestException(e.getMessage(), url, payload, parameters, headers, null, e);
+            throw new OutsetaAPIBadRequestException(
+                    e.getMessage(), url, payload, parameters, headers, null, e);
         } catch (InterruptedException e) {
-            throw new OutsetaAPIFailedException(e.getMessage(), url, payload, parameters, headers, null, e);
+            throw new OutsetaAPIFailedException(
+                    e.getMessage(), url, payload, parameters, headers, null, e);
         }
 
-        if(response == null){
-            throw new OutsetaAPIUnknownException("An unknown error occurred in the api call to " + url,
+        if (response == null) {
+            throw new OutsetaAPIUnknownException(
+                    "An unknown error occurred in the api call to " + url,
                     url, payload, parameters, headers, null, null);
         }
-        if(response.statusCode() < 200 || response.statusCode() > 299) {
+        if (response.statusCode() < MIN_SUCCESS_CODE
+                || response.statusCode() > MAX_SUCCESS_CODE) {
             // Didn't receive success from outseta
-            throw new OutsetaInvalidResponseCodeException(response.body(), url, payload, parameters,
+            throw new OutsetaInvalidResponseCodeException(
+                    response.body(), url, payload, parameters,
                     headers, response.statusCode(), null);
         }
 
@@ -138,27 +200,44 @@ class RequestMakerHttpClient implements RequestMaker {
     }
 
     @Override
-    public String post(String url, Map<String, Object> parameters, String payload, Map<String, String> headers) throws OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaAPIUnknownException, OutsetaInvalidResponseCodeException, OutsetaInvalidURLException {
-        HttpRequest httpRequest = this.generateRequest(url, parameters, headers)
-                .POST(HttpRequest.BodyPublishers.ofString(payload, StandardCharsets.UTF_8))
+    public String post(final String url, final Map<String, Object> parameters,
+                       final String payload, final Map<String, String> headers)
+                        throws
+                            OutsetaAPIBadRequestException,
+                            OutsetaAPIFailedException,
+                            OutsetaAPIUnknownException,
+                            OutsetaInvalidResponseCodeException,
+                            OutsetaInvalidURLException {
+
+        HttpRequest httpRequest = this.generateRequest(url,
+                        parameters, headers)
+                .POST(HttpRequest.BodyPublishers.ofString(payload,
+                        StandardCharsets.UTF_8))
                 .build();
 
         HttpResponse<String> response = null;
         try {
-            response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            response = httpClient.send(httpRequest,
+                    HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            throw new OutsetaAPIBadRequestException(e.getMessage(), url, payload, parameters, headers, null, e);
+            throw new OutsetaAPIBadRequestException(
+                    e.getMessage(), url, payload, parameters, headers, null, e);
         } catch (InterruptedException e) {
-            throw new OutsetaAPIFailedException(e.getMessage(), url, payload, parameters, headers, null, e);
+            throw new OutsetaAPIFailedException(
+                    e.getMessage(), url, payload, parameters, headers, null, e);
         }
 
-        if(response == null){
-            throw new OutsetaAPIUnknownException("An unknown error occurred in the api call to " + url,
+        if (response == null) {
+            throw new OutsetaAPIUnknownException(
+                    "An unknown error occurred in the api call to " + url,
                     url, payload, parameters, headers, null, null);
         }
-        if(response.statusCode() < 200 || response.statusCode() > 299) {
+        if (response.statusCode() < MIN_SUCCESS_CODE
+                || response.statusCode() > MAX_SUCCESS_CODE) {
+
             // Didn't receive success from outseta
-            throw new OutsetaInvalidResponseCodeException(response.body(), url, payload, parameters,
+            throw new OutsetaInvalidResponseCodeException(
+                    response.body(), url, payload, parameters,
                     headers, response.statusCode(), null);
         }
 
@@ -166,27 +245,40 @@ class RequestMakerHttpClient implements RequestMaker {
     }
 
     @Override
-    public String delete(String url, Map<String, Object> parameters, Map<String, String> headers) throws OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaAPIUnknownException, OutsetaInvalidResponseCodeException, OutsetaInvalidURLException {
+    public String delete(final String url, final Map<String, Object> parameters,
+                         final Map<String, String> headers) throws
+                            OutsetaAPIBadRequestException,
+                            OutsetaAPIFailedException,
+                            OutsetaAPIUnknownException,
+                            OutsetaInvalidResponseCodeException,
+                            OutsetaInvalidURLException {
+
         HttpRequest httpRequest = this.generateRequest(url, parameters, headers)
                 .DELETE()
                 .build();
 
         HttpResponse<String> response = null;
         try {
-            response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            response = httpClient.send(httpRequest,
+                    HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            throw new OutsetaAPIBadRequestException(e.getMessage(), url, null, parameters, headers, null, e);
+            throw new OutsetaAPIBadRequestException(
+                    e.getMessage(), url, null, parameters, headers, null, e);
         } catch (InterruptedException e) {
-            throw new OutsetaAPIFailedException(e.getMessage(), url, null, parameters, headers, null, e);
+            throw new OutsetaAPIFailedException(
+                    e.getMessage(), url, null, parameters, headers, null, e);
         }
 
-        if(response == null){
-            throw new OutsetaAPIUnknownException("An unknown error occurred in the api call to " + url,
+        if (response == null) {
+            throw new OutsetaAPIUnknownException(
+                    "An unknown error occurred in the api call to " + url,
                     url, null, parameters, headers, null, null);
         }
-        if(response.statusCode() < 200 || response.statusCode() > 299) {
+        if (response.statusCode() < MIN_SUCCESS_CODE
+                || response.statusCode() > MAX_SUCCESS_CODE) {
             // Didn't receive success from outseta
-            throw new OutsetaInvalidResponseCodeException(response.body(), url, null, parameters,
+            throw new OutsetaInvalidResponseCodeException(
+                    response.body(), url, null, parameters,
                     headers, response.statusCode(), null);
         }
 

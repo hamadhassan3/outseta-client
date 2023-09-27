@@ -22,97 +22,197 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is used to make calls to the People endpoint of the CRM API.
- * More information about this endpoint can be found at https://documenter.getpostman.com/view/3613332/outseta-rest-api-v1
+ * This class is used to make calls to the People endpoints of the CRM API.
+ * <p>
+ *     The People endpoints are used to manage the people in your CRM. The class
+ *     provides a builder to make it easier to construct the client.
+ * </p>
  */
-public class PeopleClient extends BaseClient {
+public final class PeopleClient extends BaseClient {
 
-    public static class PeopleClientBuilder extends ClientBuilder {
+    /**
+     * This class is used to build a PeopleClient object.
+     * <p>
+     *     The builder is used to make it easier to construct a PeopleClient
+     *     object.
+     * </p>
+     */
+    public static class Builder extends ClientBuilder {
 
-        public PeopleClientBuilder(String baseUrl)
+        /**
+         * This constructor is used to initialize the builder with the base url
+         * for the api.
+         *
+         * @param baseUrl The base url for the api
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built
+         */
+        public Builder(final String baseUrl)
                 throws OutsetaClientBuildException {
             super(new PeopleClient(baseUrl));
         }
 
+        /**
+         * This method is used to set the base url for the api.
+         *
+         * @param baseUrl The base url for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
-        public PeopleClientBuilder withBaseUrl(String baseUrl)
+        public Builder baseUrl(final String baseUrl)
                 throws OutsetaClientBuildException {
 
-            super.withBaseUrl(baseUrl);
+            super.baseUrl(baseUrl);
             return this;
         }
 
+        /**
+         * This method is used to set the api key for the api.
+         *
+         * @param apiKey The api key for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
-        public PeopleClientBuilder withApiKey(String apiKey)
+        public Builder apiKey(final String apiKey)
                 throws OutsetaClientBuildException {
 
-            super.withApiKey(apiKey);
+            super.apiKey(apiKey);
             return this;
         }
 
+        /**
+         * This method is used to set the access key for the api.
+         *
+         * @param accessKey The access key for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
-        public PeopleClientBuilder withAccessKey(String accessKey)
+        public Builder accessKey(final String accessKey)
                 throws OutsetaClientBuildException {
 
-            super.withAccessKey(accessKey);
+            super.accessKey(accessKey);
             return this;
         }
 
+        /**
+         * This method is used to set the headers for the api.
+         *
+         * @param headers The headers for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
-        public PeopleClientBuilder withHeaders(Map<String, String> headers)
+        public Builder headers(final Map<String, String> headers)
                 throws OutsetaClientBuildException {
 
-            super.withHeaders(headers);
+            super.headers(headers);
             return this;
         }
 
+        /**
+         * This method is used to set the request maker for the api.
+         *
+         * @param requestMakerType The request maker for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
-        public PeopleClientBuilder withRequestMaker(
-                RequestMakerType requestMakerType)
+        public Builder requestMaker(
+                final RequestMakerType requestMakerType)
                 throws OutsetaClientBuildException {
 
-            super.withRequestMaker(requestMakerType);
+            super.requestMaker(requestMakerType);
             return this;
         }
 
+        /**
+         * This method is used to set the request maker for the api.
+         * @param requestMakerType The request maker to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public PeopleClientBuilder withRequestMaker(String requestMakerType)
+        public Builder requestMaker(final String requestMakerType)
                 throws OutsetaClientBuildException {
-            super.withRequestMaker(requestMakerType);
+            super.requestMaker(requestMakerType);
             return this;
         }
 
+        /**
+         * This method is used to set the parser for the api.
+         * @param parserFacade The parser to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public PeopleClientBuilder withParser(ParserFacade parserFacade)
+        public Builder parser(final ParserFacade parserFacade)
                 throws OutsetaClientBuildException {
-            super.withParser(parserFacade);
+            super.parser(parserFacade);
             return this;
         }
 
+        /**
+         * This method is used to set the default parser for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public PeopleClientBuilder withDefaultParser()
+        public Builder defaultParser()
                 throws OutsetaClientBuildException {
-            super.withDefaultParser();
+            super.defaultParser();
             return this;
         }
 
+        /**
+         * This method is used to set the default request maker for the api.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public PeopleClientBuilder withDefaultRequestMaker()
+        public Builder defaultRequestMaker()
                 throws OutsetaClientBuildException {
 
-            super.withDefaultRequestMaker();
+            super.defaultRequestMaker();
             return this;
         }
 
+        /**
+         * This method is used to build the PeopleClient object.
+         *
+         * @return The PeopleClient object.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *                                     built.
+         */
         @Override
         public PeopleClient build() throws OutsetaClientBuildException {
             return (PeopleClient) super.build();
         }
     }
 
-    public static PeopleClientBuilder builder(String baseUrl)
+    /**
+     * This method is used to get a builder that can be used to build a
+     * PeopleClient object.
+     *
+     * @param baseUrl The base url for the api.
+     * @return The builder that can be used to build a PeopleClient object.
+     * @throws OutsetaClientBuildException Thrown if the client cannot be
+     *                                     built.
+     */
+    public static Builder builder(final String baseUrl)
             throws OutsetaClientBuildException {
-        return new PeopleClientBuilder(baseUrl);
+        return new Builder(baseUrl);
     }
 
     /**
@@ -121,7 +221,8 @@ public class PeopleClient extends BaseClient {
      * @param baseUrl The base url for the api
      * @throws OutsetaClientBuildException Thrown if the client cannot be built
      */
-    private PeopleClient(String baseUrl) throws OutsetaClientBuildException {
+    private PeopleClient(final String baseUrl)
+            throws OutsetaClientBuildException {
         super(baseUrl);
     }
 
@@ -133,13 +234,41 @@ public class PeopleClient extends BaseClient {
      * @param requestMaker The request maker to use for the api
      * @throws OutsetaClientBuildException Thrown if the client cannot be built
      */
-    private PeopleClient(String baseUrl, Map<String, String> headers,
-                         RequestMaker requestMaker)
+    private PeopleClient(final String baseUrl,
+                         final Map<String, String> headers,
+                         final RequestMaker requestMaker)
             throws OutsetaClientBuildException {
         super(baseUrl, headers, requestMaker);
     }
 
-    public Person getPerson(String personId)
+    /**
+     * This method is used to get a person by id.
+     *
+     * @param personId The id of the person to get.
+     * @return The person.
+     * @throws OutsetaInvalidArgumentException Thrown if the person id is null.
+     * @throws OutsetaParseException            Thrown if the person cannot be
+     *                                          parsed.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                          is invalid.
+     * @throws OutsetaAPIBadRequestException    Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException        Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException       Thrown if the request fails for
+     *                                          an unknown reason.
+     * @throws OutsetaInvalidURLException       Thrown if the url is invalid.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * String personId = "personId";
+     * Person person = client.getPerson(personId);
+     * }</pre>
+     */
+    public Person getPerson(final String personId)
             throws OutsetaParseException, OutsetaInvalidResponseCodeException,
             OutsetaAPIBadRequestException, OutsetaAPIFailedException,
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
@@ -156,7 +285,31 @@ public class PeopleClient extends BaseClient {
     }
 
     /**
-     * TODO Do this method using paginators!!!
+     * TODO: Do this method using paginators!!!
+     */
+    /**
+     * This method is used to get all people.
+     *
+     * @return The list of people.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                             is invalid.
+     * @throws OutsetaAPIBadRequestException       Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException           Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException          Thrown if the request fails
+     *                                             for an unknown reason.
+     * @throws OutsetaInvalidURLException          Thrown if the url is invalid.
+     * @throws OutsetaParseException               Thrown if the people cannot
+     *                                             be parsed.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * List<Person> people = client.getAllPerson();
+     * }</pre>
      */
     public List<Person> getAllPerson()
             throws OutsetaInvalidResponseCodeException,
@@ -169,7 +322,35 @@ public class PeopleClient extends BaseClient {
                 .jsonStringToObject(result, MultiplePerson.class).getItems();
     }
 
-    public Person createPerson(Person personRequest)
+    /**
+     * This method is used to create a person.
+     *
+     * @param personRequest The person to create.
+     * @return The created person.
+     * @throws OutsetaInvalidArgumentException Thrown if the person request is
+     *                                          null.
+     * @throws OutsetaParseException            Thrown if the person cannot be
+     *                                          parsed.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                          is invalid.
+     * @throws OutsetaAPIBadRequestException    Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException        Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException       Thrown if the request fails for
+     *                                          an unknown reason.
+     * @throws OutsetaInvalidURLException       Thrown if the url is invalid.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * Person personRequest = new Person();
+     * Person person = client.createPerson(personRequest);
+     * }</pre>
+     */
+    public Person createPerson(final Person personRequest)
             throws OutsetaParseException, OutsetaInvalidResponseCodeException,
             OutsetaInvalidURLException, OutsetaAPIBadRequestException,
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
@@ -186,7 +367,39 @@ public class PeopleClient extends BaseClient {
         return this.getParserFacade().jsonStringToObject(result, Person.class);
     }
 
-    public Person updatePerson(String personId, Person personRequest)
+    /**
+     * This method is used to update a person.
+     *
+     * @param personId      The id of the person to update.
+     * @param personRequest The person to update.
+     * @return The updated person.
+     * @throws OutsetaInvalidArgumentException Thrown if the person id is null
+     *                                          or if the person request is
+     *                                          null.
+     * @throws OutsetaParseException            Thrown if the person cannot be
+     *                                          parsed.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                          is invalid.
+     * @throws OutsetaAPIBadRequestException    Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException        Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException       Thrown if the request fails for
+     *                                          an unknown reason.
+     * @throws OutsetaInvalidURLException       Thrown if the url is invalid.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * String personId = "personId";
+     * Person personRequest = new Person();
+     * Person person = client.updatePerson(personId, personRequest);
+     * }</pre>
+     */
+    public Person updatePerson(final String personId,
+                               final Person personRequest)
             throws OutsetaParseException, OutsetaInvalidResponseCodeException,
             OutsetaInvalidURLException, OutsetaAPIBadRequestException,
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
@@ -208,7 +421,31 @@ public class PeopleClient extends BaseClient {
         return this.getParserFacade().jsonStringToObject(result, Person.class);
     }
 
-    public void deletePerson(String personId)
+    /**
+     * This method is used to delete a person.
+     *
+     * @param personId The id of the person to delete.
+     * @throws OutsetaInvalidArgumentException Thrown if the person id is null.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                          is invalid.
+     * @throws OutsetaAPIBadRequestException    Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException        Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException       Thrown if the request fails for
+     *                                          an unknown reason.
+     * @throws OutsetaInvalidURLException       Thrown if the url is invalid.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * String personId = "personId";
+     * client.deletePerson(personId);
+     * }</pre>
+     */
+    public void deletePerson(final String personId)
             throws OutsetaInvalidResponseCodeException,
             OutsetaInvalidURLException, OutsetaAPIBadRequestException,
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
@@ -222,8 +459,42 @@ public class PeopleClient extends BaseClient {
         this.delete("/crm/people/" + personId, new HashMap<>());
     }
 
-    public void setTemporaryPassword(String personId,
-                                     TemporaryPasswordRequest temporaryPasswordRequest)
+    /**
+     * This method is used to set a temporary password for a person.
+     *
+     * @param personId                  The id of the person to set the
+     *                                  temporary password for.
+     * @param temporaryPasswordRequest  The temporary password request to use.
+     * @throws OutsetaInvalidArgumentException Thrown if the person id is null
+     *                                          or if the temporary password
+     *                                          request is null.
+     * @throws OutsetaParseException            Thrown if the temporary
+     *                                          password request cannot be
+     *                                          parsed.
+     * @throws OutsetaInvalidResponseCodeException Thrown if the response code
+     *                                          is invalid.
+     * @throws OutsetaAPIBadRequestException    Thrown if the request is bad.
+     * @throws OutsetaAPIFailedException        Thrown if the request fails.
+     * @throws OutsetaAPIUnknownException       Thrown if the request fails for
+     *                                          an unknown reason.
+     * @throws OutsetaInvalidURLException       Thrown if the url is invalid.
+     *
+     * Example usage:
+     * <pre>{@code
+     * PeopleClient client = PeopleClient.builder(outsetaUrl)
+     *      .apiKey(outsetaKey)
+     *      .defaultParser()
+     *      .defaultRequestMaker()
+     *      .build();
+     * String personId = "personId";
+     * TemporaryPasswordRequest temporaryPasswordRequest =
+     *      new TemporaryPasswordRequest();
+     * client.setTemporaryPassword(personId, temporaryPasswordRequest);
+     * }</pre>
+     */
+    public void setTemporaryPassword(final String personId,
+                                     final TemporaryPasswordRequest
+                                             temporaryPasswordRequest)
             throws OutsetaInvalidArgumentException, OutsetaParseException,
             OutsetaInvalidResponseCodeException, OutsetaInvalidURLException,
             OutsetaAPIBadRequestException, OutsetaAPIFailedException,
