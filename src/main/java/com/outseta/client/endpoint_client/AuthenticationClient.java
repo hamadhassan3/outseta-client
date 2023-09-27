@@ -3,97 +3,186 @@ package com.outseta.client.endpoint_client;
 import com.outseta.client.BaseClient;
 import com.outseta.client.ClientBuilder;
 import com.outseta.client_helper.parser.json.ParserFacade;
-import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
-import com.outseta.exception.OutsetaInvalidURLException;
-import com.outseta.exception.OutsetaParseException;
-import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
-import com.outseta.exception.api_exception.OutsetaAPIFailedException;
-import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
-import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
-import com.outseta.model.request.GetAuthTokenRequest;
-import com.outseta.model.result.AuthToken;
-
-import java.util.HashMap;
 import java.util.Map;
 
-public class AuthenticationClient extends BaseClient {
+/**
+ * This class is used to make calls to the Authentication endpoints of the
+ * Outseta API.
+ * <p>
+ *     The Authentication endpoints are used to manage authentication of
+ *     users. The class provides a builder to make it easier to construct
+ *     the client.
+ * </p>
+ */
+public final class AuthenticationClient extends BaseClient {
 
-    public static class AuthenticationClientBuilder extends ClientBuilder {
+    public static class Builder extends ClientBuilder {
 
-        public AuthenticationClientBuilder(String baseUrl) throws OutsetaClientBuildException {
+        /**
+         * The constructor creates a new builder with the base url.
+         * @param baseUrl The base url for the client to use.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
+        public Builder(final String baseUrl)
+                throws OutsetaClientBuildException {
+
             super(new AuthenticationClient(baseUrl));
         }
 
+        /**
+         * Sets the base url for the client.
+         * @param baseUrl The base url to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public AuthenticationClientBuilder withBaseUrl(String baseUrl) throws OutsetaClientBuildException {
+        public Builder baseUrl(final String baseUrl)
+                throws OutsetaClientBuildException {
 
-            super.withBaseUrl(baseUrl);
+            super.baseUrl(baseUrl);
             return this;
         }
 
+        /**
+         * Sets the api key for the client.
+         * @param apiKey The api key to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public AuthenticationClientBuilder withApiKey(String apiKey) throws OutsetaClientBuildException {
+        public Builder apiKey(final String apiKey)
+                throws OutsetaClientBuildException {
 
-            super.withApiKey(apiKey);
+            super.apiKey(apiKey);
             return this;
         }
 
+        /**
+         * Sets the access key for the client.
+         * @param accessKey The access key to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *      built.
+         */
         @Override
-        public AuthenticationClientBuilder withAccessKey(String accessKey) throws OutsetaClientBuildException {
+        public Builder accessKey(final String accessKey)
+                throws OutsetaClientBuildException {
 
-            super.withAccessKey(accessKey);
+            super.accessKey(accessKey);
             return this;
         }
 
+        /**
+         * Sets the headers for the client.
+         * @param headers The headers to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withHeaders(Map<String, String> headers) throws OutsetaClientBuildException{
+        public Builder headers(final Map<String, String> headers)
+                throws OutsetaClientBuildException {
 
-            super.withHeaders(headers);
+            super.headers(headers);
             return this;
         }
 
+        /**
+         * Sets the request maker for the client.
+         * @param requestMakerType The request maker to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withRequestMaker(RequestMakerType requestMakerType) throws OutsetaClientBuildException{
+        public Builder requestMaker(final RequestMakerType requestMakerType)
+                throws OutsetaClientBuildException {
 
-            super.withRequestMaker(requestMakerType);
+            super.requestMaker(requestMakerType);
             return this;
         }
 
+        /**
+         * Sets the request maker for the client.
+         * @param requestMakerType The request maker to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withRequestMaker(String requestMakerType) throws OutsetaClientBuildException {
-            super.withRequestMaker(requestMakerType);
+        public Builder requestMaker(final String requestMakerType)
+                throws OutsetaClientBuildException {
+            super.requestMaker(requestMakerType);
             return this;
         }
 
+        /**
+         * Sets the parser for the client.
+         * @param parserFacade The parser to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withParser(ParserFacade parserFacade) throws OutsetaClientBuildException {
-            super.withParser(parserFacade);
+        public Builder parser(final ParserFacade parserFacade)
+                throws OutsetaClientBuildException {
+            super.parser(parserFacade);
             return this;
         }
 
+        /**
+         * Sets the default parser for the client.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withDefaultParser() throws OutsetaClientBuildException {
-            super.withDefaultParser();
+        public Builder defaultParser() throws OutsetaClientBuildException {
+            super.defaultParser();
             return this;
         }
 
+        /**
+         * Sets the default request maker for the client.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
-        public AuthenticationClientBuilder withDefaultRequestMaker() throws OutsetaClientBuildException{
+        public Builder defaultRequestMaker()
+                throws OutsetaClientBuildException {
 
-            super.withDefaultRequestMaker();
+            super.defaultRequestMaker();
             return this;
         }
 
+        /**
+         * Builds the client.
+         * @return The built client.
+         * @throws OutsetaClientBuildException Thrown if the client cannot be
+         *     built.
+         */
         @Override
         public AuthenticationClient build() throws OutsetaClientBuildException {
             return (AuthenticationClient) super.build();
         }
     }
 
-    public static AuthenticationClientBuilder builder(String baseUrl) throws OutsetaClientBuildException {
-        return new AuthenticationClientBuilder(baseUrl);
+    /**
+     * Creates a new builder for the client.
+     * @param baseUrl The base url for the client to use.
+     * @return The builder.
+     * @throws OutsetaClientBuildException Thrown if the client cannot be
+     *     built.
+     */
+    public static Builder builder(final String baseUrl)
+            throws OutsetaClientBuildException {
+        return new Builder(baseUrl);
     }
 
     /**
@@ -101,27 +190,26 @@ public class AuthenticationClient extends BaseClient {
      * @param baseUrl The base url for the client to use.
      * @throws OutsetaClientBuildException Thrown if the client cannot be built.
      */
-    private AuthenticationClient(String baseUrl) throws OutsetaClientBuildException {
+    private AuthenticationClient(final String baseUrl)
+            throws OutsetaClientBuildException {
         super(baseUrl);
     }
 
     /**
-     * The constructor is intentionally private to ensure that builder is used.
-     * @param baseUrl The base url for the client to use.
-     * @param headers The headers to use for the client.
-     * @param requestMaker The request maker to use for the client.
-     * @throws OutsetaClientBuildException Thrown if the client cannot be built.
-     */
-    private AuthenticationClient(String baseUrl, Map<String, String> headers, RequestMaker requestMaker)
-            throws OutsetaClientBuildException {
-        super(baseUrl, headers, requestMaker);
-    }
-
-    public AuthToken getAuthToken(GetAuthTokenRequest getAuthTokenRequest) throws OutsetaParseException, OutsetaInvalidResponseCodeException, OutsetaAPIBadRequestException, OutsetaAPIFailedException, OutsetaInvalidURLException, OutsetaAPIUnknownException {
+     * TODO: Implement this method with example usage comment.
+    public AuthToken getAuthToken(final GetAuthTokenRequest getAuthTokenRequest)
+            throws OutsetaParseException,
+                    OutsetaInvalidResponseCodeException,
+                    OutsetaAPIBadRequestException,
+                    OutsetaAPIFailedException,
+                    OutsetaInvalidURLException,
+                    OutsetaAPIUnknownException {
 
         String result = this.post("/tokens", new HashMap<>(),
                 this.getParserFacade().objectToJsonString(getAuthTokenRequest));
 
-        return this.getParserFacade().jsonStringToObject(result, AuthToken.class);
+        return this.getParserFacade().jsonStringToObject(
+                result, AuthToken.class);
     }
+     */
 }

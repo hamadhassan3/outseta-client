@@ -36,9 +36,9 @@ class PeopleClientTest {
     @BeforeAll
     public static void setUp() throws OutsetaClientBuildException {
         peopleClient = PeopleClient.builder(outsetaUrl)
-                .withApiKey(outsetaKey)
-                .withDefaultParser()
-                .withDefaultRequestMaker()
+                .apiKey(outsetaKey)
+                .defaultParser()
+                .defaultRequestMaker()
                 .build();
 
         mailingAddress = MailingAddress.builder()
@@ -80,9 +80,9 @@ class PeopleClientTest {
 
         assertDoesNotThrow(() -> {
             PeopleClient test = PeopleClient.builder(outsetaUrl)
-                    .withApiKey(outsetaKey)
-                    .withDefaultParser()
-                    .withDefaultRequestMaker()
+                    .apiKey(outsetaKey)
+                    .defaultParser()
+                    .defaultRequestMaker()
                     .build();
 
             assertNotNull(test);
@@ -107,52 +107,52 @@ class PeopleClientTest {
         // Testing null outsetaUrl but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder(null)
-                        .withApiKey(outsetaKey)
-                        .withDefaultParser()
-                        .withDefaultRequestMaker()
+                        .apiKey(outsetaKey)
+                        .defaultParser()
+                        .defaultRequestMaker()
                         .build()
         );
 
         // Testing empty outsetaUrl but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder("")
-                        .withApiKey(outsetaKey)
-                        .withDefaultParser()
-                        .withDefaultRequestMaker()
+                        .apiKey(outsetaKey)
+                        .defaultParser()
+                        .defaultRequestMaker()
                         .build()
         );
 
         // Testing null Outseta Key but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder(outsetaUrl)
-                        .withApiKey(null)
-                        .withDefaultParser()
-                        .withDefaultRequestMaker()
+                        .apiKey(null)
+                        .defaultParser()
+                        .defaultRequestMaker()
                         .build()
         );
 
         // Testing empty Outseta Key but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder(outsetaUrl)
-                        .withApiKey("")
-                        .withDefaultParser()
-                        .withDefaultRequestMaker()
+                        .apiKey("")
+                        .defaultParser()
+                        .defaultRequestMaker()
                         .build()
         );
 
         // Testing without parser but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder(outsetaUrl)
-                        .withApiKey(outsetaKey)
-                        .withDefaultRequestMaker()
+                        .apiKey(outsetaKey)
+                        .defaultRequestMaker()
                         .build()
         );
 
         // Testing without request maker but with all other attributes
         assertThrows(OutsetaClientBuildException.class, () ->
                 PeopleClient.builder(outsetaUrl)
-                        .withApiKey(outsetaKey)
-                        .withDefaultParser()
+                        .apiKey(outsetaKey)
+                        .defaultParser()
                         .build()
         );
     }

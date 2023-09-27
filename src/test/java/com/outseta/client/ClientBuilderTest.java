@@ -35,7 +35,7 @@ class ClientBuilderTest {
         assertNull(baseClient.getParserFacade());
         headers.put("Authorization", "auth");
         assertEquals(this.clientBuilder,
-                this.clientBuilder.withHeaders(headers));
+                this.clientBuilder.headers(headers));
         assertEquals(headers, baseClient.getHeaders());
     }
 
@@ -46,15 +46,15 @@ class ClientBuilderTest {
         headers.put("Accept", "application/json");
         headers.put("Authorization", "apiKey");
         assertEquals(this.clientBuilder,
-                this.clientBuilder.withAccessKey("accessKey"));
+                this.clientBuilder.accessKey("accessKey"));
         assertEquals(this.clientBuilder,
-                this.clientBuilder.withDefaultParser());
+                this.clientBuilder.defaultParser());
         assertEquals(this.clientBuilder,
-                this.clientBuilder.withBaseUrl("http://dummyurl2.com"));
-        assertEquals(this.clientBuilder, this.clientBuilder.withRequestMaker(
+                this.clientBuilder.baseUrl("http://dummyurl2.com"));
+        assertEquals(this.clientBuilder, this.clientBuilder.requestMaker(
                 RequestMakerType.HTTP_CLIENT));
         assertEquals(this.clientBuilder,
-                this.clientBuilder.withApiKey("apiKey"));
+                this.clientBuilder.apiKey("apiKey"));
         assertDoesNotThrow(() -> {
             assertEquals(baseClient, this.clientBuilder.build());
         });
@@ -75,37 +75,37 @@ class ClientBuilderTest {
     @Test
     void testBuildWithInvalidRequestMaker() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withRequestMaker("INVALID");
+            this.clientBuilder.requestMaker("INVALID");
         });
     }
 
     @Test
     void testBuildWithInvalidParserFacade() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withParser(null);
+            this.clientBuilder.parser(null);
         });
     }
 
     @Test
     void testBuildWithMissingApiKey() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withAccessKey("accessKey")
-                    .withBaseUrl("http://dummyurl2.com").build();
+            this.clientBuilder.accessKey("accessKey")
+                    .baseUrl("http://dummyurl2.com").build();
         });
     }
 
     @Test
     void testBuildWithMissingAccessKey() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withApiKey("apiKey")
-                    .withBaseUrl("http://dummyurl2.com").build();
+            this.clientBuilder.apiKey("apiKey")
+                    .baseUrl("http://dummyurl2.com").build();
         });
     }
 
     @Test
     void testBuildWithMissingBaseUrl() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withApiKey("apiKey").withAccessKey("accessKey")
+            this.clientBuilder.apiKey("apiKey").accessKey("accessKey")
                     .build();
         });
     }
@@ -113,21 +113,21 @@ class ClientBuilderTest {
     @Test
     void testBuildWithDefaultRequestMaker() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withDefaultRequestMaker().build();
+            this.clientBuilder.defaultRequestMaker().build();
         });
     }
 
     @Test
     void testBuildWithDefaultParser() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withDefaultParser().build();
+            this.clientBuilder.defaultParser().build();
         });
     }
 
     @Test
     void testBuildWithDefaultParserAndRequestMaker() {
         assertThrows(OutsetaClientBuildException.class, () -> {
-            this.clientBuilder.withDefaultParser().withDefaultRequestMaker()
+            this.clientBuilder.defaultParser().defaultRequestMaker()
                     .build();
         });
     }
