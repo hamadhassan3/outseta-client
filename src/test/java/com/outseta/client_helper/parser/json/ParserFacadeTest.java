@@ -19,17 +19,26 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 class ParserFacadeTest {
-    private static String objectStr;
-            // String representation of the test object
 
-    private static TestDataComponent testDataComponent;   // Test object
+    /**
+     * String representation of the test object.
+     */
+    private static String objectStr;
+
+    /**
+     * Creating TestDataComponent object.
+     */
+    private static TestDataComponent testDataComponent;
 
     @BeforeAll
     static void setUp() {
         // Creating a test object and its json string representation
         objectStr =
-                "{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true,\"testNestedData\":{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true}}";
-        testDataComponent = new TestDataComponent("test", 1.0, 1, true,
+                "{\"str\":\"test\",\"dbl\":1.0,\"integer\":1,\"bool\":true,"
+                        + "\"testNestedData\":{\"str\":\"test\",\"dbl\":1.0,"
+                        + "\"integer\":1,\"bool\":true}}";
+        testDataComponent = new TestDataComponent(
+                "test", 1.0, 1, true,
                 new TestNestedData("test", 1.0, 1, true));
     }
 
@@ -54,7 +63,8 @@ class ParserFacadeTest {
     }
 
     /**
-     * This method tests the objectToJsonString method of the ParserFacade class.
+     * This method tests the objectToJsonString method of the ParserFacade
+     * class.
      */
     @Test
     void testObjectToJsonStringSuccess() throws OutsetaParseException {
@@ -71,7 +81,8 @@ class ParserFacadeTest {
     }
 
     /**
-     * This method tests the jsonStringToObject method of the ParserFacade class.
+     * This method tests the jsonStringToObject method of the ParserFacade
+     * class.
      */
     @Test
     void testJsonStringToObjectSuccess() throws OutsetaParseException {
@@ -89,7 +100,8 @@ class ParserFacadeTest {
     }
 
     /**
-     * This method tests the jsonStringToObject method of the ParserFacade class.
+     * This method tests the jsonStringToObject method of the ParserFacade
+     * class.
      * It tests the failure scenario.
      */
     @Test
@@ -106,7 +118,8 @@ class ParserFacadeTest {
     }
 
     /**
-     * This method tests the objectToJsonString method of the ParserFacade class.
+     * This method tests the objectToJsonString method of the ParserFacade
+     * class.
      * It tests the failure scenario.
      */
     @Test

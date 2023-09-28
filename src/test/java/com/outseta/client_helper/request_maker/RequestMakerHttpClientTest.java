@@ -18,7 +18,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -28,13 +31,29 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RequestMakerHttpClientTest {
 
+    /**
+     * Creating HttpClient mock object.
+     */
     @Mock
     private HttpClient httpClient;
 
+    /**
+     * Creating RequestMakerHttpClient object with the mocked HttpClient.
+     */
     private RequestMakerHttpClient requestMakerHttpClient;
 
     /**
-     * Sets up the class data before any tests are run
+     * Valid response codes for the tests.
+     */
+    private static final int SUCCESS_CODE = 200;
+
+    /**
+     * Invalid response codes for the tests.
+     */
+    private static final int FAILURE_CODE = 400;
+
+    /**
+     * Sets up the class data before any tests are run.
      */
     @BeforeEach
     public void setUp() {
@@ -42,21 +61,19 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test for the constructor of the class RequestMakerHttpClient
+     * A test for the constructor of the class RequestMakerHttpClient.
      */
     @Test
-    public void testDefaultConstructor()
-            throws OutsetaInvalidResponseCodeException,
-            OutsetaAPIBadRequestException, OutsetaAPIFailedException,
-            OutsetaAPIUnknownException {
-
-        RequestMakerHttpClient client = new RequestMakerHttpClient();
+    public void testDefaultConstructor() {
 
         // We only need to test successful creation of client
+        assertDoesNotThrow(() -> {
+            RequestMakerHttpClient client = new RequestMakerHttpClient();
+        });
     }
 
     /**
-     * A test for invalid url in get request
+     * A test for invalid url in get request.
      */
     @Test
     public void testGetInvalidUrl() {
@@ -84,7 +101,7 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test for invalid url in post request
+     * A test for invalid url in post request.
      */
     @Test
     public void testPostInvalidUrl() {
@@ -96,12 +113,14 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaInvalidURLException is thrown when url is invalid
 
         assertThrows(OutsetaInvalidURLException.class, () -> {
-            requestMakerHttpClient.post("invalid url", null, null, null);
+            requestMakerHttpClient.post("invalid url", null,
+                    null, null);
         });
 
         String finalPayload1 = payload;
         assertThrows(OutsetaInvalidURLException.class, () -> {
-            requestMakerHttpClient.post("invalid url", params, finalPayload1,
+            requestMakerHttpClient.post("invalid url", params,
+                    finalPayload1,
                     headers);
         });
 
@@ -112,14 +131,15 @@ class RequestMakerHttpClientTest {
 
         String finalPayload2 = payload;
         assertThrows(OutsetaInvalidURLException.class, () -> {
-            requestMakerHttpClient.post("invalid url", params, finalPayload2,
+            requestMakerHttpClient.post("invalid url", params,
+                    finalPayload2,
                     headers);
         });
 
     }
 
     /**
-     * A test for invalid url in put request
+     * A test for invalid url in put request.
      */
     @Test
     public void testPutInvalidUrl() {
@@ -131,7 +151,8 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaInvalidURLException is thrown when url is invalid
 
         assertThrows(OutsetaInvalidURLException.class, () -> {
-            requestMakerHttpClient.put("invalid url", null, null, null);
+            requestMakerHttpClient.put("invalid url",
+                    null, null, null);
         });
 
         String finalPayload1 = payload;
@@ -154,7 +175,7 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test for invalid url in delete request
+     * A test for invalid url in delete request.
      */
     @Test
     public void testDeleteInvalidUrl() {
@@ -165,7 +186,8 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaInvalidURLException is thrown when url is invalid
 
         assertThrows(OutsetaInvalidURLException.class, () -> {
-            requestMakerHttpClient.delete("invalid url", null, null);
+            requestMakerHttpClient.delete("invalid url",
+                    null, null);
         });
 
         assertThrows(OutsetaInvalidURLException.class, () -> {
@@ -182,7 +204,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaBadRequestException is thrown when get request fails with IOException
+     * A test that checks if OutsetaBadRequestException is thrown
+     * when get request fails with IOException.
      */
     @Test
     public void testGetIOException() throws IOException, InterruptedException {
@@ -190,7 +213,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaBadRequestException is thrown when request fails with IOException
+        // Assert that OutsetaBadRequestException is thrown when request
+        // fails with IOException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -203,7 +227,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaBadRequestException is thrown when post request fails with IOException
+     * A test that checks if OutsetaBadRequestException is
+     * thrown when post request fails with IOException.
      */
     @Test
     public void testPostIOException() throws IOException, InterruptedException {
@@ -212,7 +237,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaBadRequestException is thrown when request fails with IOException
+        // Assert that OutsetaBadRequestException is thrown when request
+        // fails with IOException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -226,7 +252,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaBadRequestException is thrown when put request fails with IOException
+     * A test that checks if OutsetaBadRequestException
+     * is thrown when put request fails with IOException.
      */
     @Test
     public void testPutIOException() throws IOException, InterruptedException {
@@ -235,7 +262,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaBadRequestException is thrown when request fails with IOException
+        // Assert that OutsetaBadRequestException is thrown when request
+        // fails with IOException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -249,7 +277,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaBadRequestException is thrown when delete request fails with IOException
+     * A test that checks if OutsetaBadRequestException is thrown
+     * when delete request fails with IOException.
      */
     @Test
     public void testDeleteIOException()
@@ -258,20 +287,23 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaBadRequestException is thrown when request fails with IOException
+        // Assert that OutsetaBadRequestException is thrown when
+        // request fails with IOException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
                 new IOException());
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
-            requestMakerHttpClient.delete("http://validurl", params, headers);
+            requestMakerHttpClient.delete("http://validurl",
+                    params, headers);
         });
 
     }
 
     /**
-     * A test that checks if OutsetaAPIFailedException is thrown when get request fails with InterruptedException
+     * A test that checks if OutsetaAPIFailedException is thrown when get
+     * request fails with InterruptedException.
      */
     @Test
     public void testGetInterruptedException()
@@ -280,7 +312,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaAPIFailedException is thrown when request fails with InterruptedException
+        // Assert that OutsetaAPIFailedException is thrown when request
+        // fails with InterruptedException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -293,7 +326,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIFailedException is thrown when post request fails with InterruptedException
+     * A test that checks if OutsetaAPIFailedException is thrown when
+     * post request fails with InterruptedException.
      */
     @Test
     public void testPostInterruptedException()
@@ -303,7 +337,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaAPIFailedException is thrown when request fails with InterruptedException
+        // Assert that OutsetaAPIFailedException is thrown when
+        // request fails with InterruptedException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -317,7 +352,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIFailedException is thrown when put request fails with InterruptedException
+     * A test that checks if OutsetaAPIFailedException is thrown
+     * when put request fails with InterruptedException.
      */
     @Test
     public void testPutInterruptedException()
@@ -327,7 +363,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaAPIFailedException is thrown when request fails with InterruptedException
+        // Assert that OutsetaAPIFailedException is thrown when
+        // request fails with InterruptedException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
@@ -341,7 +378,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIFailedException is thrown when delete request fails with InterruptedException
+     * A test that checks if OutsetaAPIFailedException is thrown when
+     * delete request fails with InterruptedException.
      */
     @Test
     public void testDeleteInterruptedException()
@@ -350,20 +388,23 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaAPIFailedException is thrown when request fails with InterruptedException
+        // Assert that OutsetaAPIFailedException is thrown when
+        // request fails with InterruptedException
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenThrow(
                 new InterruptedException());
 
         assertThrows(OutsetaAPIFailedException.class, () -> {
-            requestMakerHttpClient.delete("http://validurl", params, headers);
+            requestMakerHttpClient.delete("http://validurl",
+                    params, headers);
         });
 
     }
 
     /**
-     * A test that checks if OutsetaAPIUnknownException is thrown when get request fails with null response
+     * A test that checks if OutsetaAPIUnknownException is thrown
+     * when get request fails with null response.
      */
     @Test
     public void testGetNullResponse() throws IOException, InterruptedException {
@@ -371,7 +412,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaAPIUnknownException is thrown when request fails with null response
+        // Assert that OutsetaAPIUnknownException is thrown when
+        // request fails with null response
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(null);
@@ -383,7 +425,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIUnknownException is thrown when post request fails with null response
+     * A test that checks if OutsetaAPIUnknownException is thrown
+     * when post request fails with null response.
      */
     @Test
     public void testPostNullResponse()
@@ -393,7 +436,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaAPIUnknownException is thrown when request fails with null response
+        // Assert that OutsetaAPIUnknownException is thrown when
+        // request fails with null response
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(null);
@@ -406,7 +450,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIUnknownException is thrown when put request fails with null response
+     * A test that checks if OutsetaAPIUnknownException is
+     * thrown when put request fails with null response.
      */
     @Test
     public void testPutNullResponse() throws IOException, InterruptedException {
@@ -415,7 +460,8 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        // Assert that OutsetaAPIUnknownException is thrown when request fails with null response
+        // Assert that OutsetaAPIUnknownException is thrown when
+        // request fails with null response
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(null);
@@ -428,7 +474,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaAPIUnknownException is thrown when delete request fails with null response
+     * A test that checks if OutsetaAPIUnknownException is thrown
+     * when delete request fails with null response.
      */
     @Test
     public void testDeleteNullResponse()
@@ -437,19 +484,22 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        // Assert that OutsetaAPIUnknownException is thrown when request fails with null response
+        // Assert that OutsetaAPIUnknownException is thrown when
+        // request fails with null response
 
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(null);
 
         assertThrows(OutsetaAPIUnknownException.class, () -> {
-            requestMakerHttpClient.delete("http://validurl", params, headers);
+            requestMakerHttpClient.delete("http://validurl",
+                    params, headers);
         });
 
     }
 
     /**
-     * A test that checks if OutsetaInvalidResponseCodeException is thrown when get request fails with invalid response code
+     * A test that checks if OutsetaInvalidResponseCodeException is thrown when
+     * get request fails with invalid response code.
      */
     @Test
     public void testGetInvalidResponseCode()
@@ -461,7 +511,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -470,7 +520,7 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(400);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -481,7 +531,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaInvalidResponseCodeException is thrown when post request fails with invalid response code
+     * A test that checks if OutsetaInvalidResponseCodeException is thrown when
+     * post request fails with invalid response code.
      */
     @Test
     public void testPostInvalidResponseCode()
@@ -494,7 +545,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -504,7 +555,7 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(400);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -516,7 +567,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaInvalidResponseCodeException is thrown when put request fails with invalid response code
+     * A test that checks if OutsetaInvalidResponseCodeException is thrown
+     * when put request fails with invalid response code.
      */
     @Test
     public void testPutInvalidResponseCode()
@@ -529,7 +581,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -539,7 +591,7 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(400);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -551,7 +603,8 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks if OutsetaInvalidResponseCodeException is thrown when delete request fails with invalid response code
+     * A test that checks if OutsetaInvalidResponseCodeException is thrown
+     * when delete request fails with invalid response code.
      */
     @Test
     public void testDeleteInvalidResponseCode()
@@ -563,27 +616,29 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
-            requestMakerHttpClient.delete("http://validurl", params, headers);
+            requestMakerHttpClient.delete("http://validurl", params,
+                    headers);
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(400);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
-            requestMakerHttpClient.delete("http://validurl", params, headers);
+            requestMakerHttpClient.delete("http://validurl", params,
+                    headers);
         });
 
     }
 
     /**
-     * A test that checks a valid get request and its response
+     * A test that checks a valid get request and its response.
      */
     @Test
     public void testGetValid() throws IOException, InterruptedException {
@@ -596,13 +651,14 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(mockResponse.body()).thenReturn(response);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
-            String res = requestMakerHttpClient.get("http://validurl", params,
+            String res = requestMakerHttpClient.get("http://validurl",
+                    params,
                     headers);
             assertEquals(res, response);
         });
@@ -610,7 +666,7 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks a valid post request and its response
+     * A test that checks a valid post request and its response.
      */
     @Test
     public void testPostValid() throws IOException, InterruptedException {
@@ -624,7 +680,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(mockResponse.body()).thenReturn(response);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -639,7 +695,7 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks a valid put request and its response
+     * A test that checks a valid put request and its response.
      */
     @Test
     public void testPutValid() throws IOException, InterruptedException {
@@ -653,7 +709,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(mockResponse.body()).thenReturn(response);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
@@ -667,7 +723,7 @@ class RequestMakerHttpClientTest {
     }
 
     /**
-     * A test that checks a valid delete request and its response
+     * A test that checks a valid delete request and its response.
      */
     @Test
     public void testDeleteValid() throws IOException, InterruptedException {
@@ -680,7 +736,7 @@ class RequestMakerHttpClientTest {
         HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(200);
+        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
         when(mockResponse.body()).thenReturn(response);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);

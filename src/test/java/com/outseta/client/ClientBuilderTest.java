@@ -10,12 +10,27 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * This class tests the ClientBuilder class.
+ */
 @ExtendWith(MockitoExtension.class)
 class ClientBuilderTest {
 
+    /**
+     * The client to be tested.
+     */
     private BaseClient baseClient;
+
+    /**
+     * The client builder to be tested.
+     */
     private ClientBuilder clientBuilder;
 
     @BeforeEach
