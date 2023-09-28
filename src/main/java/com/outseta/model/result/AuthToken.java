@@ -3,6 +3,8 @@ package com.outseta.model.result;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseResult;
 
+import java.util.Objects;
+
 /**
  * This class is used to represent the data returned from the
  * {@link com.outseta.client.endpoint_client.AuthenticationClient} class.
@@ -91,5 +93,32 @@ public class AuthToken implements BaseResult {
      */
     public void setExpiresIn(final Long pExpiresIn) {
         this.expiresIn = pExpiresIn;
+    }
+
+    /**
+     * This method overrides the equals method.
+     */
+    @Override
+    public boolean equals(final Object pObject) {
+        if (this == pObject) {
+            return true;
+        }
+        if (pObject == null || getClass() != pObject.getClass()) {
+            return false;
+        }
+
+        final AuthToken authToken = (AuthToken) pObject;
+
+        return Objects.equals(accessToken, authToken.accessToken)
+                && Objects.equals(tokenType, authToken.tokenType)
+                && Objects.equals(expiresIn, authToken.expiresIn);
+    }
+
+    /**
+     * This method overrides the hashCode method.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(accessToken, tokenType, expiresIn);
     }
 }

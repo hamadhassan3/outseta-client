@@ -177,45 +177,6 @@ public class MailingAddress implements BaseResult, BaseInput {
     }
 
     /**
-     * Compares this MailingAddress object to another object.
-     * @param o The object to compare this MailingAddress object to.
-     * @return True if the objects are equal, false otherwise.
-     */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MailingAddress that = (MailingAddress) o;
-
-        // Using Objects for comparison because these fields can also be null
-        return Objects.equals(addressLine1, that.addressLine1)
-                && Objects.equals(addressLine2, that.addressLine2)
-                && Objects.equals(addressLine3, that.addressLine3)
-                && Objects.equals(city, that.city)
-                && Objects.equals(state, that.state)
-                && Objects.equals(postalCode, that.postalCode)
-                && Objects.equals(country, that.country)
-                && Objects.equals(geoLocation, that.geoLocation)
-                && Objects.equals(activityEventData, that.activityEventData)
-                && Objects.equals(uid, that.uid)
-                && Objects.equals(created, that.created)
-                && Objects.equals(updated, that.updated);
-    }
-
-    /**
-     * Returns the hash code of this MailingAddress object.
-     * @return The hash code of this MailingAddress object.
-     */
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    /**
      * The first address line in MailingAddress.
      */
     @JsonProperty("AddressLine1")
@@ -487,4 +448,44 @@ public class MailingAddress implements BaseResult, BaseInput {
         this.updated = pUpdated;
     }
 
+    /**
+     * Compares this MailingAddress object to another object.
+     * @param o The object to compare this MailingAddress object to.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MailingAddress that = (MailingAddress) o;
+
+        // Using Objects for comparison because these fields can also be null
+        return Objects.equals(addressLine1, that.addressLine1)
+                && Objects.equals(addressLine2, that.addressLine2)
+                && Objects.equals(addressLine3, that.addressLine3)
+                && Objects.equals(city, that.city)
+                && Objects.equals(state, that.state)
+                && Objects.equals(postalCode, that.postalCode)
+                && Objects.equals(country, that.country)
+                && Objects.equals(geoLocation, that.geoLocation)
+                && Objects.equals(activityEventData, that.activityEventData)
+                && Objects.equals(uid, that.uid)
+                && Objects.equals(created, that.created)
+                && Objects.equals(updated, that.updated);
+    }
+
+    /**
+     * Returns the hash code of this MailingAddress object.
+     * @return The hash code of this MailingAddress object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(addressLine1, addressLine2, addressLine3, city,
+                state, postalCode, country, geoLocation, activityEventData,
+                uid, created, updated);
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseResult;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * This class is used to represent the data returned for the PersonAccount
@@ -201,5 +202,39 @@ public class PersonAccount implements BaseResult {
      */
     public void setUpdated(final Date pUpdated) {
         this.updated = pUpdated;
+    }
+
+    /**
+     * This method overrides the equals method.
+     */
+    @Override
+    public boolean equals(final Object pObject) {
+        if (this == pObject) {
+            return true;
+        }
+
+        if (!(pObject instanceof PersonAccount otherPersonAccount)) {
+            return false;
+        }
+
+        return Objects.equals(this.person, otherPersonAccount.person)
+                && Objects.equals(this.account, otherPersonAccount.account)
+                && Objects.equals(this.isPrimary, otherPersonAccount.isPrimary)
+                && Objects.equals(this.receiveInvoices,
+                otherPersonAccount.receiveInvoices)
+                && Objects.equals(this.activityEventData,
+                otherPersonAccount.activityEventData)
+                && Objects.equals(this.uid, otherPersonAccount.uid)
+                && Objects.equals(this.created, otherPersonAccount.created)
+                && Objects.equals(this.updated, otherPersonAccount.updated);
+    }
+
+    /**
+     * This method overrides the hashCode method.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(person, account, isPrimary, receiveInvoices,
+                activityEventData, uid, created, updated);
     }
 }

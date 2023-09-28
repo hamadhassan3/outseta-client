@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseResult;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class is used to represent the data returned from an api in
@@ -27,6 +28,16 @@ public class MultiplePerson implements BaseResult {
      * Default constructor for the creation of a MultiplePerson object.
      */
     public MultiplePerson() {
+    }
+
+    /**
+     * Constructor for the creation of a MultiplePerson object.
+     * @param pMetadata The metadata of the page.
+     * @param pItems The list of Person objects.
+     */
+    public MultiplePerson(final Metadata pMetadata, final List<Person> pItems) {
+        this.metadata = pMetadata;
+        this.items = pItems;
     }
 
     /**
@@ -59,5 +70,31 @@ public class MultiplePerson implements BaseResult {
      */
     public void setItems(final List<Person> pItems) {
         this.items = pItems;
+    }
+
+    /**
+     * This method overrides the equals method.
+     */
+    @Override
+    public boolean equals(final Object other) {
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MultiplePerson otherMultiplePerson)) {
+            return false;
+        }
+
+        return otherMultiplePerson.getMetadata().equals(this.metadata)
+                && otherMultiplePerson.getItems().equals(this.items);
+    }
+
+    /**
+     * This method overrides the hashCode method.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(metadata, items);
     }
 }

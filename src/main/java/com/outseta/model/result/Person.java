@@ -1002,6 +1002,12 @@ public class Person implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(email, firstName, lastName, mailingAddress,
+                passwordLastUpdated, passwordMustChange, phoneMobile,
+                phoneWork, profileImageS3Url, title, timezone, language,
+                ipAddress, referer, userAgent, lastLoginDateTime,
+                oAuthGoogleProfileId, personAccount, emailBounceDateTime,
+                emailSpamDateTime, emailUnsubscribeDateTime,
+                emailLastDeliveredDateTime, fullName, uid, created, updated);
     }
 }
