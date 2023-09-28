@@ -1,5 +1,7 @@
 package com.outseta.client_helper.parser.json;
 
+import java.util.Objects;
+
 public class TestNestedData {
 
     /**
@@ -132,6 +134,6 @@ public class TestNestedData {
      */
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(str, dbl, intgr, bool);
     }
 }
