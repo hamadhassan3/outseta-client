@@ -195,7 +195,7 @@ public final class AuthenticationClient extends BaseClient {
         super(baseUrl);
     }
 
-    /**
+    /*
      * TODO: Implement this method with example usage comment.
     public AuthToken getAuthToken(final GetAuthTokenRequest getAuthTokenRequest)
             throws OutsetaParseException,

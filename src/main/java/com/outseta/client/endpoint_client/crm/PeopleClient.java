@@ -13,12 +13,12 @@ import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
 import com.outseta.exception.api_exception.OutsetaAPIFailedException;
 import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
+import com.outseta.model.request.PageRequest;
 import com.outseta.model.request.TemporaryPasswordRequest;
-import com.outseta.model.result.MultiplePerson;
+import com.outseta.model.result.ItemPage;
 import com.outseta.model.result.Person;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -285,11 +285,9 @@ public final class PeopleClient extends BaseClient {
     }
 
     /**
-     * TODO: Do this method using paginators!!!
-     */
-    /**
-     * This method is used to get all people.
+     * This method is used to get a page of Person objects.
      *
+     * @param pageRequest The page request to use.
      * @return The list of people.
      * @throws OutsetaInvalidResponseCodeException Thrown if the response code
      *                                             is invalid.
@@ -308,18 +306,44 @@ public final class PeopleClient extends BaseClient {
      *      .defaultParser()
      *      .defaultRequestMaker()
      *      .build();
-     * List<Person> people = client.getAllPerson();
+     * PageRequest request = PageRequest.builder()
+     *      .page(page)
+     *      .pageSize(pageSize)
+     *      .build();
+     * int total = 0;
+     * PersonPage personPage = null;
+     *
+     * do {
+     *      // Keep making requests as long as there are more pages
+     *      personPage = peopleClient.getPersonPage(request);
+     *      total = personPage.getMetadata().getTotal();
+     *
+     *      // The current page's items are aggregated
+     *      allPeople.addAll(personPage.getItems());
+     *      request = request.nextPageRequest();
+     * }
+     * while (allPeople.size() < total);
      * }</pre>
      */
-    public List<Person> getAllPerson()
+    public ItemPage<Person> getPersonPage(final PageRequest pageRequest)
             throws OutsetaInvalidResponseCodeException,
             OutsetaInvalidURLException, OutsetaAPIBadRequestException,
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaParseException {
-        String result = this.get("/crm/people", new HashMap<>());
+
+        HashMap<String, Object> params = new HashMap<>();
+        if (pageRequest.getPageNum() != null) {
+            params.put("offset", pageRequest.getPageNum().toString());
+        }
+        if (pageRequest.getPageSize() != null) {
+            params.put("limit", pageRequest.getPageSize().toString());
+        }
+
+        String result = this.get("/crm/people", params);
 
         return this.getParserFacade()
-                .jsonStringToObject(result, MultiplePerson.class).getItems();
+                .jsonStringToPage(result,
+                        Person.class);
     }
 
     /**

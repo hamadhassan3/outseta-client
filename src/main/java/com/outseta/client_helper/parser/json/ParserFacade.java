@@ -2,6 +2,7 @@ package com.outseta.client_helper.parser.json;
 
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.model.DataComponent;
+import com.outseta.model.result.ItemPage;
 
 /**
  * This is a utility class for parsing any json data.
@@ -52,6 +53,21 @@ public class ParserFacade {
             throws OutsetaParseException {
 
         return jsonParser.jsonStringToObject(jsonString, clazz);
+    }
+
+    /**
+     * This method converts a json string to an ItemPage object.
+     * @param jsonString The json string to convert.
+     * @param clazz The class of the object to convert to.
+     * @return The ItemPage object.
+     * @param <T> The type of the object whole list is present in ItemPage.
+     * @throws OutsetaParseException If the json string cannot be converted
+     *      to an ItemPage object.
+     */
+    public <T extends DataComponent> ItemPage<T> jsonStringToPage(
+            final String jsonString, final Class<T> clazz)
+            throws OutsetaParseException {
+        return jsonParser.jsonStringToPage(jsonString, clazz);
     }
 
     /**

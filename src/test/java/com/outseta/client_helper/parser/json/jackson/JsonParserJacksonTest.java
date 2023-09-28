@@ -1,26 +1,36 @@
 package com.outseta.client_helper.parser.json.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.outseta.client_helper.parser.json.TestDataComponent;
 import com.outseta.client_helper.parser.json.TestNestedData;
 import com.outseta.exception.OutsetaParseException;
+import com.outseta.model.result.ItemPage;
+import com.outseta.model.result.Metadata;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 /**
  * This class tests the JsonParserJackson class.
  */
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class JsonParserJacksonTest {
 
     /**
@@ -33,6 +43,30 @@ class JsonParserJacksonTest {
      */
     @Mock
     private ObjectMapper objectMapper;
+
+    /**
+     * Creating ObjectReader mock object.
+     */
+    @Mock
+    private ObjectReader objectReader;
+
+    /**
+     * Creating JsonNode mock object.
+     */
+    @Mock
+    private JsonNode jsonNode;
+
+    /**
+     * Creating metadata JsonNode mock object.
+     */
+    @Mock
+    private JsonNode metadataJsonNode;
+
+    /**
+     * Creating items JsonNode mock object.
+     */
+    @Mock
+    private JsonNode itemsJsonNode;
 
     /**
      * Creating TestDataComponent object.
@@ -134,6 +168,107 @@ class JsonParserJacksonTest {
 
         assertThrows(OutsetaParseException.class,
                 () -> jsonParserJackson.jsonStringToObject(objectStr,
+                        TestDataComponent.class));
+    }
+
+    /**
+     * This method tests the json string to page method of the
+     * JsonParserJackson.
+     */
+    @Test
+    void testJsonStringToPageSuccess()
+            throws JsonProcessingException, OutsetaParseException {
+
+        final String metadataStr = "{\n"
+                + "        \"limit\": 10,\n"
+                + "        \"offset\": 0,\n"
+                + "        \"total\": 1\n"
+                + "    }";
+
+        final String itemsStr = "[" + objectStr + ", " + objectStr + "]";
+
+        final Metadata metadataObj = new Metadata(10, 0, 1);
+
+        when(objectReader.readValue(itemsStr)).thenReturn(
+                List.of(testDataComponent, testDataComponent)
+        );
+
+        // Mock ObjectMapper's readValue method
+        when(objectMapper.
+                readerForListOf(eq(TestDataComponent.class)))
+                .thenReturn(objectReader);
+
+        when(objectMapper.readValue(any(String.class),
+                eq(Metadata.class))).thenReturn(metadataObj);
+
+        when(objectMapper.readTree(any(String.class)))
+                .thenReturn(jsonNode);
+
+        when(jsonNode.get("metadata")).thenReturn(metadataJsonNode);
+        when(jsonNode.get("items")).thenReturn(itemsJsonNode);
+
+        when(metadataJsonNode.toString()).thenReturn(
+                metadataStr
+        );
+
+        when(itemsJsonNode.toString()).thenReturn(
+                itemsStr
+        );
+
+        ItemPage<TestDataComponent> result =
+                jsonParserJackson.jsonStringToPage(objectStr,
+                        TestDataComponent.class);
+
+        assertEquals(testDataComponent, result.getItems().get(0));
+    }
+
+    /**
+     * This method tests the json string to page method of the
+     * JsonParserJackson.
+     * It tests the failure scenario of the method.
+     */
+    @Test
+    void testJsonStringToPageFailure()
+            throws JsonProcessingException, OutsetaParseException {
+
+        final String metadataStr = "{\n"
+                + "        \"limit\": 10,\n"
+                + "        \"offset\": 0,\n"
+                + "        \"total\": 1\n"
+                + "    }";
+
+        final String itemsStr = "[" + objectStr + ", " + objectStr + "]";
+
+        final Metadata metadataObj = new Metadata(10, 0, 1);
+
+        when(objectReader.readValue(itemsStr)).thenReturn(
+                List.of(testDataComponent, testDataComponent)
+        );
+
+        // Mock ObjectMapper's readValue method
+        when(objectMapper.
+                readerForListOf(eq(TestDataComponent.class)))
+                .thenReturn(objectReader);
+
+        when(objectMapper.readTree(any(String.class)))
+                .thenReturn(jsonNode);
+
+        when(jsonNode.get("metadata")).thenReturn(metadataJsonNode);
+        when(jsonNode.get("items")).thenReturn(itemsJsonNode);
+
+        when(metadataJsonNode.toString()).thenReturn(
+                metadataStr
+        );
+
+        when(itemsJsonNode.toString()).thenReturn(
+                itemsStr
+        );
+
+        when(objectMapper.readValue(any(String.class),
+                any(Class.class))).thenThrow(JsonProcessingException.class);
+
+        assertThrows(OutsetaParseException.class,
+                () -> jsonParserJackson.jsonStringToPage(objectStr,
                         TestDataComponent.class));
     }
 }

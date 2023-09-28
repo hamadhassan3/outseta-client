@@ -11,6 +11,14 @@ import java.util.Map;
 public class OutsetaAPIBadRequestException extends OutsetaAPIException {
 
     /**
+     * This constructor is used to create a new OutsetaAPIBadRequestException.
+     * @param reason The reason for the exception.
+     */
+    public OutsetaAPIBadRequestException(final String reason) {
+        super(reason);
+    }
+
+    /**
      * This constructor is used to create a new OutsetaAPIBadRequestException
      * object.
      * @param reason The reason for the exception.

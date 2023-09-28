@@ -41,6 +41,14 @@ public class OutsetaAPIException extends Exception {
     /**
      * This constructor is used to create a new OutsetaAPIException object.
      * @param reason The reason for the exception.
+     */
+    public OutsetaAPIException(final String reason) {
+        super(reason);
+    }
+
+    /**
+     * This constructor is used to create a new OutsetaAPIException object.
+     * @param reason The reason for the exception.
      * @param pUrl The url on which the exception occurred.
      * @param pPayload The payload of the request that caused the exception.
      * @param pParameters The parameters of the request that caused the

@@ -2,14 +2,17 @@ package com.outseta.client.endpoint_client.crm;
 
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidArgumentException;
+import com.outseta.model.request.PageRequest;
 import com.outseta.model.request.TemporaryPasswordRequest;
 import com.outseta.model.result.MailingAddress;
 import com.outseta.model.result.Person;
+import com.outseta.model.result.ItemPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -222,16 +225,47 @@ class PeopleClientTest {
     }
 
     /**
-     * This test tests the getAllPerson method of the PeopleClient class.
+     * This test tests the getPersonPage method of the PeopleClient class.
      * It tests the success scenario.
      */
     @Test
     public void getAllPerson() {
 
-        assertDoesNotThrow(() -> {
-            List<Person> all = peopleClient.getAllPerson();
+        final int page = 0;
+        final int pageSize = 25;
 
-            assertNotNull(all);
+        List<Person> allPeople = new ArrayList<>();
+
+        assertDoesNotThrow(() -> {
+            PageRequest request = PageRequest.builder()
+                    .page(page)
+                    .pageSize(pageSize)
+                    .build();
+
+            int total = 0;
+            ItemPage<Person> itemPage = null;
+            final int maxSize = 100;
+            do {
+                // Keep making requests as long as there are more pages
+                itemPage = peopleClient.getPersonPage(request);
+                total = itemPage.getMetadata().getTotal();
+
+                assertNotNull(itemPage);
+
+                // The current page's items are aggregated
+                allPeople.addAll(itemPage.getItems());
+
+                assertEquals(
+                        (request.getPageSize() * request.getPageNum())
+                                + itemPage.getItems().size(),
+                        allPeople.size());
+
+                request = request.nextPageRequest();
+
+            }
+            while (allPeople.size() < total && allPeople.size() < maxSize);
+
+            // assertEquals(total, allPeople.size());
         });
     }
 
