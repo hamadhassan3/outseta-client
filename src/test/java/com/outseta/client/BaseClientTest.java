@@ -16,7 +16,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.mockito.Mockito.when;
 
 /**
@@ -25,17 +31,36 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class BaseClientTest {
 
+    /**
+     * Creating ParserFacade mock object.
+     */
     @Mock
     private ParserFacade parserFacade;
 
+    /**
+     * Creating RequestMaker mock object.
+     */
     @Mock
     private RequestMaker requestMaker;
 
+    /**
+     * Creating HashMap of valid headers.
+     */
     private HashMap<String, String> validHeaders;
+
+    /**
+     * Creating HashMap of invalid headers.
+     */
     private HashMap<String, String> invalidHeaders;
 
+    /**
+     * Creating BaseClient object.
+     */
     private BaseClient baseClient;
 
+    /**
+     * Creating dummy base url.
+     */
     private String dummyBaseUrl;
 
     @BeforeEach
@@ -92,7 +117,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for constructor of the BaseClient class.
+     * This method tests the failure scenario for constructor of the
+     * BaseClient class.
      */
     @Test
     void testConstructorFailure() {
@@ -103,17 +129,20 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenarios of the all arguments constructor
+     * This method tests the failure scenarios of the all arguments constructor.
      */
     @Test
     void testAllArgsConstructorFailure() {
 
         assertThrows(OutsetaClientBuildException.class,
-                () -> new BaseClient(null, this.validHeaders, requestMaker));
+                () -> new BaseClient(null, this.validHeaders,
+                        requestMaker));
         assertThrows(OutsetaClientBuildException.class,
-                () -> new BaseClient(dummyBaseUrl, null, requestMaker));
+                () -> new BaseClient(dummyBaseUrl, null,
+                        requestMaker));
         assertThrows(OutsetaClientBuildException.class,
-                () -> new BaseClient(dummyBaseUrl, this.validHeaders, null));
+                () -> new BaseClient(dummyBaseUrl, this.validHeaders,
+                        null));
 
         // Testing with invalid headers
         assertThrows(OutsetaClientBuildException.class,
@@ -130,7 +159,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the setBaseUrl method of the BaseClient class.
+     * This method tests the failure scenario for the setBaseUrl method of
+     * the BaseClient class.
      */
     @Test
     void testSetBaseUrlFailure() {
@@ -139,7 +169,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the setBaseUrl and getBaseUrl method of the BaseClient class.
+     * This method tests the setBaseUrl and getBaseUrl method of the
+     * BaseClient class.
      */
     @Test
     void testGetBaseUrl() {
@@ -177,7 +208,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the replaceHeaders method of the BaseClient class.
+     * This method tests the failure scenario for the replaceHeaders
+     * method of the BaseClient class.
      */
     @Test
     void testReplaceHeadersFailure() {
@@ -210,7 +242,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the updateHeaders method of the BaseClient class.
+     * This method tests the failure scenario for the updateHeaders
+     * method of the BaseClient class.
      */
     @Test
     void testUpdateHeadersFailure() {
@@ -227,7 +260,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the setRequestMaker method of the BaseClient class.
+     * This method tests the failure scenario for the setRequestMaker
+     * method of the BaseClient class.
      */
     @Test
     void testSetRequestMakerFailure() {
@@ -244,7 +278,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the setParserFacade method of the BaseClient class.
+     * This method tests the failure scenario for the setParserFacade
+     * method of the BaseClient class.
      */
     @Test
     void testSetParserFacadeFailure() {
@@ -261,7 +296,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the getRequestMaker method of the BaseClient class.
+     * This method tests the getRequestMaker method of the
+     * BaseClient class.
      */
     @Test
     void testGetRequestMaker() {
@@ -294,7 +330,8 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario for the get method of the BaseClient class.
+     * This method tests the failure scenario for the get method of
+     * the BaseClient class.
      */
     @Test
     void testGetFailure() throws OutsetaInvalidResponseCodeException,
@@ -311,7 +348,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the get method of BaseClient.
-     * It tests what happens when request maker throws OutsetaInvalidURLException.
+     * It tests what happens when request maker throws
+     * OutsetaInvalidURLException.
      */
     @Test
     void testGetFailureInvalidUrl() throws OutsetaInvalidResponseCodeException,
@@ -327,7 +365,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the get method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIBadRequestException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIBadRequestException.
      */
     @Test
     void testGetFailureBadRequest() throws OutsetaInvalidResponseCodeException,
@@ -343,7 +382,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the get method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIFailedException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIFailedException.
      */
     @Test
     void testGetFailureFailed() throws OutsetaInvalidResponseCodeException,
@@ -359,7 +399,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the get method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIUnknownException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIUnknownException.
      */
     @Test
     void testGetFailureUnknown() throws OutsetaInvalidResponseCodeException,
@@ -386,13 +427,15 @@ class BaseClientTest {
 
         assertDoesNotThrow(() -> {
             String res =
-                    baseClient.put("/crm/people", new HashMap<>(), "payload");
+                    baseClient.put("/crm/people", new HashMap<>(),
+                            "payload");
             assertEquals("Success", res);
         });
     }
 
     /**
-     * This method tests the failure scenario for the put method of the BaseClient class.
+     * This method tests the failure scenario for the put method of
+     * the BaseClient class.
      */
     @Test
     void testPutFailure() throws OutsetaInvalidResponseCodeException,
@@ -410,7 +453,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the put method of BaseClient.
-     * It tests what happens when request maker throws OutsetaInvalidURLException.
+     * It tests what happens when request maker throws
+     * OutsetaInvalidURLException.
      */
     @Test
     void testPutFailureInvalidUrl() throws OutsetaInvalidResponseCodeException,
@@ -428,7 +472,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the put method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIBadRequestException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIBadRequestException.
      */
     @Test
     void testPutFailureBadRequest() throws OutsetaInvalidResponseCodeException,
@@ -446,7 +491,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the put method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIFailedException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIFailedException.
      */
     @Test
     void testPutFailureFailed() throws OutsetaInvalidResponseCodeException,
@@ -464,7 +510,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the put method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIUnknownException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIUnknownException.
      */
     @Test
     void testPutFailureUnknown() throws OutsetaInvalidResponseCodeException,
@@ -494,13 +541,15 @@ class BaseClientTest {
 
         assertDoesNotThrow(() -> {
             String res =
-                    baseClient.post("/crm/people", new HashMap<>(), "payload");
+                    baseClient.post("/crm/people", new HashMap<>(),
+                            "payload");
             assertEquals("Success", res);
         });
     }
 
     /**
-     * This method tests the failure scenario for the post method of the BaseClient class.
+     * This method tests the failure scenario for the post method of the
+     * BaseClient class.
      */
     @Test
     void testPostFailure() throws OutsetaInvalidResponseCodeException,
@@ -508,7 +557,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for post
-        when(requestMaker.post(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.post(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 "payload", validHeaders)).thenThrow(
                 OutsetaInvalidResponseCodeException.class);
 
@@ -519,7 +569,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the post method of BaseClient.
-     * It tests what happens when request maker throws OutsetaInvalidURLException.
+     * It tests what happens when request maker throws
+     * OutsetaInvalidURLException.
      */
     @Test
     void testPostFailureInvalidUrl() throws OutsetaInvalidResponseCodeException,
@@ -527,7 +578,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for post
-        when(requestMaker.post(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.post(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 "payload", validHeaders)).thenThrow(
                 OutsetaInvalidURLException.class);
 
@@ -538,7 +590,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the post method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIBadRequestException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIBadRequestException.
      */
     @Test
     void testPostFailureBadRequest() throws OutsetaInvalidResponseCodeException,
@@ -546,7 +599,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for post
-        when(requestMaker.post(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.post(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 "payload", validHeaders)).thenThrow(
                 OutsetaAPIBadRequestException.class);
 
@@ -557,7 +611,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the post method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIFailedException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIFailedException.
      */
     @Test
     void testPostFailureFailed() throws OutsetaInvalidResponseCodeException,
@@ -565,7 +620,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for post
-        when(requestMaker.post(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.post(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 "payload", validHeaders)).thenThrow(
                 OutsetaAPIFailedException.class);
 
@@ -576,7 +632,8 @@ class BaseClientTest {
 
     /**
      * This method tests the failure scenario of the post method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIUnknownException.
+     * It tests what happens when request maker throws
+     * OutsetaAPIUnknownException.
      */
     @Test
     void testPostFailureUnknown() throws OutsetaInvalidResponseCodeException,
@@ -584,7 +641,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for post
-        when(requestMaker.post(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.post(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 "payload", validHeaders)).thenThrow(
                 OutsetaAPIUnknownException.class);
 
@@ -602,17 +660,20 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenReturn("Success");
 
         assertDoesNotThrow(() -> {
-            String res = baseClient.delete("/crm/people", new HashMap<>());
+            String res = baseClient.delete("/crm/people",
+                    new HashMap<>());
             assertEquals("Success", res);
         });
     }
 
     /**
-     * This method tests the failure scenario for the delete method of the BaseClient class.
+     * This method tests the failure scenario for the delete method of
+     * the BaseClient class.
      */
     @Test
     void testDeleteFailure() throws OutsetaInvalidResponseCodeException,
@@ -620,7 +681,8 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenThrow(
                 OutsetaInvalidResponseCodeException.class);
 
@@ -629,8 +691,10 @@ class BaseClientTest {
     }
 
     /**
-     * This method tests the failure scenario of the delete method of BaseClient.
-     * It tests what happens when request maker throws OutsetaInvalidURLException.
+     * This method tests the failure scenario of the delete method of
+     * BaseClient.
+     * It tests what happens when request maker throws
+     * OutsetaInvalidURLException.
      */
     @Test
     void testDeleteFailureInvalidUrl()
@@ -639,15 +703,19 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenThrow(OutsetaInvalidURLException.class);
         assertThrows(OutsetaInvalidURLException.class,
-                () -> baseClient.delete("/crm/people", new HashMap<>()));
+                () -> baseClient.delete("/crm/people",
+                        new HashMap<>()));
     }
 
     /**
-     * This method tests the failure scenario of the delete method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIBadRequestException.
+     * This method tests the failure scenario of the delete method of
+     * BaseClient.
+     * It tests what happens when request maker throws
+     * OutsetaAPIBadRequestException.
      */
     @Test
     void testDeleteFailureBadRequest()
@@ -656,16 +724,20 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenThrow(OutsetaAPIBadRequestException.class);
 
         assertThrows(OutsetaAPIBadRequestException.class,
-                () -> baseClient.delete("/crm/people", new HashMap<>()));
+                () -> baseClient.delete("/crm/people",
+                        new HashMap<>()));
     }
 
     /**
-     * This method tests the failure scenario of the delete method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIFailedException.
+     * This method tests the failure scenario of the delete
+     * method of BaseClient.
+     * It tests what happens when request maker throws
+     * OutsetaAPIFailedException.
      */
     @Test
     void testDeleteFailureFailed() throws OutsetaInvalidResponseCodeException,
@@ -673,16 +745,20 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenThrow(OutsetaAPIFailedException.class);
 
         assertThrows(OutsetaAPIFailedException.class,
-                () -> baseClient.delete("/crm/people", new HashMap<>()));
+                () -> baseClient.delete("/crm/people",
+                        new HashMap<>()));
     }
 
     /**
-     * This method tests the failure scenario of the delete method of BaseClient.
-     * It tests what happens when request maker throws OutsetaAPIUnknownException.
+     * This method tests the failure scenario of the delete method of
+     * BaseClient.
+     * It tests what happens when request maker throws
+     * OutsetaAPIUnknownException.
      */
     @Test
     void testDeleteFailureUnknown() throws OutsetaInvalidResponseCodeException,
@@ -690,11 +766,13 @@ class BaseClientTest {
             OutsetaAPIFailedException, OutsetaAPIUnknownException {
 
         // Mocking request maker response for delete
-        when(requestMaker.delete(dummyBaseUrl + "/crm/people", new HashMap<>(),
+        when(requestMaker.delete(dummyBaseUrl + "/crm/people",
+                new HashMap<>(),
                 validHeaders)).thenThrow(OutsetaAPIUnknownException.class);
 
         assertThrows(OutsetaAPIUnknownException.class,
-                () -> baseClient.delete("/crm/people", new HashMap<>()));
+                () -> baseClient.delete("/crm/people",
+                        new HashMap<>()));
     }
 
     /**

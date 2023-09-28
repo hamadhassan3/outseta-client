@@ -25,14 +25,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 class PeopleClientTest {
 
+    /**
+     * The Outseta API Key.
+     */
     private static String outsetaKey = System.getenv("OUTSETA_KEY");
+
+    /**
+     * The Outseta URL.
+     */
     private static String outsetaUrl = System.getenv("OUTSETA_URL");
+
+    /**
+     * The PeopleClient object that will be making all requests.
+     */
     private static PeopleClient peopleClient;
+
+    /**
+     * The Person object that will be used to make requests.
+     */
     private static Person personRequest;
+
+    /**
+     * The MailingAddress object that will be used to make requests.
+     */
     private static MailingAddress mailingAddress;
+
+    /**
+     * The MailingAddress object that will be used to make update request.
+     */
     private static MailingAddress updatedMailingAddress;
+
+    /**
+     * The Person object that will be used to make update requests.
+     */
     private static Person updatedPerson;
 
+    /**
+     * This method sets up the PeopleClient object that will be used to make
+     * requests.
+     * @throws OutsetaClientBuildException This exception is thrown if the
+     *      PeopleClient object cannot be created.
+     */
     @BeforeAll
     public static void setUp() throws OutsetaClientBuildException {
         peopleClient = PeopleClient.builder(outsetaUrl)
