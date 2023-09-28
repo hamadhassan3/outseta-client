@@ -2,12 +2,16 @@ package com.outseta.client_helper.parser.json;
 
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.model.DataComponent;
+import com.outseta.model.result.ItemPage;
+import com.outseta.model.result.Metadata;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -132,5 +136,47 @@ class ParserFacadeTest {
         // Verify the result
         assertThrows(OutsetaParseException.class, () ->
                 parserFacade.objectToJsonString(testDataComponent));
+    }
+
+    /**
+     * This method tests the jsonStringToPage method of the ParserFacade
+     * class.
+     */
+    @Test
+    void testJsonStringToPageSuccess() throws OutsetaParseException {
+
+        final ItemPage<TestDataComponent> itemPage = new ItemPage<>(
+                new Metadata(),
+                List.of(testDataComponent, testDataComponent));
+
+        // Mock JsonParser's jsonStringToPage method
+        when(jsonParser.jsonStringToPage(any(String.class),
+                any(Class.class))).thenReturn(itemPage);
+
+        // Call the method
+        ItemPage<TestDataComponent> result = parserFacade
+                .jsonStringToPage(objectStr,
+                TestDataComponent.class);
+
+        // Verify the result
+        assertEquals(itemPage, result);
+    }
+
+    /**
+     * This method tests the jsonStringToPage method of the ParserFacade
+     * class.
+     * It tests the failure scenario.
+     */
+    @Test
+    void testJsonStringToPageFailure() throws OutsetaParseException {
+
+        // Mock JsonParser's jsonStringToPage method
+        when(jsonParser.jsonStringToPage(any(String.class),
+                any(Class.class))).thenThrow(new OutsetaParseException(""));
+
+        // Verify the result
+        assertThrows(OutsetaParseException.class, () ->
+                parserFacade.jsonStringToPage(objectStr,
+                        TestDataComponent.class));
     }
 }

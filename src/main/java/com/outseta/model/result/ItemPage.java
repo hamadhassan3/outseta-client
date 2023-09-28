@@ -2,6 +2,7 @@ package com.outseta.model.result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseResult;
+import com.outseta.model.DataComponent;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +10,9 @@ import java.util.Objects;
 /**
  * This class is used to represent the data returned from an api in
  * the form of a list of Person objects.
+ * @param <T> The type of the list of objects.
  */
-public class MultiplePerson implements BaseResult {
+public class ItemPage<T extends DataComponent> implements BaseResult {
 
     /**
      * The metadata of the page.
@@ -22,12 +24,12 @@ public class MultiplePerson implements BaseResult {
      * The list of Person objects.
      */
     @JsonProperty("items")
-    private List<Person> items;
+    private List<T> items;
 
     /**
      * Default constructor for the creation of a MultiplePerson object.
      */
-    public MultiplePerson() {
+    public ItemPage() {
     }
 
     /**
@@ -35,7 +37,7 @@ public class MultiplePerson implements BaseResult {
      * @param pMetadata The metadata of the page.
      * @param pItems The list of Person objects.
      */
-    public MultiplePerson(final Metadata pMetadata, final List<Person> pItems) {
+    public ItemPage(final Metadata pMetadata, final List<T> pItems) {
         this.metadata = pMetadata;
         this.items = pItems;
     }
@@ -60,7 +62,7 @@ public class MultiplePerson implements BaseResult {
      * Returns the list of Person objects.
      * @return The list of Person objects.
      */
-    public List<Person> getItems() {
+    public List<T> getItems() {
         return items;
     }
 
@@ -68,7 +70,7 @@ public class MultiplePerson implements BaseResult {
      * Sets the list of Person objects.
      * @param pItems The list of Person objects.
      */
-    public void setItems(final List<Person> pItems) {
+    public void setItems(final List<T> pItems) {
         this.items = pItems;
     }
 
@@ -82,12 +84,12 @@ public class MultiplePerson implements BaseResult {
             return true;
         }
 
-        if (!(other instanceof MultiplePerson otherMultiplePerson)) {
+        if (!(other instanceof ItemPage otherPage)) {
             return false;
         }
 
-        return otherMultiplePerson.getMetadata().equals(this.metadata)
-                && otherMultiplePerson.getItems().equals(this.items);
+        return otherPage.getMetadata().equals(this.metadata)
+                && otherPage.getItems().equals(this.items);
     }
 
     /**

@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * This class is used to test the MultiplePerson class.
  */
 @ExtendWith(MockitoExtension.class)
-public class MultiplePersonTest {
+public class ItemPageTest {
 
     /**
      * The MultiplePerson object used for testing.
      */
-    private MultiplePerson multiplePerson;
+    private ItemPage itemPage;
 
     /**
      * The Metadata object used for testing.
@@ -49,7 +49,7 @@ public class MultiplePersonTest {
                 Person.builder().language("language").build());
 
         // Creating a MultiplePerson object for testing
-        multiplePerson = new MultiplePerson(metadata, items);
+        itemPage = new ItemPage(metadata, items);
     }
 
     /**
@@ -59,8 +59,8 @@ public class MultiplePersonTest {
     public void testConstructor() {
 
         // Testing the constructor
-        MultiplePerson m1 = new MultiplePerson();
-        MultiplePerson m2 = new MultiplePerson(metadata, items);
+        ItemPage m1 = new ItemPage();
+        ItemPage m2 = new ItemPage(metadata, items);
 
         assertNull(m1.getMetadata());
         assertNull(m1.getItems());
@@ -76,7 +76,7 @@ public class MultiplePersonTest {
     public void testGetMetadata() {
 
         // Testing the getMetadata method
-        assertEquals(metadata, multiplePerson.getMetadata());
+        assertEquals(metadata, itemPage.getMetadata());
     }
 
     /**
@@ -87,8 +87,8 @@ public class MultiplePersonTest {
 
         // Testing the setMetadata method
         Metadata newMetadata = new Metadata();
-        multiplePerson.setMetadata(newMetadata);
-        assertEquals(newMetadata, multiplePerson.getMetadata());
+        itemPage.setMetadata(newMetadata);
+        assertEquals(newMetadata, itemPage.getMetadata());
     }
 
     /**
@@ -98,7 +98,7 @@ public class MultiplePersonTest {
     public void testGetItems() {
 
         // Testing the getItems method
-        assertEquals(items, multiplePerson.getItems());
+        assertEquals(items, itemPage.getItems());
     }
 
     /**
@@ -109,8 +109,8 @@ public class MultiplePersonTest {
 
         // Testing the setItems method
         List<Person> newItems = List.of(new Person());
-        multiplePerson.setItems(newItems);
-        assertEquals(newItems, multiplePerson.getItems());
+        itemPage.setItems(newItems);
+        assertEquals(newItems, itemPage.getItems());
     }
 
     /**
@@ -120,11 +120,11 @@ public class MultiplePersonTest {
     public void testEquals() {
 
         // Creating an object to compare with
-        MultiplePerson m1 = new MultiplePerson();
-        MultiplePerson m2 = new MultiplePerson(metadata, items);
+        ItemPage m1 = new ItemPage();
+        ItemPage m2 = new ItemPage(metadata, items);
 
         // Creating an equal object
-        MultiplePerson m3 = new MultiplePerson(metadata, items);
+        ItemPage m3 = new ItemPage(metadata, items);
 
         // Testing the equals method
         assertEquals(m1, m1);
@@ -144,11 +144,11 @@ public class MultiplePersonTest {
     public void testHashCode() {
 
         // Creating an object to compare with
-        MultiplePerson m1 = new MultiplePerson();
-        MultiplePerson m2 = new MultiplePerson(metadata, items);
+        ItemPage m1 = new ItemPage();
+        ItemPage m2 = new ItemPage(metadata, items);
 
         // Creating an equal object
-        MultiplePerson m3 = new MultiplePerson(metadata, items);
+        ItemPage m3 = new ItemPage(metadata, items);
 
         // Testing the hashCode method
         assertEquals(m1.hashCode(), m1.hashCode());
