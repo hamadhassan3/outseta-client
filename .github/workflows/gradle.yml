@@ -48,6 +48,13 @@ jobs:
         run: chmod +x gradlew
       - name: Run Gradle Tests
         run: ./gradlew test
+               - name: Run JaCoCo coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+         file: ./build/reports/jacoco/test/jacocoTestReport.xml
 
   checkstyle:
     needs: build
@@ -69,11 +76,3 @@ jobs:
       - name: Run Checkstyle
         run: |
           ./gradlew checkstyleMain checkstyleTest
-      - name: Run JaCoCo coverage
-        run: ./gradlew jacocoTestReport
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          file: ./build/reports/jacoco/test/jacocoTestReport.xml
