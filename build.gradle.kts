@@ -116,4 +116,5 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         html.required.set(true)
     }
+    dependsOn(tasks.test)
 }
