@@ -106,7 +106,9 @@ public class Metadata implements BaseResult {
         if (other == this) {
             return true;
         }
-        if (other instanceof Metadata otherMetadata) {
+        if (other instanceof Metadata) {
+
+            Metadata otherMetadata = (Metadata) other;
 
             return Objects.equals(this.limit, otherMetadata.limit)
                     && Objects.equals(this.offset, otherMetadata.offset)

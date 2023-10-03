@@ -213,9 +213,11 @@ public class PersonAccount implements BaseResult {
             return true;
         }
 
-        if (!(pObject instanceof PersonAccount otherPersonAccount)) {
+        if (!(pObject instanceof PersonAccount)) {
             return false;
         }
+
+        PersonAccount otherPersonAccount = (PersonAccount) pObject;
 
         return Objects.equals(this.person, otherPersonAccount.person)
                 && Objects.equals(this.account, otherPersonAccount.account)

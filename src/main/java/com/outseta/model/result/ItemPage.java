@@ -84,9 +84,11 @@ public class ItemPage<T extends DataComponent> implements BaseResult {
             return true;
         }
 
-        if (!(other instanceof ItemPage otherPage)) {
+        if (!(other instanceof ItemPage)) {
             return false;
         }
+
+        ItemPage otherPage = (ItemPage) other;
 
         return otherPage.getMetadata().equals(this.metadata)
                 && otherPage.getItems().equals(this.items);

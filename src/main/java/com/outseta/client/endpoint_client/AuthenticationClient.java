@@ -18,6 +18,9 @@ import java.util.Map;
  */
 public final class AuthenticationClient extends BaseClient {
 
+    /**
+     * The builder class is used to make it easier to construct the client.
+     */
     public static class Builder extends ClientBuilder {
 
         /**

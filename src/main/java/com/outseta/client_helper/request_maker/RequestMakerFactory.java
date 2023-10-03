@@ -14,6 +14,8 @@ public final class RequestMakerFactory {
      * maker.
      * @param requestMakerType The type of request maker to get.
      * @return The relevant implementation of the request maker.
+     * @throws OutsetaInvalidRequestMakerException Thrown if the request maker
+     *      type is invalid.
      */
     public static RequestMaker getRequestMaker(final RequestMakerType
                                                        requestMakerType)
