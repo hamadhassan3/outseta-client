@@ -1,4 +1,4 @@
-name: Gradle Test, Build, Checkstyle and Code Coverage
+name: Gradle Test, Build and Checkstyle
 
 on:
   push:
