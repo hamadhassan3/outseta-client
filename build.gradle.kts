@@ -3,6 +3,7 @@ plugins {
     id("checkstyle")
     id("maven-publish")
     id("signing")
+    id("jacoco")
 }
 
 group = "io.github.hamadhassan3"
@@ -19,6 +20,12 @@ checkstyle {
     toolVersion = "10.12.3"
     maxWarnings = 0
     configFile = file("${rootDir}/checkstyle.xml")
+}
+
+jacoco {
+    toolVersion = "0.8.10"
+
+    reportsDirectory.set(layout.buildDirectory.dir("reports/jacoco"))
 }
 
 repositories {
@@ -97,8 +104,17 @@ tasks.test {
     useJUnitPlatform {
         excludeTags("integration")
     }
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.withType<Sign>().configureEach {
     enabled = project.extra["isReleaseVersion"] as Boolean
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+    dependsOn(tasks.test)
 }
