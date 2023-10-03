@@ -121,9 +121,10 @@ public class TestNestedData {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof TestNestedData other)) {
+        if (!(obj instanceof TestNestedData)) {
             return false;
         }
+        TestNestedData other = (TestNestedData) obj;
         return this.str.equals(other.str) && this.dbl.equals(other.dbl)
                 && this.intgr.equals(other.intgr)
                 && this.bool.equals(other.bool);

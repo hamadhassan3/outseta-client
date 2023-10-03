@@ -8,6 +8,7 @@ import com.outseta.model.result.MailingAddress;
 import com.outseta.model.result.Person;
 import com.outseta.model.result.ItemPage;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * These are integration tests as no object is mocked and the
  * tests are run with the actual API.
  */
+@Tag("integration")
 @ExtendWith(MockitoExtension.class)
 class PeopleClientTest {
 
