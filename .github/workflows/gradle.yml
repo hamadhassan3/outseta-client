@@ -31,7 +31,6 @@ jobs:
           arguments: build
 
   test:
-    needs: build
     runs-on: ubuntu-latest
     container:
       image: gradle:latest
@@ -57,7 +56,6 @@ jobs:
          file: ./build/reports/jacoco/test/jacocoTestReport.xml
 
   checkstyle:
-    needs: build
     runs-on: ubuntu-latest
     container:
       image: gradle:latest
