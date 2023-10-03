@@ -94,7 +94,9 @@ java {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags("integration")
+    }
 }
 
 tasks.withType<Sign>().configureEach {

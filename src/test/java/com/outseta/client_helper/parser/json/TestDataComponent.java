@@ -140,7 +140,10 @@ public class TestDataComponent implements DataComponent {
         if (other == this) {
             return true;
         }
-        if (other instanceof TestDataComponent otherTestDataComponent) {
+        if (other instanceof TestDataComponent) {
+
+            TestDataComponent otherTestDataComponent =
+                    (TestDataComponent) other;
 
             return this.str.equals(otherTestDataComponent.str)
                     && this.dbl.equals(otherTestDataComponent.dbl)
