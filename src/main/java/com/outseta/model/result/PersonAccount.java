@@ -209,6 +209,7 @@ public class PersonAccount implements BaseResult {
      */
     @Override
     public boolean equals(final Object pObject) {
+
         if (this == pObject) {
             return true;
         }

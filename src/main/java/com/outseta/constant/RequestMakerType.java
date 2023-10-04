@@ -13,5 +13,10 @@ public enum RequestMakerType {
      * This enum value is used to indicate that the request maker should be
      * created using the Default implementation.
      */
-    DEFAULT
+    DEFAULT,
+
+    /**
+     * This enum value is used to indicate that the request maker is invalid.
+     */
+    INVALID
 }

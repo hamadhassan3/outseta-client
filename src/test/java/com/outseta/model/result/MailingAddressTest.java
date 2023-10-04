@@ -400,6 +400,51 @@ public class MailingAddressTest {
         assertNotEquals(mailingAddress, null);
         assertNotEquals(mailingAddress, new Object());
         assertNotEquals(mailingAddress, m1);
+
+        m1.setAddressLine1("address1");
+        assertNotEquals(mailingAddress, m1);
+        m1.setAddressLine1(mailingAddress.getAddressLine1());
+
+        m1.setAddressLine2("address2");
+        assertNotEquals(mailingAddress, m1);
+        m1.setAddressLine2(mailingAddress.getAddressLine2());
+
+        m1.setAddressLine3("address3");
+        assertNotEquals(mailingAddress, m1);
+        m1.setAddressLine3(mailingAddress.getAddressLine3());
+
+        m1.setCity("city");
+        assertNotEquals(mailingAddress, m1);
+        m1.setCity(mailingAddress.getCity());
+
+        m1.setState("state");
+        assertNotEquals(mailingAddress, m1);
+        m1.setState(mailingAddress.getState());
+
+        m1.setPostalCode("postalCode");
+        assertNotEquals(mailingAddress, m1);
+        m1.setPostalCode(mailingAddress.getPostalCode());
+
+        m1.setCountry("country");
+        assertNotEquals(mailingAddress, m1);
+        m1.setCountry(mailingAddress.getCountry());
+
+        m1.setActivityEventData("activityEventData");
+        assertNotEquals(mailingAddress, m1);
+        m1.setActivityEventData(mailingAddress.getActivityEventData());
+
+        m1.setGeoLocation("geoLocation");
+        assertNotEquals(mailingAddress, m1);
+        m1.setGeoLocation(mailingAddress.getGeoLocation());
+
+        m1.setCreated(new Date(timestamp + 1));
+        assertNotEquals(mailingAddress, m1);
+        m1.setCreated(mailingAddress.getCreated());
+
+        m1.setUpdated(new Date(timestamp + 1));
+        assertNotEquals(mailingAddress, m1);
+        m1.setUpdated(mailingAddress.getUpdated());
+
     }
 
     /**

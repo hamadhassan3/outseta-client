@@ -7,6 +7,7 @@ import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidArgumentException;
+import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.exception.OutsetaInvalidURLException;
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
@@ -121,13 +122,13 @@ public final class PeopleClient extends BaseClient {
          *
          * @param requestMakerType The request maker for the api.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *                                      cannot be built.
          */
         @Override
         public Builder requestMaker(
                 final RequestMakerType requestMakerType)
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
 
             super.requestMaker(requestMakerType);
             return this;
@@ -137,12 +138,12 @@ public final class PeopleClient extends BaseClient {
          * This method is used to set the request maker for the api.
          * @param requestMakerType The request maker to set.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *      built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
          */
         @Override
         public Builder requestMaker(final String requestMakerType)
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
             super.requestMaker(requestMakerType);
             return this;
         }
@@ -177,12 +178,12 @@ public final class PeopleClient extends BaseClient {
         /**
          * This method is used to set the default request maker for the api.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *      built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
          */
         @Override
         public Builder defaultRequestMaker()
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
 
             super.defaultRequestMaker();
             return this;

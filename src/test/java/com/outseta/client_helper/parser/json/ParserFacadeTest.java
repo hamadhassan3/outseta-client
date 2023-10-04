@@ -179,4 +179,12 @@ class ParserFacadeTest {
                 parserFacade.jsonStringToPage(objectStr,
                         TestDataComponent.class));
     }
+
+    /**
+     * This method tests the getJsonParser method of the ParserFacade.
+     */
+    @Test
+    void testGetJsonParserSuccess() {
+        assertEquals(jsonParser, parserFacade.getJsonParser());
+    }
 }

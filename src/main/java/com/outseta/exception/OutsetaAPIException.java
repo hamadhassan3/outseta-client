@@ -156,4 +156,20 @@ public class OutsetaAPIException extends Exception {
     public void setTriggeredBy(final Exception pTriggeredBy) {
         this.triggeredBy = pTriggeredBy;
     }
+
+    /**
+     * Gets the payload.
+     * @return The payload.
+     */
+    public String getPayload() {
+        return payload;
+    }
+
+    /**
+     * Sets the payload.
+     * @param pPayload The payload.
+     */
+    public void setPayload(final String pPayload) {
+        this.payload = pPayload;
+    }
 }

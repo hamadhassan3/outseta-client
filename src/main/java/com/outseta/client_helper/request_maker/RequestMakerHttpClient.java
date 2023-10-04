@@ -80,6 +80,9 @@ class RequestMakerHttpClient implements RequestMaker {
         HttpRequest.Builder builder = HttpRequest.newBuilder();
 
         // Using string builder for efficient string manipulation
+        if (url == null) {
+            throw new OutsetaInvalidURLException("URL cannot be null.");
+        }
         StringBuilder stringBuilder = new StringBuilder(url);
 
         // Inserting all headers into request
@@ -104,8 +107,6 @@ class RequestMakerHttpClient implements RequestMaker {
 
         try {
             builder.uri(URI.create(stringBuilder.toString()));
-        } catch (NullPointerException e) {
-            throw new OutsetaInvalidURLException("The url provided was null");
         } catch (IllegalArgumentException e) {
             throw new OutsetaInvalidURLException(stringBuilder.toString());
         }

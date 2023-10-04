@@ -142,6 +142,21 @@ public class MetadataTest {
         assertEquals(m1, m2);
         assertEquals(m1, m1);
         assertNotEquals(m1, m3);
+
+        assertNotEquals(m1, null);
+        assertNotEquals(m1, new Object());
+
+        m1.setLimit(m1.getLimit() + 1);
+        assertNotEquals(m1, m2);
+        m1.setLimit(m2.getLimit());
+
+        m1.setOffset(m1.getOffset() + 1);
+        assertNotEquals(m1, m2);
+        m1.setOffset(m2.getOffset());
+
+        m1.setTotal(m1.getTotal() + 1);
+        assertNotEquals(m1, m2);
+        m1.setTotal(m2.getTotal());
     }
 
     /**

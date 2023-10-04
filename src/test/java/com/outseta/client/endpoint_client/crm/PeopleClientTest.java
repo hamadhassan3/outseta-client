@@ -2,6 +2,7 @@ package com.outseta.client.endpoint_client.crm;
 
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidArgumentException;
+import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.model.request.PageRequest;
 import com.outseta.model.request.TemporaryPasswordRequest;
 import com.outseta.model.result.MailingAddress;
@@ -72,7 +73,8 @@ class PeopleClientTest {
      *      PeopleClient object cannot be created.
      */
     @BeforeAll
-    public static void setUp() throws OutsetaClientBuildException {
+    public static void setUp() throws OutsetaClientBuildException,
+            OutsetaInvalidRequestMakerException {
         peopleClient = PeopleClient.builder(outsetaUrl)
                 .apiKey(outsetaKey)
                 .defaultParser()

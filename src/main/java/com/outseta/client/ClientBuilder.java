@@ -131,23 +131,18 @@ public class ClientBuilder {
      * This method is used to set the request maker of the base client.
      * @param requestMakerType The request maker to set.
      * @return The client builder so that it can be chained.
-     * @throws OutsetaClientBuildException If the request maker is null.
+     * @throws OutsetaInvalidRequestMakerException If the request maker is null.
      */
     public ClientBuilder requestMaker(final RequestMakerType requestMakerType)
-            throws OutsetaClientBuildException {
+            throws OutsetaInvalidRequestMakerException {
 
         if (requestMakerType == null) {
-            throw new OutsetaClientBuildException(
+            throw new OutsetaInvalidRequestMakerException(
                     "Request maker type cannot be null.");
         }
 
-        RequestMaker requestMaker;
-        try {
-            requestMaker =
-                    RequestMakerFactory.getRequestMaker(requestMakerType);
-        } catch (OutsetaInvalidRequestMakerException e) {
-            throw new OutsetaClientBuildException(e.getMessage());
-        }
+        RequestMaker requestMaker =
+                RequestMakerFactory.getRequestMaker(requestMakerType);
 
         this.baseClient.setRequestMaker(requestMaker);
         return this;
@@ -156,20 +151,14 @@ public class ClientBuilder {
     /**
      * This method is used to set a default request maker for making requests.
      * @return The client builder so that it can be chained.
-     * @throws OutsetaClientBuildException If the request maker
+     * @throws OutsetaInvalidRequestMakerException If the request maker
      *      cannot be created.
      */
     public ClientBuilder defaultRequestMaker()
-            throws OutsetaClientBuildException {
+            throws OutsetaInvalidRequestMakerException {
 
-        RequestMaker requestMaker;
-
-        try {
-            requestMaker = RequestMakerFactory
+        RequestMaker requestMaker = RequestMakerFactory
                     .getRequestMaker(RequestMakerType.DEFAULT);
-        } catch (OutsetaInvalidRequestMakerException e) {
-            throw new OutsetaClientBuildException(e.getMessage());
-        }
 
         this.baseClient.setRequestMaker(requestMaker);
         return this;
@@ -179,17 +168,17 @@ public class ClientBuilder {
      * This method is used to set the request maker of the base client.
      * @param requestMakerType The request maker to set.
      * @return The client builder so that it can be chained.
-     * @throws OutsetaClientBuildException If the request maker type is null or
-     *      blank.
+     * @throws OutsetaInvalidRequestMakerException If the request maker type
+     *      is null or blank.
      */
     public ClientBuilder requestMaker(final String requestMakerType)
-            throws OutsetaClientBuildException {
+            throws OutsetaInvalidRequestMakerException {
 
         if (requestMakerType == null) {
-            throw new OutsetaClientBuildException(
+            throw new OutsetaInvalidRequestMakerException(
                     "Request maker type cannot be null.");
         } else if (requestMakerType.isBlank()) {
-            throw new OutsetaClientBuildException(
+            throw new OutsetaInvalidRequestMakerException(
                     "Request maker type cannot be blank.");
         }
 
@@ -199,14 +188,12 @@ public class ClientBuilder {
             RequestMakerType type = RequestMakerType
                     .valueOf(requestMakerType.toUpperCase());
             requestMaker = RequestMakerFactory.getRequestMaker(type);
+            this.baseClient.setRequestMaker(requestMaker);
         } catch (IllegalArgumentException ex) {
-            throw new OutsetaClientBuildException(
+            throw new OutsetaInvalidRequestMakerException(
                     "A request maker of this type does not exist.");
-        } catch (OutsetaInvalidRequestMakerException e) {
-            throw new OutsetaClientBuildException(e.getMessage());
         }
 
-        this.baseClient.setRequestMaker(requestMaker);
         return this;
     }
 
@@ -249,12 +236,6 @@ public class ClientBuilder {
      *      headers, request maker, or parser are not set.
      */
     public BaseClient build() throws OutsetaClientBuildException {
-
-        if (this.baseClient.getBaseUrl() == null
-                || this.baseClient.getBaseUrl().isBlank()) {
-            throw new OutsetaClientBuildException(
-                    "Cannot initialize with null or blank base url.");
-        }
 
         if (!this.baseClient.isHeadersValid()) {
             throw new OutsetaClientBuildException(

@@ -50,7 +50,12 @@ class RequestMakerHttpClientTest {
     /**
      * Invalid response codes for the tests.
      */
-    private static final int FAILURE_CODE = 400;
+    private static final int FAILURE_CODE_1 = 400;
+
+    /**
+     * Invalid response codes for the tests.
+     */
+    private static final int FAILURE_CODE_2 = 199;
 
     /**
      * Sets up the class data before any tests are run.
@@ -222,6 +227,21 @@ class RequestMakerHttpClientTest {
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
             requestMakerHttpClient.get("http://validurl", params, headers);
+        });
+
+    }
+
+    /**
+     * A test that checks if OutsetaBadRequestException is thrown.
+     */
+    @Test
+    public void testUrlNullException() {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        assertThrows(OutsetaInvalidURLException.class, () -> {
+            requestMakerHttpClient.get(null, params, headers);
         });
 
     }
@@ -520,7 +540,7 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -528,6 +548,11 @@ class RequestMakerHttpClientTest {
             requestMakerHttpClient.get("http://validurl", params, headers);
         });
 
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+
+        assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
+            requestMakerHttpClient.get("http://validurl", params, headers);
+        });
     }
 
     /**
@@ -555,7 +580,7 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
 
@@ -563,6 +588,13 @@ class RequestMakerHttpClientTest {
             requestMakerHttpClient.post("http://validurl", params, payload,
                     headers);
         });
+
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+        assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
+            requestMakerHttpClient.post("http://validurl", params, payload,
+                    headers);
+        });
+
 
     }
 
@@ -591,9 +623,16 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+
+        assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
+            requestMakerHttpClient.put("http://validurl", params, payload,
+                    headers);
+        });
+
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.put("http://validurl", params, payload,
@@ -626,9 +665,16 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE);
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
         when(httpClient.send(any(HttpRequest.class),
                 any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+
+        assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
+            requestMakerHttpClient.delete("http://validurl", params,
+                    headers);
+        });
+
+        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.delete("http://validurl", params,

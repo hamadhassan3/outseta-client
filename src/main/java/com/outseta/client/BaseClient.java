@@ -3,6 +3,7 @@ package com.outseta.client;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.exception.OutsetaInvalidURLException;
 import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
 import com.outseta.exception.api_exception.OutsetaAPIFailedException;
@@ -147,13 +148,13 @@ public class BaseClient {
     /**
      * This method is used to set the request maker.
      * @param pRequestMaker The request maker to use.
-     * @throws OutsetaClientBuildException If the request maker is null.
+     * @throws OutsetaInvalidRequestMakerException If the request maker is null.
      */
     public void setRequestMaker(final RequestMaker pRequestMaker)
-            throws OutsetaClientBuildException {
+            throws OutsetaInvalidRequestMakerException {
 
         if (pRequestMaker == null) {
-            throw new OutsetaClientBuildException(
+            throw new OutsetaInvalidRequestMakerException(
                     "Request maker cannot be null.");
         }
         this.requestMaker = pRequestMaker;

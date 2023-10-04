@@ -35,6 +35,7 @@ public class PersonTest {
     public void setUp() {
         // Creating a Person object using builder for testing
         person = Person.builder()
+                .uid("123")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .email("email")
@@ -665,11 +666,27 @@ public class PersonTest {
     }
 
     /**
+     * This method tests the Person class's getUid method.
+     */
+    @Test
+    public void testGetUid() {
+        assertEquals("123", person.getUid());
+    }
+
+    /**
+     * This method tests the Person class's setUid method.
+     */
+    @Test
+    public void testSetUid() {
+        person.setUid("newUid");
+        assertEquals("newUid", person.getUid());
+    }
+
+    /**
      * This method tests the Person class's equals method.
      */
     @Test
     public void testEquals() {
-
         // Creating an object to compare with
         Person p1 = Person.builder().email("email").build();
         Person p2 = Person.builder().fullName("fullname").build();
@@ -677,6 +694,7 @@ public class PersonTest {
 
         // Creating a copy of this class's person
         Person p4 = Person.builder()
+                .uid("123")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .email("email")
@@ -706,8 +724,117 @@ public class PersonTest {
 
         assertEquals(p1, p3);
         assertEquals(p1, p1);
+        assertNotEquals(p1, null);
+        assertNotEquals(p1, new Object());
         assertNotEquals(p1, p2);
         assertEquals(person, p4);
+
+        // Testing other branches of equals method
+        p4.setUid("rand");
+        assertNotEquals(person, p4);
+        p4.setUid(person.getUid());
+
+        p4.setCreated(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setCreated(person.getCreated());
+
+        p4.setUpdated(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setUpdated(person.getUpdated());
+
+        p4.setEmail("rand");
+        assertNotEquals(person, p4);
+        p4.setEmail(person.getEmail());
+
+        p4.setFirstName("rand");
+        assertNotEquals(person, p4);
+        p4.setFirstName(person.getFirstName());
+
+        p4.setLastName("rand");
+        assertNotEquals(person, p4);
+        p4.setLastName(person.getLastName());
+
+        p4.setLanguage("rand");
+        assertNotEquals(person, p4);
+        p4.setLanguage(person.getLanguage());
+
+        p4.setEmailBounceDateTime(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setEmailBounceDateTime(person.getEmailBounceDateTime());
+
+        p4.setEmailSpamDateTime(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setEmailSpamDateTime(person.getEmailSpamDateTime());
+
+        p4.setFullName("rand");
+        assertNotEquals(person, p4);
+        p4.setFullName(person.getFullName());
+
+        p4.setIpAddress("rand");
+        assertNotEquals(person, p4);
+        p4.setIpAddress(person.getIpAddress());
+
+        p4.setLastLoginDateTime(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setLastLoginDateTime(person.getLastLoginDateTime());
+
+        p4.setoAuthGoogleProfileId("rand");
+        assertNotEquals(person, p4);
+        p4.setoAuthGoogleProfileId(person.getoAuthGoogleProfileId());
+
+        p4.setPhoneWork("rand");
+        assertNotEquals(person, p4);
+        p4.setPhoneWork(person.getPhoneWork());
+
+        p4.setProfileImageS3Url("rand");
+        assertNotEquals(person, p4);
+        p4.setProfileImageS3Url(person.getProfileImageS3Url());
+
+        p4.setReferer("rand");
+        assertNotEquals(person, p4);
+        p4.setReferer(person.getReferer());
+
+        p4.setTimezone("rand");
+        assertNotEquals(person, p4);
+        p4.setTimezone(person.getTimezone());
+
+        p4.setEmailLastDeliveredDateTime(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setEmailLastDeliveredDateTime(
+                person.getEmailLastDeliveredDateTime());
+
+        p4.setEmailUnsubscribeDateTime(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setEmailUnsubscribeDateTime(
+                person.getEmailUnsubscribeDateTime());
+
+        p4.setPasswordLastUpdated(new Date(0));
+        assertNotEquals(person, p4);
+        p4.setPasswordLastUpdated(person.getPasswordLastUpdated());
+
+        p4.setPasswordMustChange(false);
+        assertNotEquals(person, p4);
+        p4.setPasswordMustChange(person.getPasswordMustChange());
+
+        p4.setPhoneMobile("rand");
+        assertNotEquals(person, p4);
+        p4.setPhoneMobile(person.getPhoneMobile());
+
+        p4.setPersonAccount(List.of(new PersonAccount()));
+        assertNotEquals(person, p4);
+        p4.setPersonAccount(person.getPersonAccount());
+
+        p4.setMailingAddress(new MailingAddress());
+        assertNotEquals(person, p4);
+        p4.setMailingAddress(person.getMailingAddress());
+
+        p4.setTitle("rand");
+        assertNotEquals(person, p4);
+        p4.setTitle(person.getTitle());
+
+        p4.setUserAgent("rand");
+        assertNotEquals(person, p4);
+        p4.setUserAgent(person.getUserAgent());
     }
 
     /**
@@ -722,6 +849,7 @@ public class PersonTest {
 
         // Creating a copy of this class's person
         Person p4 = Person.builder()
+                .uid("123")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .email("email")
