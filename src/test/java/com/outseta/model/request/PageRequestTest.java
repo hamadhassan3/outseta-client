@@ -114,10 +114,12 @@ public class PageRequestTest {
         });
 
         assertThrows(OutsetaPageBuildException.class, () -> {
-            builder.pageSize(PageRequest.MAX_PAGE_SIZE + 1).build();
+            builder.page(1)
+                    .pageSize(PageRequest.MAX_PAGE_SIZE + 1).build();
         });
         assertThrows(OutsetaPageBuildException.class, () -> {
-            builder.pageSize(PageRequest.MAX_PAGE_SIZE + 2).build();
+            builder.page(1)
+                    .pageSize(PageRequest.MAX_PAGE_SIZE + 2).build();
         });
     }
 

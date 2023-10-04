@@ -51,7 +51,6 @@ public class AuthTokenTest {
         assertEquals("token", a2.getAccessToken());
         assertEquals("type", a2.getTokenType());
         assertEquals(expiresIn, a2.getExpiresIn());
-
     }
 
     /**
@@ -141,6 +140,19 @@ public class AuthTokenTest {
         assertNotEquals(a2, null);
         assertNotEquals(a2, new Object());
         assertNotEquals(a1, a2);
+
+        a3.setAccessToken(a3.getAccessToken() + "1");
+        assertNotEquals(authToken, a3);
+        a3.setAccessToken(authToken.getAccessToken());
+
+        a3.setTokenType(a3.getTokenType() + "1");
+        assertNotEquals(authToken, a3);
+        a3.setTokenType(authToken.getTokenType());
+
+        a3.setExpiresIn(a3.getExpiresIn() + 1);
+        assertNotEquals(authToken, a3);
+        a3.setExpiresIn(authToken.getExpiresIn());
+
     }
 
     /**

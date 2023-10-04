@@ -3,6 +3,7 @@ package com.outseta.client;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.exception.OutsetaInvalidURLException;
 import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
 import com.outseta.exception.api_exception.OutsetaAPIFailedException;
@@ -126,6 +127,9 @@ class BaseClientTest {
         assertThrows(OutsetaClientBuildException.class,
                 () -> new BaseClient(null));
 
+        assertThrows(OutsetaClientBuildException.class,
+                () -> new BaseClient(""));
+
     }
 
     /**
@@ -134,6 +138,9 @@ class BaseClientTest {
     @Test
     void testAllArgsConstructorFailure() {
 
+        assertThrows(OutsetaClientBuildException.class,
+                () -> new BaseClient("", this.validHeaders,
+                        requestMaker));
         assertThrows(OutsetaClientBuildException.class,
                 () -> new BaseClient(null, this.validHeaders,
                         requestMaker));
@@ -265,7 +272,7 @@ class BaseClientTest {
      */
     @Test
     void testSetRequestMakerFailure() {
-        assertThrows(OutsetaClientBuildException.class,
+        assertThrows(OutsetaInvalidRequestMakerException.class,
                 () -> baseClient.setRequestMaker(null));
     }
 

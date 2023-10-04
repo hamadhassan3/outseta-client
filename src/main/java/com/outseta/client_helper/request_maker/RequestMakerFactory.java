@@ -21,6 +21,11 @@ public final class RequestMakerFactory {
                                                        requestMakerType)
             throws OutsetaInvalidRequestMakerException {
 
+        if (requestMakerType == null) {
+            throw new OutsetaInvalidRequestMakerException(
+                    "Request maker type cannot be null.");
+        }
+
         RequestMaker requestMaker = null;
         switch (requestMakerType) {
             case DEFAULT:

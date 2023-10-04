@@ -135,6 +135,15 @@ public class ItemPageTest {
         assertNotEquals(m2, null);
         assertNotEquals(m2, new Object());
         assertNotEquals(m1, m2);
+
+        m2.setItems(null);
+        assertNotEquals(m2, m3);
+        m2.setItems(items);
+
+        m2.setMetadata(null);
+        assertNotEquals(m2, m3);
+        m2.setMetadata(metadata);
+
     }
 
     /**

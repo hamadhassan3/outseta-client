@@ -5,6 +5,8 @@ import com.outseta.client.ClientBuilder;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
+import com.outseta.exception.OutsetaInvalidRequestMakerException;
+
 import java.util.Map;
 
 /**
@@ -99,12 +101,12 @@ public final class AuthenticationClient extends BaseClient {
          * Sets the request maker for the client.
          * @param requestMakerType The request maker to set.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *     built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
          */
         @Override
         public Builder requestMaker(final RequestMakerType requestMakerType)
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
 
             super.requestMaker(requestMakerType);
             return this;
@@ -114,12 +116,12 @@ public final class AuthenticationClient extends BaseClient {
          * Sets the request maker for the client.
          * @param requestMakerType The request maker to set.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *     built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
          */
         @Override
         public Builder requestMaker(final String requestMakerType)
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
             super.requestMaker(requestMakerType);
             return this;
         }
@@ -153,12 +155,12 @@ public final class AuthenticationClient extends BaseClient {
         /**
          * Sets the default request maker for the client.
          * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *     built.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
          */
         @Override
         public Builder defaultRequestMaker()
-                throws OutsetaClientBuildException {
+                throws OutsetaInvalidRequestMakerException {
 
             super.defaultRequestMaker();
             return this;
