@@ -380,10 +380,7 @@ public class MailingAddressTest {
 
         // Creating an object to compare with
         MailingAddress m1 = new MailingAddress();
-
-        // Testing the equals method
-        assertEquals(mailingAddress, mailingAddress);
-        assertEquals(mailingAddress, MailingAddress.builder()
+        MailingAddress m2 = MailingAddress.builder()
                 .addressLine1("address1")
                 .addressLine2("address2")
                 .addressLine3("address3")
@@ -396,54 +393,62 @@ public class MailingAddressTest {
                 .created(new Date(timestamp))
                 .updated(new Date(timestamp))
                 .uid("uid")
-                .build());
+                .build();
+
+        // Testing the equals method
+        assertEquals(mailingAddress, mailingAddress);
+        assertEquals(mailingAddress, m2);
         assertNotEquals(mailingAddress, null);
         assertNotEquals(mailingAddress, new Object());
         assertNotEquals(mailingAddress, m1);
 
-        m1.setAddressLine1("address1");
-        assertNotEquals(mailingAddress, m1);
-        m1.setAddressLine1(mailingAddress.getAddressLine1());
+        m2.setAddressLine1("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setAddressLine1(mailingAddress.getAddressLine1());
 
-        m1.setAddressLine2("address2");
-        assertNotEquals(mailingAddress, m1);
-        m1.setAddressLine2(mailingAddress.getAddressLine2());
+        m2.setAddressLine2("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setAddressLine2(mailingAddress.getAddressLine2());
 
-        m1.setAddressLine3("address3");
-        assertNotEquals(mailingAddress, m1);
-        m1.setAddressLine3(mailingAddress.getAddressLine3());
+        m2.setAddressLine3("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setAddressLine3(mailingAddress.getAddressLine3());
 
-        m1.setCity("city");
-        assertNotEquals(mailingAddress, m1);
-        m1.setCity(mailingAddress.getCity());
+        m2.setCity("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setCity(mailingAddress.getCity());
 
-        m1.setState("state");
-        assertNotEquals(mailingAddress, m1);
-        m1.setState(mailingAddress.getState());
+        m2.setState("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setState(mailingAddress.getState());
 
-        m1.setPostalCode("postalCode");
-        assertNotEquals(mailingAddress, m1);
-        m1.setPostalCode(mailingAddress.getPostalCode());
+        m2.setPostalCode("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setPostalCode(mailingAddress.getPostalCode());
 
-        m1.setCountry("country");
-        assertNotEquals(mailingAddress, m1);
-        m1.setCountry(mailingAddress.getCountry());
+        m2.setCountry("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setCountry(mailingAddress.getCountry());
 
-        m1.setActivityEventData("activityEventData");
-        assertNotEquals(mailingAddress, m1);
-        m1.setActivityEventData(mailingAddress.getActivityEventData());
+        m2.setActivityEventData("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setActivityEventData(mailingAddress.getActivityEventData());
 
-        m1.setGeoLocation("geoLocation");
-        assertNotEquals(mailingAddress, m1);
-        m1.setGeoLocation(mailingAddress.getGeoLocation());
+        m2.setGeoLocation("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setGeoLocation(mailingAddress.getGeoLocation());
 
-        m1.setCreated(new Date(timestamp + 1));
-        assertNotEquals(mailingAddress, m1);
-        m1.setCreated(mailingAddress.getCreated());
+        m2.setCreated(new Date(timestamp - 1));
+        assertNotEquals(mailingAddress, m2);
+        m2.setCreated(mailingAddress.getCreated());
 
-        m1.setUpdated(new Date(timestamp + 1));
-        assertNotEquals(mailingAddress, m1);
-        m1.setUpdated(mailingAddress.getUpdated());
+        m2.setUpdated(new Date(timestamp - 1));
+        assertNotEquals(mailingAddress, m2);
+        m2.setUpdated(mailingAddress.getUpdated());
+
+        m2.setUid("rand");
+        assertNotEquals(mailingAddress, m2);
+        m2.setUid(mailingAddress.getUid());
 
     }
 

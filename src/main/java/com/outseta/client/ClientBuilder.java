@@ -149,6 +149,24 @@ public class ClientBuilder {
     }
 
     /**
+     * This method is used to set the request maker of the base client.
+     * @param requestMaker The request maker to set.
+     * @return The client builder so that it can be chained.
+     * @throws OutsetaInvalidRequestMakerException If the request maker is null.
+     */
+    public ClientBuilder requestMaker(final RequestMaker requestMaker)
+            throws OutsetaInvalidRequestMakerException {
+
+        if (requestMaker == null) {
+            throw new OutsetaInvalidRequestMakerException(
+                    "Request maker cannot be null.");
+        }
+
+        this.baseClient.setRequestMaker(requestMaker);
+        return this;
+    }
+
+    /**
      * This method is used to set a default request maker for making requests.
      * @return The client builder so that it can be chained.
      * @throws OutsetaInvalidRequestMakerException If the request maker
