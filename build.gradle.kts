@@ -118,3 +118,14 @@ tasks.jacocoTestReport {
     }
     dependsOn(tasks.test)
 }
+
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.jacocoTestReport)
+    violationRules {
+        rule {
+            limit {
+                minimum = BigDecimal(0.95)
+            }
+        }
+    }
+}

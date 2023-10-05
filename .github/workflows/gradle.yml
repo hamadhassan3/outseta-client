@@ -47,6 +47,8 @@ jobs:
         run: chmod +x gradlew
       - name: Run Gradle Tests
         run: ./gradlew test
+      - name: JaCoCo Test Coverage
+        run: ./gradlew jacocoTestCoverageVerification
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
