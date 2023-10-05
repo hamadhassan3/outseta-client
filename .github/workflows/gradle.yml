@@ -47,22 +47,14 @@ jobs:
         run: chmod +x gradlew
       - name: Run Gradle Tests
         run: ./gradlew test
+      - name: JaCoCo Test Coverage
+        run: ./gradlew jacocoTestCoverageVerification
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
          file: ./build/reports/jacoco/test/jacocoTestReport.xml
-      - name: Check Test Coverage
-        run: |
-         COVERAGE=$(sed -n 's/.*<counter covered="\([0-9]*\)" missed="[0-9]*" type="INSTRUCTION".*/\1/p' ./build/reports/jacoco/test/jacocoTestReport.xml)
-         THRESHOLD=95
-         
-         echo "Coverage is $COVERAGE%."
-         if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
-           echo "Test coverage is below $THRESHOLD%. Failing the workflow."
-           exit 1
-         fi
 
   checkstyle:
     runs-on: ubuntu-latest
