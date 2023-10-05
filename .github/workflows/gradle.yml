@@ -58,6 +58,7 @@ jobs:
          COVERAGE=$(sed -n 's/.*<counter type="INSTRUCTION" missed="\([0-9]*\)" covered="\([0-9]*\)"\/>.*/\2/p' ./build/reports/jacoco/test/jacocoTestReport.xml)
          THRESHOLD=95
          
+         echo "Coverage is $COVERAGE%."
          if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
            echo "Test coverage is below $THRESHOLD%. Failing the workflow."
            exit 1
