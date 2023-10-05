@@ -53,6 +53,15 @@ jobs:
          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
          file: ./build/reports/jacoco/test/jacocoTestReport.xml
+      - name: Check Test Coverage
+        run: |
+         COVERAGE=$(sed -n 's/.*<counter type="INSTRUCTION" missed="\([0-9]*\)" covered="\([0-9]*\)"\/>.*/\2/p' ./build/reports/jacoco/test/jacocoTestReport.xml)
+         THRESHOLD=95
+         
+         if [ "$COVERAGE" -lt "$THRESHOLD" ]; then
+           echo "Test coverage is below $THRESHOLD%. Failing the workflow."
+           exit 1
+         fi
 
   checkstyle:
     runs-on: ubuntu-latest
