@@ -55,7 +55,7 @@ jobs:
          file: ./build/reports/jacoco/test/jacocoTestReport.xml
       - name: Check Test Coverage
         run: |
-         COVERAGE=$(sed -n 's/.*<counter type="INSTRUCTION" missed="\([0-9]*\)" covered="\([0-9]*\)"\/>.*/\2/p' ./build/reports/jacoco/test/jacocoTestReport.xml)
+         COVERAGE=$(sed -n 's/.*<counter covered="\([0-9]*\)" missed="[0-9]*" type="INSTRUCTION".*/\1/p' ./build/reports/jacoco/test/jacocoTestReport.xml)
          THRESHOLD=95
          
          echo "Coverage is $COVERAGE%."
