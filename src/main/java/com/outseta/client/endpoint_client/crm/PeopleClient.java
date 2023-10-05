@@ -149,6 +149,20 @@ public final class PeopleClient extends BaseClient {
         }
 
         /**
+         * This method is used to set the request maker for the api.
+         * @param requestMaker The request maker to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
+         */
+        @Override
+        public Builder requestMaker(final RequestMaker requestMaker)
+                throws OutsetaInvalidRequestMakerException {
+            super.requestMaker(requestMaker);
+            return this;
+        }
+
+        /**
          * This method is used to set the parser for the api.
          * @param parserFacade The parser to set.
          * @return The builder so that calls can be chained.
@@ -228,21 +242,6 @@ public final class PeopleClient extends BaseClient {
     }
 
     /**
-     * Constructor is intentionally private to ensure that builder is used.
-     *
-     * @param baseUrl      The base url for the api
-     * @param headers      The headers to use for the api
-     * @param requestMaker The request maker to use for the api
-     * @throws OutsetaClientBuildException Thrown if the client cannot be built
-     */
-    private PeopleClient(final String baseUrl,
-                         final Map<String, String> headers,
-                         final RequestMaker requestMaker)
-            throws OutsetaClientBuildException {
-        super(baseUrl, headers, requestMaker);
-    }
-
-    /**
      * This method is used to get a person by id.
      *
      * @param personId The id of the person to get.
@@ -275,12 +274,13 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null) {
+        if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null.");
         }
 
-        String result = this.get("/crm/people/" + personId, new HashMap<>());
+        String result = this.get("/crm/people/" + personId,
+                new HashMap<>());
 
         return this.getParserFacade().jsonStringToObject(result, Person.class);
     }
@@ -299,6 +299,8 @@ public final class PeopleClient extends BaseClient {
      * @throws OutsetaInvalidURLException          Thrown if the url is invalid.
      * @throws OutsetaParseException               Thrown if the people cannot
      *                                             be parsed.
+     * @throws OutsetaInvalidArgumentException    Thrown if the page request
+     *                                            is null.
      *
      * Example usage:
      * <pre>{@code
@@ -330,7 +332,12 @@ public final class PeopleClient extends BaseClient {
             throws OutsetaInvalidResponseCodeException,
             OutsetaInvalidURLException, OutsetaAPIBadRequestException,
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
-            OutsetaParseException {
+            OutsetaParseException, OutsetaInvalidArgumentException {
+
+        if (pageRequest == null) {
+            throw new OutsetaInvalidArgumentException(
+                    "Page request cannot be null.");
+        }
 
         HashMap<String, Object> params = new HashMap<>();
         if (pageRequest.getPageNum() != null) {
@@ -430,7 +437,7 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null) {
+        if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null.");
         }
@@ -476,7 +483,7 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null) {
+        if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null.");
         }
@@ -530,7 +537,7 @@ public final class PeopleClient extends BaseClient {
                     "Temporary password request cannot be null.");
         }
 
-        if (personId == null) {
+        if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null.");
         }

@@ -2,6 +2,7 @@ package com.outseta.client;
 
 import com.outseta.client_helper.parser.json.JsonParser;
 import com.outseta.client_helper.parser.json.ParserFacade;
+import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
@@ -364,4 +365,15 @@ class ClientBuilderTest {
         });
     }
 
+    /**
+     * This method tests the requestmaker method with a null requestmaker.
+     */
+    @Test
+    void testBuildWithNullRequestMaker3() {
+        assertThrows(OutsetaInvalidRequestMakerException.class, () -> {
+
+            new ClientBuilder(new BaseClient("http://valid-url"))
+                    .requestMaker((RequestMaker) null);
+        });
+    }
 }

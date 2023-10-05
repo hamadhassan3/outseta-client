@@ -3,6 +3,7 @@ package com.outseta.client.endpoint_client;
 import com.outseta.client.BaseClient;
 import com.outseta.client.ClientBuilder;
 import com.outseta.client_helper.parser.json.ParserFacade;
+import com.outseta.client_helper.request_maker.RequestMaker;
 import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
@@ -123,6 +124,20 @@ public final class AuthenticationClient extends BaseClient {
         public Builder requestMaker(final String requestMakerType)
                 throws OutsetaInvalidRequestMakerException {
             super.requestMaker(requestMakerType);
+            return this;
+        }
+
+        /**
+         * Sets the request maker for the client.
+         * @param requestMaker The request maker to set.
+         * @return The builder so that calls can be chained.
+         * @throws OutsetaInvalidRequestMakerException Thrown if the client
+         *      cannot be built.
+         */
+        @Override
+        public Builder requestMaker(final RequestMaker requestMaker)
+                throws OutsetaInvalidRequestMakerException {
+            super.requestMaker(requestMaker);
             return this;
         }
 
