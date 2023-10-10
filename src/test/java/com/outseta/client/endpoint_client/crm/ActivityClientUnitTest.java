@@ -1,5 +1,6 @@
 package com.outseta.client.endpoint_client.crm;
 
+import com.outseta.client.ClientBuilder;
 import com.outseta.client_helper.parser.json.JsonParser;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
@@ -104,7 +105,8 @@ public class ActivityClientUnitTest {
     public void testBuilder() {
 
         assertDoesNotThrow(() -> {
-            ActivityClient.Builder test = ActivityClient.builder(OUTSETA_URL);
+            ClientBuilder<ActivityClient> test =
+                    ActivityClient.builder(OUTSETA_URL);
             assertEquals(test, test.apiKey(OUTSETA_KEY));
             assertEquals(test, test.defaultParser());
             assertEquals(test, test.defaultRequestMaker());
@@ -118,7 +120,8 @@ public class ActivityClientUnitTest {
 
             when(parserFacade.getJsonParser()).thenReturn(jsonParser);
 
-            ActivityClient.Builder test = ActivityClient.builder(OUTSETA_URL);
+            ClientBuilder<ActivityClient> test =
+                    ActivityClient.builder(OUTSETA_URL);
 
             assertEquals(test, test.apiKey(OUTSETA_KEY));
             assertEquals(test, test.accessKey(OUTSETA_KEY));

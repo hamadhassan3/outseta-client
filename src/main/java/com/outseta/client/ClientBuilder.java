@@ -20,25 +20,26 @@ import java.util.Map;
  *         also creates a builder that extends ClientBuilder.
  *     </b>
  * </p>
+ * @param <T> The type of the client to build.
  */
-public class ClientBuilder {
+public class ClientBuilder<T extends BaseClient> {
 
     /**
-     * The base client that is being built.
+     * The client that is being built.
      */
-    private final BaseClient baseClient;
+    private final T baseClient;
 
     /**
      * This constructor is used to initialize the base client.
      * @param pBaseClient The base client to be built.
      * @throws OutsetaClientBuildException If the base client is null.
      */
-    protected ClientBuilder(final BaseClient pBaseClient)
+    public ClientBuilder(final T pBaseClient)
             throws OutsetaClientBuildException {
 
         if (pBaseClient == null) {
             throw new OutsetaClientBuildException(
-                    "Base client cannot be null.");
+                    "Client cannot be null.");
         }
 
         this.baseClient = pBaseClient;
@@ -51,7 +52,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaClientBuildException If the base url is null or blank.
      */
-    public ClientBuilder baseUrl(final String baseUrl)
+    public ClientBuilder<T> baseUrl(final String baseUrl)
             throws OutsetaClientBuildException {
 
         if (baseUrl == null) {
@@ -72,7 +73,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaClientBuildException If the api key is null or blank.
      */
-    public ClientBuilder apiKey(final String apiKey)
+    public ClientBuilder<T> apiKey(final String apiKey)
             throws OutsetaClientBuildException {
 
         if (apiKey == null) {
@@ -93,7 +94,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaClientBuildException If the access key is null or blank.
      */
-    public ClientBuilder accessKey(final String accessKey)
+    public ClientBuilder<T> accessKey(final String accessKey)
             throws OutsetaClientBuildException {
 
         if (accessKey == null) {
@@ -115,7 +116,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaClientBuildException If the headers are null.
      */
-    public ClientBuilder headers(final Map<String, String> headers)
+    public ClientBuilder<T> headers(final Map<String, String> headers)
             throws OutsetaClientBuildException {
 
         if (headers == null) {
@@ -133,8 +134,9 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaInvalidRequestMakerException If the request maker is null.
      */
-    public ClientBuilder requestMaker(final RequestMakerType requestMakerType)
-            throws OutsetaInvalidRequestMakerException {
+    public ClientBuilder<T> requestMaker(
+            final RequestMakerType requestMakerType)
+                throws OutsetaInvalidRequestMakerException {
 
         if (requestMakerType == null) {
             throw new OutsetaInvalidRequestMakerException(
@@ -154,7 +156,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaInvalidRequestMakerException If the request maker is null.
      */
-    public ClientBuilder requestMaker(final RequestMaker requestMaker)
+    public ClientBuilder<T> requestMaker(final RequestMaker requestMaker)
             throws OutsetaInvalidRequestMakerException {
 
         if (requestMaker == null) {
@@ -172,7 +174,7 @@ public class ClientBuilder {
      * @throws OutsetaInvalidRequestMakerException If the request maker
      *      cannot be created.
      */
-    public ClientBuilder defaultRequestMaker()
+    public ClientBuilder<T> defaultRequestMaker()
             throws OutsetaInvalidRequestMakerException {
 
         RequestMaker requestMaker = RequestMakerFactory
@@ -189,7 +191,7 @@ public class ClientBuilder {
      * @throws OutsetaInvalidRequestMakerException If the request maker type
      *      is null or blank.
      */
-    public ClientBuilder requestMaker(final String requestMakerType)
+    public ClientBuilder<T> requestMaker(final String requestMakerType)
             throws OutsetaInvalidRequestMakerException {
 
         if (requestMakerType == null) {
@@ -222,7 +224,7 @@ public class ClientBuilder {
      * @throws OutsetaClientBuildException If the parser is null or not
      *      configured correctly.
      */
-    public ClientBuilder parser(final ParserFacade parserFacade)
+    public ClientBuilder<T> parser(final ParserFacade parserFacade)
             throws OutsetaClientBuildException {
 
         if (parserFacade == null) {
@@ -241,7 +243,7 @@ public class ClientBuilder {
      * @return The client builder so that it can be chained.
      * @throws OutsetaClientBuildException If the parser cannot be created.
      */
-    public ClientBuilder defaultParser() throws OutsetaClientBuildException {
+    public ClientBuilder<T> defaultParser() throws OutsetaClientBuildException {
         this.baseClient.setParserFacade(
                 new ParserFacade(new JsonParserJackson()));
         return this;
@@ -253,7 +255,7 @@ public class ClientBuilder {
      * @throws OutsetaClientBuildException If the base url, api key, access key,
      *      headers, request maker, or parser are not set.
      */
-    public BaseClient build() throws OutsetaClientBuildException {
+    public T build() throws OutsetaClientBuildException {
 
         if (!this.baseClient.isHeadersValid()) {
             throw new OutsetaClientBuildException(
