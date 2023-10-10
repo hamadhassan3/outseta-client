@@ -33,7 +33,7 @@ public class ClientBuilder {
      * @param pBaseClient The base client to be built.
      * @throws OutsetaClientBuildException If the base client is null.
      */
-    public ClientBuilder(final BaseClient pBaseClient)
+    protected ClientBuilder(final BaseClient pBaseClient)
             throws OutsetaClientBuildException {
 
         if (pBaseClient == null) {

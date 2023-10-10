@@ -314,7 +314,7 @@ public final class PeopleClient extends BaseClient {
      *      .pageSize(pageSize)
      *      .build();
      * int total = 0;
-     * PersonPage personPage = null;
+     * ItemPage<Person> personPage = null;
      *
      * do {
      *      // Keep making requests as long as there are more pages
@@ -339,15 +339,8 @@ public final class PeopleClient extends BaseClient {
                     "Page request cannot be null.");
         }
 
-        HashMap<String, Object> params = new HashMap<>();
-        if (pageRequest.getPageNum() != null) {
-            params.put("offset", pageRequest.getPageNum().toString());
-        }
-        if (pageRequest.getPageSize() != null) {
-            params.put("limit", pageRequest.getPageSize().toString());
-        }
-
-        String result = this.get("/crm/people", params);
+        String result = this.get("/crm/people",
+                pageRequest.buildParams());
 
         return this.getParserFacade()
                 .jsonStringToPage(result,
@@ -447,7 +440,8 @@ public final class PeopleClient extends BaseClient {
                     "Person request cannot be null.");
         }
 
-        String result = this.put("/crm/people/" + personId, new HashMap<>(),
+        String result = this.put("/crm/people/" + personId,
+                new HashMap<>(),
                 this.getParserFacade().objectToJsonString(personRequest));
 
         return this.getParserFacade().jsonStringToObject(result, Person.class);
