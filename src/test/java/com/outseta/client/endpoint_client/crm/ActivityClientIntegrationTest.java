@@ -99,7 +99,6 @@ public class ActivityClientIntegrationTest {
             while (allActivities.size() < total
                     && allActivities.size() < maxSize);
 
-            // assertEquals(total, allPeople.size());
         });
     }
 

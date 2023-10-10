@@ -87,6 +87,7 @@ public class PeopleClientUnitTest {
     /**
      * Dummy object of a test person.
      */
+    @Mock
     private Person personObj;
 
     /**
@@ -107,11 +108,6 @@ public class PeopleClientUnitTest {
         personId = "123";
         personStr = "{\"Uid\": \"123\", \"firstName\": \"John\""
                 + ", \"lastName\": \"Doe\"}";
-        personObj = Person.builder()
-                .uid("123")
-                .firstName("John")
-                .lastName("Doe")
-                .build();
 
         headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + OUTSETA_KEY);
