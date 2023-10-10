@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * It is not a unit test because it does not mock the API calls.
  */
 @ExtendWith(MockitoExtension.class)
+@Tag("integration")
 public class ActivityClientIntegrationTest {
 
     /**

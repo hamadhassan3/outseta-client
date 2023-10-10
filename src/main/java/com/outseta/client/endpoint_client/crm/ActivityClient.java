@@ -14,7 +14,6 @@ import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
 import com.outseta.exception.api_exception.OutsetaAPIFailedException;
 import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
-import com.outseta.model.request.ActivityPageRequest;
 import com.outseta.model.request.PageRequest;
 import com.outseta.model.result.Activity;
 import com.outseta.model.result.ItemPage;
