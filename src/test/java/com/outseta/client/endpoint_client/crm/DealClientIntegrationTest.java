@@ -7,6 +7,7 @@ import com.outseta.model.result.Deal;
 import com.outseta.model.result.DealPipelineStage;
 import com.outseta.model.result.ItemPage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * It contains integration tests and does not need to use Mocks.
  */
 @ExtendWith(MockitoExtension.class)
+@Tag("integration")
 public class DealClientIntegrationTest {
 
     /**
