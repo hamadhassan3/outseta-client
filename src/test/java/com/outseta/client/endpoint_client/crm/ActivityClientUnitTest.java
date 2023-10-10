@@ -70,6 +70,7 @@ public class ActivityClientUnitTest {
     /**
      * The Activity object used for testing.
      */
+    @Mock
     private Activity activity;
 
     /**
@@ -91,9 +92,6 @@ public class ActivityClientUnitTest {
                 .parser(parserFacade)
                 .requestMaker(requestMaker)
                 .build();
-
-        activity = new Activity();
-        activity.setTitle("dummy");
 
         activityStr = "{\"Title\":\"dummy\"}";
     }

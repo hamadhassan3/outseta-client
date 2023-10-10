@@ -5,6 +5,7 @@ import com.outseta.model.BaseInput;
 import com.outseta.model.BaseResult;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class represents a Deal.
@@ -26,6 +27,16 @@ public final class Deal implements BaseInput, BaseResult {
          */
         public Builder() {
             this.deal = new Deal();
+        }
+
+        /**
+         * This method sets the unique identifier of the Deal.
+         * @param pUid The unique identifier of the Deal.
+         * @return The Builder object.
+         */
+        public Builder uid(final String pUid) {
+            this.deal.uid = pUid;
+            return this;
         }
 
         /**
@@ -101,6 +112,12 @@ public final class Deal implements BaseInput, BaseResult {
     }
 
     /**
+     * The unique identifier of the Deal.
+     */
+    @JsonProperty("Uid")
+    private String uid;
+
+    /**
      * The name of the Deal.
      */
     @JsonProperty("Name")
@@ -137,10 +154,11 @@ public final class Deal implements BaseInput, BaseResult {
     private List<DealPerson> dealPeople;
 
     /**
-     * The constructor is intentionally private to force the
-     * use of the Builder.
+     * This method is used to create a Builder object.
+     * @return The Builder object.
      */
-    private Deal() {
+    public static Builder builder() {
+        return new Builder();
     }
 
     /**
@@ -242,4 +260,52 @@ public final class Deal implements BaseInput, BaseResult {
             final List<DealPerson> pDealPeople) {
         this.dealPeople = pDealPeople;
     }
+
+    /**
+     * This method compares this object to another object.
+     * @param other The other object.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(final Object other) {
+        if (other instanceof Deal) {
+            return Objects.equals(name, ((Deal) other).name)
+                    && Objects.equals(dealPipelineStage,
+                    ((Deal) other).dealPipelineStage)
+                    && Objects.equals(amount, ((Deal) other).amount)
+                    && Objects.equals(assignedToPersonClientIdentifier,
+                    ((Deal) other).assignedToPersonClientIdentifier)
+                    && Objects.equals(account, ((Deal) other).account)
+                    && Objects.equals(dealPeople, ((Deal) other).dealPeople)
+                    && Objects.equals(uid, ((Deal) other).uid);
+        }
+        return false;
+    }
+
+    /**
+     * This method returns the hash code for this object.
+     * @return The hash code for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, name, dealPipelineStage, amount,
+                assignedToPersonClientIdentifier, account, dealPeople);
+    }
+
+    /**
+     * This method returns the unique identifier of the Deal.
+     * @return The unique identifier of the Deal.
+     */
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * This method sets the unique identifier of the Deal.
+     * @param pUid The unique identifier of the Deal.
+     */
+    public void setUid(final String pUid) {
+        this.uid = pUid;
+    }
+
 }
