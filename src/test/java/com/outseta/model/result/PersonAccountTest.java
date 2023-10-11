@@ -3,6 +3,7 @@ package com.outseta.model.result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
@@ -26,6 +27,18 @@ public class PersonAccountTest {
      * Creating a random timestamp for date creation.
      */
     private static final long TIMESTAMP = 123456789L;
+
+    /**
+     * The PersonAccount object used for testing.
+     */
+    @Mock
+    private Account newAccount;
+
+    /**
+     * The PersonAccount object used for testing.
+     */
+    @Mock
+    private Person person;
 
     /**
      * This method is run before each test.
@@ -83,7 +96,6 @@ public class PersonAccountTest {
      */
     @Test
     public void testSetAccount() {
-        PersonAccount newAccount = new PersonAccount();
         personAccount.setAccount(newAccount);
         assertEquals(newAccount, personAccount.getAccount());
     }
@@ -198,8 +210,6 @@ public class PersonAccountTest {
     @Test
     public void testEquals() {
 
-        Person person = new Person();
-        PersonAccount account = new PersonAccount();
         String uid = "uid";
         Date created = new Date(TIMESTAMP);
         Date updated = new Date(TIMESTAMP);
@@ -212,7 +222,7 @@ public class PersonAccountTest {
         PersonAccount pa2 = new PersonAccount();
         PersonAccount pa3 = new PersonAccount();
         pa3.setPerson(person);
-        pa3.setAccount(account);
+        pa3.setAccount(newAccount);
         pa3.setUid(uid);
         pa3.setCreated(created);
         pa3.setUpdated(updated);
@@ -221,7 +231,7 @@ public class PersonAccountTest {
         pa3.setActivityEventData(activityEventData);
 
         personAccount.setPerson(person);
-        personAccount.setAccount(account);
+        personAccount.setAccount(newAccount);
         personAccount.setUid(uid);
         personAccount.setCreated(created);
         personAccount.setUpdated(updated);
@@ -276,7 +286,6 @@ public class PersonAccountTest {
     @Test
     public void testHashCode() {
 
-        Person person = new Person();
         PersonAccount account = new PersonAccount();
         String uid = "uid";
         Date created = new Date(TIMESTAMP);
@@ -290,7 +299,7 @@ public class PersonAccountTest {
         PersonAccount pa2 = new PersonAccount();
         PersonAccount pa3 = new PersonAccount();
         pa3.setPerson(person);
-        pa3.setAccount(account);
+        pa3.setAccount(newAccount);
         pa3.setUid(uid);
         pa3.setCreated(created);
         pa3.setUpdated(updated);
@@ -299,7 +308,7 @@ public class PersonAccountTest {
         pa3.setActivityEventData(activityEventData);
 
         personAccount.setPerson(person);
-        personAccount.setAccount(account);
+        personAccount.setAccount(newAccount);
         personAccount.setUid(uid);
         personAccount.setCreated(created);
         personAccount.setUpdated(updated);

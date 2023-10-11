@@ -14,7 +14,7 @@ import java.util.Objects;
  * It is also used to represent the data sent to APIs that
  * expect a MailingAddress object.
  */
-public class MailingAddress implements BaseResult, BaseInput {
+public class Address implements BaseResult, BaseInput {
 
     /**
      * This class is used to build a MailingAddress object.
@@ -24,13 +24,13 @@ public class MailingAddress implements BaseResult, BaseInput {
         /**
          * The MailingAddress object that is being built.
          */
-        private final MailingAddress mailingAddress;
+        private final Address address;
 
         /**
          * Constructor for the Builder class.
          */
         public Builder() {
-            mailingAddress = new MailingAddress();
+            address = new Address();
         }
 
         /**
@@ -40,7 +40,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder addressLine1(final String addressLine1) {
-            mailingAddress.addressLine1 = addressLine1;
+            address.addressLine1 = addressLine1;
             return this;
         }
 
@@ -51,7 +51,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder addressLine2(final String addressLine2) {
-            mailingAddress.addressLine2 = addressLine2;
+            address.addressLine2 = addressLine2;
             return this;
         }
 
@@ -62,7 +62,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder addressLine3(final String addressLine3) {
-            mailingAddress.addressLine3 = addressLine3;
+            address.addressLine3 = addressLine3;
             return this;
         }
 
@@ -72,7 +72,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder city(final String city) {
-            mailingAddress.city = city;
+            address.city = city;
             return this;
         }
 
@@ -82,7 +82,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder state(final String state) {
-            mailingAddress.state = state;
+            address.state = state;
             return this;
         }
 
@@ -93,7 +93,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder postalCode(final String postalCode) {
-            mailingAddress.postalCode = postalCode;
+            address.postalCode = postalCode;
             return this;
         }
 
@@ -103,7 +103,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder country(final String country) {
-            mailingAddress.country = country;
+            address.country = country;
             return this;
         }
 
@@ -114,7 +114,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder geoLocation(final Object geoLocation) {
-            mailingAddress.geoLocation = geoLocation;
+            address.geoLocation = geoLocation;
             return this;
         }
 
@@ -125,7 +125,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder activityEventData(final Object activityEventData) {
-            mailingAddress.activityEventData = activityEventData;
+            address.activityEventData = activityEventData;
             return this;
         }
 
@@ -135,7 +135,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder uid(final String uid) {
-            mailingAddress.uid = uid;
+            address.uid = uid;
             return this;
         }
 
@@ -145,7 +145,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder created(final Date created) {
-            mailingAddress.created = created;
+            address.created = created;
             return this;
         }
 
@@ -155,7 +155,7 @@ public class MailingAddress implements BaseResult, BaseInput {
          * @return The Builder object so that methods can be chained.
          */
         public Builder updated(final Date updated) {
-            mailingAddress.updated = updated;
+            address.updated = updated;
             return this;
         }
 
@@ -163,8 +163,8 @@ public class MailingAddress implements BaseResult, BaseInput {
          * Builds the MailingAddress object.
          * @return The MailingAddress object once its completely built.
          */
-        public MailingAddress build() {
-            return mailingAddress;
+        public Address build() {
+            return address;
         }
     }
 
@@ -253,7 +253,7 @@ public class MailingAddress implements BaseResult, BaseInput {
     /**
      * Default constructor for the creation of a MailingAddress object.
      */
-    public MailingAddress() {
+    public Address() {
     }
 
     /**
@@ -461,7 +461,7 @@ public class MailingAddress implements BaseResult, BaseInput {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MailingAddress that = (MailingAddress) o;
+        Address that = (Address) o;
 
         // Using Objects for comparison because these fields can also be null
         return Objects.equals(addressLine1, that.addressLine1)

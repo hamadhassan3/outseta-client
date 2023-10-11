@@ -34,6 +34,10 @@ public class DealPipelineStageTest {
     public void testSetUid() {
         dealPipelineStage.setUid("uid2");
         assertEquals("uid2", dealPipelineStage.getUid());
+
+        DealPipelineStage dealPipelineStage2 = new DealPipelineStage();
+        dealPipelineStage2.setUid("uid");
+        assertEquals("uid", dealPipelineStage2.getUid());
     }
 
     /**

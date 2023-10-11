@@ -74,8 +74,8 @@ public class Person implements BaseResult, BaseInput {
          * @param pMailingAddress The mailing address to set.
          * @return The Builder object so that methods can be chained.
          */
-        public Builder mailingAddress(final MailingAddress pMailingAddress) {
-            person.mailingAddress = pMailingAddress;
+        public Builder mailingAddress(final Address pMailingAddress) {
+            person.address = pMailingAddress;
             return this;
         }
 
@@ -389,7 +389,7 @@ public class Person implements BaseResult, BaseInput {
      * The mailing address of the Person object.
      */
     @JsonProperty("MailingAddress")
-    private MailingAddress mailingAddress;
+    private Address address;
 
     /**
      * The password last updated of the Person object.
@@ -581,16 +581,16 @@ public class Person implements BaseResult, BaseInput {
      * Returns the mailing address of the Person object.
      * @return The mailing address of the Person object.
      */
-    public MailingAddress getMailingAddress() {
-        return mailingAddress;
+    public Address getMailingAddress() {
+        return address;
     }
 
     /**
      * Sets the mailing address of the Person object.
      * @param pMailingAddress The mailing address to set.
      */
-    public void setMailingAddress(final MailingAddress pMailingAddress) {
-        this.mailingAddress = pMailingAddress;
+    public void setMailingAddress(final Address pMailingAddress) {
+        this.address = pMailingAddress;
     }
 
     /**
@@ -966,7 +966,7 @@ public class Person implements BaseResult, BaseInput {
         return Objects.equals(email, person.email)
                 && Objects.equals(firstName, person.firstName)
                 && Objects.equals(lastName, person.lastName)
-                && Objects.equals(mailingAddress, person.mailingAddress)
+                && Objects.equals(address, person.address)
                 && Objects.equals(passwordLastUpdated,
                     person.passwordLastUpdated)
                 && Objects.equals(passwordMustChange, person.passwordMustChange)
@@ -1002,7 +1002,7 @@ public class Person implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(email, firstName, lastName, mailingAddress,
+        return Objects.hash(email, firstName, lastName, address,
                 passwordLastUpdated, passwordMustChange, phoneMobile,
                 phoneWork, profileImageS3Url, title, timezone, language,
                 ipAddress, referer, userAgent, lastLoginDateTime,

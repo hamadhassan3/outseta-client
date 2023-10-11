@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * This class tests the MailingAddress class.
  */
 @ExtendWith(MockitoExtension.class)
-public class MailingAddressTest {
+public class AddressTest {
 
     /**
      * The MailingAddress object used for testing.
      */
-    private MailingAddress mailingAddress;
+    private Address address;
 
     /**
      * A random timestamp to create dates.
@@ -34,7 +34,7 @@ public class MailingAddressTest {
     @BeforeEach
     public void setUp() {
         // Creating a MailingAddress object for testing using the builder
-        mailingAddress = MailingAddress.builder()
+        address = Address.builder()
                 .addressLine1("address1")
                 .addressLine2("address2")
                 .addressLine3("address3")
@@ -57,7 +57,7 @@ public class MailingAddressTest {
     public void testBuilderConstructor() {
 
         // Testing the builder constructor
-        MailingAddress.Builder builder = new MailingAddress.Builder();
+        Address.Builder builder = new Address.Builder();
         assertNotNull(builder);
     }
 
@@ -68,11 +68,11 @@ public class MailingAddressTest {
     public void testBuilder() {
 
         // Testing the builder method
-        MailingAddress.Builder builder = MailingAddress.builder();
+        Address.Builder builder = Address.builder();
         assertNotNull(builder);
 
         // Creating a MailingAddress object using the builder
-        MailingAddress m1 = builder.build();
+        Address m1 = builder.build();
         assertNotNull(m1);
         assertNull(m1.getAddressLine1());
         assertNull(m1.getAddressLine2());
@@ -102,7 +102,7 @@ public class MailingAddressTest {
         assertEquals(builder, builder.uid("uid"));
 
         // Creating a MailingAddress object using the builder
-        MailingAddress m2 = builder.build();
+        Address m2 = builder.build();
         assertNotNull(m2);
         assertEquals("address1", m2.getAddressLine1());
         assertEquals("address2", m2.getAddressLine2());
@@ -125,7 +125,7 @@ public class MailingAddressTest {
     public void testGetAddressLine1() {
 
         // Testing the getAddressLine1 method
-        assertEquals("address1", mailingAddress.getAddressLine1());
+        assertEquals("address1", address.getAddressLine1());
     }
 
     /**
@@ -135,8 +135,8 @@ public class MailingAddressTest {
     public void testSetAddressLine1() {
 
         // Testing the setAddressLine1 method
-        mailingAddress.setAddressLine1("newAddress1");
-        assertEquals("newAddress1", mailingAddress.getAddressLine1());
+        address.setAddressLine1("newAddress1");
+        assertEquals("newAddress1", address.getAddressLine1());
     }
 
     /**
@@ -146,7 +146,7 @@ public class MailingAddressTest {
     public void testGetAddressLine2() {
 
         // Testing the getAddressLine2 method
-        assertEquals("address2", mailingAddress.getAddressLine2());
+        assertEquals("address2", address.getAddressLine2());
     }
 
     /**
@@ -156,8 +156,8 @@ public class MailingAddressTest {
     public void testSetAddressLine2() {
 
         // Testing the setAddressLine2 method
-        mailingAddress.setAddressLine2("newAddress2");
-        assertEquals("newAddress2", mailingAddress.getAddressLine2());
+        address.setAddressLine2("newAddress2");
+        assertEquals("newAddress2", address.getAddressLine2());
     }
 
     /**
@@ -167,7 +167,7 @@ public class MailingAddressTest {
     public void testGetAddressLine3() {
 
         // Testing the getAddressLine3 method
-        assertEquals("address3", mailingAddress.getAddressLine3());
+        assertEquals("address3", address.getAddressLine3());
     }
 
     /**
@@ -177,8 +177,8 @@ public class MailingAddressTest {
     public void testSetAddressLine3() {
 
         // Testing the setAddressLine3 method
-        mailingAddress.setAddressLine3("newAddress3");
-        assertEquals("newAddress3", mailingAddress.getAddressLine3());
+        address.setAddressLine3("newAddress3");
+        assertEquals("newAddress3", address.getAddressLine3());
     }
 
     /**
@@ -188,7 +188,7 @@ public class MailingAddressTest {
     public void testGetCity() {
 
         // Testing the getCity method
-        assertEquals("city", mailingAddress.getCity());
+        assertEquals("city", address.getCity());
     }
 
     /**
@@ -198,8 +198,8 @@ public class MailingAddressTest {
     public void testSetCity() {
 
         // Testing the setCity method
-        mailingAddress.setCity("newCity");
-        assertEquals("newCity", mailingAddress.getCity());
+        address.setCity("newCity");
+        assertEquals("newCity", address.getCity());
     }
 
     /**
@@ -209,7 +209,7 @@ public class MailingAddressTest {
     public void testGetState() {
 
         // Testing the getState method
-        assertEquals("state", mailingAddress.getState());
+        assertEquals("state", address.getState());
     }
 
     /**
@@ -219,8 +219,8 @@ public class MailingAddressTest {
     public void testSetState() {
 
         // Testing the setState method
-        mailingAddress.setState("newState");
-        assertEquals("newState", mailingAddress.getState());
+        address.setState("newState");
+        assertEquals("newState", address.getState());
     }
 
     /**
@@ -230,7 +230,7 @@ public class MailingAddressTest {
     public void testGetPostalCode() {
 
         // Testing the getPostalCode method
-        assertEquals("postalCode", mailingAddress.getPostalCode());
+        assertEquals("postalCode", address.getPostalCode());
     }
 
     /**
@@ -240,8 +240,8 @@ public class MailingAddressTest {
     public void testSetPostalCode() {
 
         // Testing the setPostalCode method
-        mailingAddress.setPostalCode("newPostalCode");
-        assertEquals("newPostalCode", mailingAddress.getPostalCode());
+        address.setPostalCode("newPostalCode");
+        assertEquals("newPostalCode", address.getPostalCode());
     }
 
     /**
@@ -251,7 +251,7 @@ public class MailingAddressTest {
     public void testGetCountry() {
 
         // Testing the getCountry method
-        assertEquals("country", mailingAddress.getCountry());
+        assertEquals("country", address.getCountry());
     }
 
     /**
@@ -261,8 +261,8 @@ public class MailingAddressTest {
     public void testSetCountry() {
 
         // Testing the setCountry method
-        mailingAddress.setCountry("newCountry");
-        assertEquals("newCountry", mailingAddress.getCountry());
+        address.setCountry("newCountry");
+        assertEquals("newCountry", address.getCountry());
     }
 
     /**
@@ -273,7 +273,7 @@ public class MailingAddressTest {
 
         // Testing the getActivityEventData method
         assertEquals("activityEventData",
-                mailingAddress.getActivityEventData());
+                address.getActivityEventData());
     }
 
     /**
@@ -283,9 +283,9 @@ public class MailingAddressTest {
     public void testSetActivityEventData() {
 
         // Testing the setActivityEventData method
-        mailingAddress.setActivityEventData("newActivityEventData");
+        address.setActivityEventData("newActivityEventData");
         assertEquals("newActivityEventData",
-                mailingAddress.getActivityEventData());
+                address.getActivityEventData());
     }
 
     /**
@@ -295,7 +295,7 @@ public class MailingAddressTest {
     public void testGetGeoLocation() {
 
         // Testing the getGeoLocation method
-        assertEquals("geoLocation", mailingAddress.getGeoLocation());
+        assertEquals("geoLocation", address.getGeoLocation());
     }
 
     /**
@@ -305,8 +305,8 @@ public class MailingAddressTest {
     public void testSetGeoLocation() {
 
         // Testing the setGeoLocation method
-        mailingAddress.setGeoLocation("newGeoLocation");
-        assertEquals("newGeoLocation", mailingAddress.getGeoLocation());
+        address.setGeoLocation("newGeoLocation");
+        assertEquals("newGeoLocation", address.getGeoLocation());
     }
 
     /**
@@ -316,7 +316,7 @@ public class MailingAddressTest {
     public void testGetCreated() {
 
         // Testing the getCreated method
-        assertEquals(new Date(timestamp), mailingAddress.getCreated());
+        assertEquals(new Date(timestamp), address.getCreated());
     }
 
     /**
@@ -326,8 +326,8 @@ public class MailingAddressTest {
     public void testSetCreated() {
 
         // Testing the setCreated method
-        mailingAddress.setCreated(new Date(timestamp + 1));
-        assertEquals(new Date(timestamp + 1), mailingAddress.getCreated());
+        address.setCreated(new Date(timestamp + 1));
+        assertEquals(new Date(timestamp + 1), address.getCreated());
     }
 
     /**
@@ -337,7 +337,7 @@ public class MailingAddressTest {
     public void testGetUpdated() {
 
         // Testing the getUpdated method
-        assertEquals(new Date(timestamp), mailingAddress.getUpdated());
+        assertEquals(new Date(timestamp), address.getUpdated());
     }
 
     /**
@@ -347,8 +347,8 @@ public class MailingAddressTest {
     public void testSetUpdated() {
 
         // Testing the setUpdated method
-        mailingAddress.setUpdated(new Date(timestamp + 1));
-        assertEquals(new Date(timestamp + 1), mailingAddress.getUpdated());
+        address.setUpdated(new Date(timestamp + 1));
+        assertEquals(new Date(timestamp + 1), address.getUpdated());
     }
 
     /**
@@ -358,7 +358,7 @@ public class MailingAddressTest {
     public void testGetUid() {
 
         // Testing the getUid method
-        assertEquals("uid", mailingAddress.getUid());
+        assertEquals("uid", address.getUid());
     }
 
     /**
@@ -368,8 +368,8 @@ public class MailingAddressTest {
     public void testSetUid() {
 
         // Testing the setUid method
-        mailingAddress.setUid("newUid");
-        assertEquals("newUid", mailingAddress.getUid());
+        address.setUid("newUid");
+        assertEquals("newUid", address.getUid());
     }
 
     /**
@@ -379,8 +379,8 @@ public class MailingAddressTest {
     public void testEquals() {
 
         // Creating an object to compare with
-        MailingAddress m1 = new MailingAddress();
-        MailingAddress m2 = MailingAddress.builder()
+        Address m1 = new Address();
+        Address m2 = Address.builder()
                 .addressLine1("address1")
                 .addressLine2("address2")
                 .addressLine3("address3")
@@ -396,59 +396,59 @@ public class MailingAddressTest {
                 .build();
 
         // Testing the equals method
-        assertEquals(mailingAddress, mailingAddress);
-        assertEquals(mailingAddress, m2);
-        assertNotEquals(mailingAddress, null);
-        assertNotEquals(mailingAddress, new Object());
-        assertNotEquals(mailingAddress, m1);
+        assertEquals(address, address);
+        assertEquals(address, m2);
+        assertNotEquals(address, null);
+        assertNotEquals(address, new Object());
+        assertNotEquals(address, m1);
 
         m2.setAddressLine1("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setAddressLine1(mailingAddress.getAddressLine1());
+        assertNotEquals(address, m2);
+        m2.setAddressLine1(address.getAddressLine1());
 
         m2.setAddressLine2("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setAddressLine2(mailingAddress.getAddressLine2());
+        assertNotEquals(address, m2);
+        m2.setAddressLine2(address.getAddressLine2());
 
         m2.setAddressLine3("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setAddressLine3(mailingAddress.getAddressLine3());
+        assertNotEquals(address, m2);
+        m2.setAddressLine3(address.getAddressLine3());
 
         m2.setCity("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setCity(mailingAddress.getCity());
+        assertNotEquals(address, m2);
+        m2.setCity(address.getCity());
 
         m2.setState("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setState(mailingAddress.getState());
+        assertNotEquals(address, m2);
+        m2.setState(address.getState());
 
         m2.setPostalCode("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setPostalCode(mailingAddress.getPostalCode());
+        assertNotEquals(address, m2);
+        m2.setPostalCode(address.getPostalCode());
 
         m2.setCountry("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setCountry(mailingAddress.getCountry());
+        assertNotEquals(address, m2);
+        m2.setCountry(address.getCountry());
 
         m2.setActivityEventData("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setActivityEventData(mailingAddress.getActivityEventData());
+        assertNotEquals(address, m2);
+        m2.setActivityEventData(address.getActivityEventData());
 
         m2.setGeoLocation("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setGeoLocation(mailingAddress.getGeoLocation());
+        assertNotEquals(address, m2);
+        m2.setGeoLocation(address.getGeoLocation());
 
         m2.setCreated(new Date(timestamp - 1));
-        assertNotEquals(mailingAddress, m2);
-        m2.setCreated(mailingAddress.getCreated());
+        assertNotEquals(address, m2);
+        m2.setCreated(address.getCreated());
 
         m2.setUpdated(new Date(timestamp - 1));
-        assertNotEquals(mailingAddress, m2);
-        m2.setUpdated(mailingAddress.getUpdated());
+        assertNotEquals(address, m2);
+        m2.setUpdated(address.getUpdated());
 
         m2.setUid("rand");
-        assertNotEquals(mailingAddress, m2);
-        m2.setUid(mailingAddress.getUid());
+        assertNotEquals(address, m2);
+        m2.setUid(address.getUid());
 
     }
 
@@ -459,11 +459,11 @@ public class MailingAddressTest {
     public void testHashCode() {
 
         // Creating an object to compare with
-        MailingAddress m1 = new MailingAddress();
+        Address m1 = new Address();
 
         // Testing the hashCode method
-        assertEquals(mailingAddress.hashCode(), mailingAddress.hashCode());
-        assertEquals(mailingAddress.hashCode(), MailingAddress.builder()
+        assertEquals(address.hashCode(), address.hashCode());
+        assertEquals(address.hashCode(), Address.builder()
                 .addressLine1("address1")
                 .addressLine2("address2")
                 .addressLine3("address3")
@@ -477,6 +477,6 @@ public class MailingAddressTest {
                 .updated(new Date(timestamp))
                 .uid("uid")
                 .build().hashCode());
-        assertNotEquals(mailingAddress.hashCode(), m1.hashCode());
+        assertNotEquals(address.hashCode(), m1.hashCode());
     }
 }

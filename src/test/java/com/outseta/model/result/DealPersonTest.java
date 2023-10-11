@@ -47,6 +47,10 @@ public class DealPersonTest {
     public void testSetPerson() {
         dealPerson.setPerson(person2);
         assertEquals(person2, dealPerson.getPerson());
+
+        DealPerson dealPerson2 = new DealPerson();
+        dealPerson2.setPerson(person1);
+        assertEquals(person1, dealPerson2.getPerson());
     }
 
     /**
