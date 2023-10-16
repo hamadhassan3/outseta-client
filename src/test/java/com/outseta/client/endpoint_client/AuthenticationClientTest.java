@@ -1,5 +1,6 @@
 package com.outseta.client.endpoint_client;
 
+import com.outseta.client.ClientBuilder;
 import com.outseta.client_helper.parser.json.JsonParser;
 import com.outseta.client_helper.parser.json.ParserFacade;
 import com.outseta.client_helper.request_maker.RequestMaker;
@@ -59,9 +60,9 @@ public class AuthenticationClientTest {
     public void testBuilder() {
 
         assertDoesNotThrow(() -> {
-            AuthenticationClient.Builder builder1 =
-                    new AuthenticationClient
-                            .Builder(OUTSETA_URL);
+            ClientBuilder<AuthenticationClient> builder1 =
+                    AuthenticationClient
+                            .builder(OUTSETA_URL);
             assertEquals(builder1, builder1.defaultParser());
             assertEquals(builder1, builder1.defaultRequestMaker());
             assertEquals(builder1, builder1.apiKey(OUTSETA_KEY));
@@ -81,9 +82,9 @@ public class AuthenticationClientTest {
         assertDoesNotThrow(() -> {
 
             when(parserFacade.getJsonParser()).thenReturn(jsonParser);
-            AuthenticationClient.Builder builder2 =
-                    new AuthenticationClient
-                            .Builder(OUTSETA_URL);
+            ClientBuilder<AuthenticationClient> builder2 =
+                    AuthenticationClient
+                            .builder(OUTSETA_URL);
             assertEquals(builder2, builder2.defaultParser());
             assertEquals(builder2, builder2.defaultRequestMaker());
             assertEquals(builder2, builder2.apiKey(OUTSETA_KEY));

@@ -1,12 +1,16 @@
 package com.outseta.model.request;
 
+import com.outseta.constant.Sort;
 import com.outseta.exception.OutsetaPageBuildException;
 import com.outseta.model.BaseInput;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class represents a page request.
  */
-public final class PageRequest implements BaseInput {
+public class PageRequest implements BaseInput {
 
     /**
      * The maximum page size.
@@ -31,7 +35,15 @@ public final class PageRequest implements BaseInput {
         }
 
         /**
-         * Returns the page number.
+         * The constructor for Builder.
+         * @param pageRequest The PageRequest to be built.
+         */
+        protected Builder(final PageRequest pageRequest) {
+            request = pageRequest;
+        }
+
+        /**
+         * Sets the page number.
          * @param pPage The page number.
          * @return A new Builder object so that method chaining can be used.
          */
@@ -41,12 +53,43 @@ public final class PageRequest implements BaseInput {
         }
 
         /**
-         * Returns the page size.
+         * Sets the page size.
          * @param pPageSize The page size.
          * @return A new Builder object so that method chaining can be used.
          */
         public Builder pageSize(final Integer pPageSize) {
             this.request.pageSize = pPageSize;
+            return this;
+        }
+
+        /**
+         * Sets the custom parameters.
+         * @param pCustomParams The custom parameters.
+         * @return A new Builder object so that method chaining can be used.
+         */
+        public Builder customParams(
+                final Map<String, Object> pCustomParams) {
+            this.request.customParams = pCustomParams;
+            return this;
+        }
+
+        /**
+         * Sets the field to order by.
+         * @param pOrderBy The field to order by.
+         * @return A new Builder object so that method chaining can be used.
+         */
+        public Builder orderBy(final String pOrderBy) {
+            this.request.orderBy = pOrderBy;
+            return this;
+        }
+
+        /**
+         * Sets the sort direction.
+         * @param pOrderByDirection The sort direction.
+         * @return A new Builder object so that method chaining can be used.
+         */
+        public Builder orderByDirection(final Sort pOrderByDirection) {
+            this.request.orderByDirection = pOrderByDirection;
             return this;
         }
 
@@ -85,10 +128,26 @@ public final class PageRequest implements BaseInput {
     private Integer pageSize;
 
     /**
+     * The custom parameters.
+     */
+    private Map<String, Object> customParams;
+
+    /**
+     * The field to order by.
+     */
+    private String orderBy;
+
+    /**
+     * The sort direction.
+     */
+    private Sort orderByDirection;
+
+    /**
      * The default constructor for PageRequest.
      * It is intentionally private to force the use of the builder.
      */
-    private PageRequest() {
+    protected PageRequest() {
+        customParams = new HashMap<>();
     }
 
     /**
@@ -96,10 +155,13 @@ public final class PageRequest implements BaseInput {
      * It is intentionally private to force the use of the builder.
      * @param pPage The page number.
      * @param pPageSize The page size.
+     * @param pCustomParams The custom parameters.
      */
-    private PageRequest(final Integer pPage, final Integer pPageSize) {
+    private PageRequest(final Integer pPage, final Integer pPageSize,
+                        final Map<String, Object> pCustomParams) {
         this.pageNum = pPage;
         this.pageSize = pPageSize;
+        this.customParams = pCustomParams;
     }
 
     /**
@@ -115,7 +177,41 @@ public final class PageRequest implements BaseInput {
      * @return The next page.
      */
     public PageRequest nextPageRequest() {
-        return new PageRequest(pageNum + 1, pageSize);
+        return new PageRequest(pageNum + 1, pageSize, customParams);
+    }
+
+    /**
+     * This method is used to build the parameters for the page request.
+     * @return The parameters for the page request.
+     */
+    public Map<String, Object> buildParams() {
+
+        HashMap<String, Object> params = new HashMap<>();
+
+        params.putAll(customParams);
+
+        if (pageNum != null) {
+            params.put("offset", pageNum.toString());
+        }
+
+        if (pageSize != null) {
+            params.put("limit", pageSize.toString());
+        }
+
+        if (orderBy != null && !orderBy.isBlank()) {
+
+            String orderByWithDir = orderBy;
+            if (orderByDirection != null) {
+                orderByWithDir += "+" + orderByDirection.
+                        toString().toUpperCase();
+            } else {
+                orderByWithDir += "+ASC";
+            }
+
+            params.put("orderBy", orderByWithDir);
+        }
+
+        return params;
     }
 
     /**
@@ -148,5 +244,54 @@ public final class PageRequest implements BaseInput {
      */
     public void setPageSize(final Integer pPageSize) {
         this.pageSize = pPageSize;
+    }
+
+    /**
+     * Returns the custom parameters.
+     * @return The custom parameters.
+     */
+    public Map<String, Object> getCustomParams() {
+        return customParams;
+    }
+
+    /**
+     * Sets the custom parameters.
+     * @param pCustomParams The custom parameters.
+     */
+    public void setCustomParams(
+            final Map<String, Object> pCustomParams) {
+        this.customParams = pCustomParams;
+    }
+
+    /**
+     * Returns the field to order by.
+     * @return The field to order by.
+     */
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    /**
+     * Sets the field to order by.
+     * @param pOrderBy The field to order by.
+     */
+    public void setOrderBy(final String pOrderBy) {
+        this.orderBy = pOrderBy;
+    }
+
+    /**
+     * Returns the sort direction.
+     * @return The sort direction.
+     */
+    public Sort getOrderByDirection() {
+        return orderByDirection;
+    }
+
+    /**
+     * Sets the sort direction.
+     * @param pOrderByDirection The sort direction.
+     */
+    public void setOrderByDirection(final Sort pOrderByDirection) {
+        this.orderByDirection = pOrderByDirection;
     }
 }

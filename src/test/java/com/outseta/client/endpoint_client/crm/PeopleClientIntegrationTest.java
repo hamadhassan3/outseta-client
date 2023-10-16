@@ -5,7 +5,7 @@ import com.outseta.exception.OutsetaInvalidArgumentException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.model.request.PageRequest;
 import com.outseta.model.request.TemporaryPasswordRequest;
-import com.outseta.model.result.MailingAddress;
+import com.outseta.model.result.Address;
 import com.outseta.model.result.Person;
 import com.outseta.model.result.ItemPage;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,12 +54,12 @@ class PeopleClientIntegrationTest {
     /**
      * The MailingAddress object that will be used to make requests.
      */
-    private static MailingAddress mailingAddress;
+    private static Address address;
 
     /**
      * The MailingAddress object that will be used to make update request.
      */
-    private static MailingAddress updatedMailingAddress;
+    private static Address updatedAddress;
 
     /**
      * The Person object that will be used to make update requests.
@@ -81,7 +81,7 @@ class PeopleClientIntegrationTest {
                 .defaultRequestMaker()
                 .build();
 
-        mailingAddress = MailingAddress.builder()
+        address = Address.builder()
                 .addressLine1("address line 1")
                 .addressLine2("address line 2")
                 .addressLine3("address line 3")
@@ -93,10 +93,10 @@ class PeopleClientIntegrationTest {
                 .email("hammad-test-outseta-client@outseta-client.com")
                 .firstName("hammad-outseta")
                 .lastName("hammad-client")
-                .mailingAddress(mailingAddress)
+                .mailingAddress(address)
                 .build();
 
-        updatedMailingAddress = MailingAddress.builder()
+        updatedAddress = Address.builder()
                 .addressLine1("updated address line 1")
                 .addressLine2("updated address line 2")
                 .addressLine3("updated address line 3")
@@ -108,7 +108,7 @@ class PeopleClientIntegrationTest {
                 .email("updated-outseta-client@outseta-client.com")
                 .firstName("updated-outseta")
                 .lastName("updated-client")
-                .mailingAddress(updatedMailingAddress)
+                .mailingAddress(updatedAddress)
                 .build();
     }
 

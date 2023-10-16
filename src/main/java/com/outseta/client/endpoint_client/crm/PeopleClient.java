@@ -2,12 +2,8 @@ package com.outseta.client.endpoint_client.crm;
 
 import com.outseta.client.BaseClient;
 import com.outseta.client.ClientBuilder;
-import com.outseta.client_helper.parser.json.ParserFacade;
-import com.outseta.client_helper.request_maker.RequestMaker;
-import com.outseta.constant.RequestMakerType;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidArgumentException;
-import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.exception.OutsetaInvalidURLException;
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
@@ -20,7 +16,6 @@ import com.outseta.model.result.ItemPage;
 import com.outseta.model.result.Person;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class is used to make calls to the People endpoints of the CRM API.
@@ -32,191 +27,6 @@ import java.util.Map;
 public final class PeopleClient extends BaseClient {
 
     /**
-     * This class is used to build a PeopleClient object.
-     * <p>
-     *     The builder is used to make it easier to construct a PeopleClient
-     *     object.
-     * </p>
-     */
-    public static class Builder extends ClientBuilder {
-
-        /**
-         * This constructor is used to initialize the builder with the base url
-         * for the api.
-         *
-         * @param baseUrl The base url for the api
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built
-         */
-        public Builder(final String baseUrl)
-                throws OutsetaClientBuildException {
-            super(new PeopleClient(baseUrl));
-        }
-
-        /**
-         * This method is used to set the base url for the api.
-         *
-         * @param baseUrl The base url for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
-         */
-        @Override
-        public Builder baseUrl(final String baseUrl)
-                throws OutsetaClientBuildException {
-
-            super.baseUrl(baseUrl);
-            return this;
-        }
-
-        /**
-         * This method is used to set the api key for the api.
-         *
-         * @param apiKey The api key for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
-         */
-        @Override
-        public Builder apiKey(final String apiKey)
-                throws OutsetaClientBuildException {
-
-            super.apiKey(apiKey);
-            return this;
-        }
-
-        /**
-         * This method is used to set the access key for the api.
-         *
-         * @param accessKey The access key for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
-         */
-        @Override
-        public Builder accessKey(final String accessKey)
-                throws OutsetaClientBuildException {
-
-            super.accessKey(accessKey);
-            return this;
-        }
-
-        /**
-         * This method is used to set the headers for the api.
-         *
-         * @param headers The headers for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
-         */
-        @Override
-        public Builder headers(final Map<String, String> headers)
-                throws OutsetaClientBuildException {
-
-            super.headers(headers);
-            return this;
-        }
-
-        /**
-         * This method is used to set the request maker for the api.
-         *
-         * @param requestMakerType The request maker for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaInvalidRequestMakerException Thrown if the client
-         *                                      cannot be built.
-         */
-        @Override
-        public Builder requestMaker(
-                final RequestMakerType requestMakerType)
-                throws OutsetaInvalidRequestMakerException {
-
-            super.requestMaker(requestMakerType);
-            return this;
-        }
-
-        /**
-         * This method is used to set the request maker for the api.
-         * @param requestMakerType The request maker to set.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaInvalidRequestMakerException Thrown if the client
-         *      cannot be built.
-         */
-        @Override
-        public Builder requestMaker(final String requestMakerType)
-                throws OutsetaInvalidRequestMakerException {
-            super.requestMaker(requestMakerType);
-            return this;
-        }
-
-        /**
-         * This method is used to set the request maker for the api.
-         * @param requestMaker The request maker to set.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaInvalidRequestMakerException Thrown if the client
-         *      cannot be built.
-         */
-        @Override
-        public Builder requestMaker(final RequestMaker requestMaker)
-                throws OutsetaInvalidRequestMakerException {
-            super.requestMaker(requestMaker);
-            return this;
-        }
-
-        /**
-         * This method is used to set the parser for the api.
-         * @param parserFacade The parser to set.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *      built.
-         */
-        @Override
-        public Builder parser(final ParserFacade parserFacade)
-                throws OutsetaClientBuildException {
-            super.parser(parserFacade);
-            return this;
-        }
-
-        /**
-         * This method is used to set the default parser for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *      built.
-         */
-        @Override
-        public Builder defaultParser()
-                throws OutsetaClientBuildException {
-            super.defaultParser();
-            return this;
-        }
-
-        /**
-         * This method is used to set the default request maker for the api.
-         * @return The builder so that calls can be chained.
-         * @throws OutsetaInvalidRequestMakerException Thrown if the client
-         *      cannot be built.
-         */
-        @Override
-        public Builder defaultRequestMaker()
-                throws OutsetaInvalidRequestMakerException {
-
-            super.defaultRequestMaker();
-            return this;
-        }
-
-        /**
-         * This method is used to build the PeopleClient object.
-         *
-         * @return The PeopleClient object.
-         * @throws OutsetaClientBuildException Thrown if the client cannot be
-         *                                     built.
-         */
-        @Override
-        public PeopleClient build() throws OutsetaClientBuildException {
-            return (PeopleClient) super.build();
-        }
-    }
-
-    /**
      * This method is used to get a builder that can be used to build a
      * PeopleClient object.
      *
@@ -225,9 +35,9 @@ public final class PeopleClient extends BaseClient {
      * @throws OutsetaClientBuildException Thrown if the client cannot be
      *                                     built.
      */
-    public static Builder builder(final String baseUrl)
+    public static ClientBuilder<PeopleClient> builder(final String baseUrl)
             throws OutsetaClientBuildException {
-        return new Builder(baseUrl);
+        return new ClientBuilder<>(new PeopleClient(baseUrl));
     }
 
     /**
@@ -314,7 +124,7 @@ public final class PeopleClient extends BaseClient {
      *      .pageSize(pageSize)
      *      .build();
      * int total = 0;
-     * PersonPage personPage = null;
+     * ItemPage<Person> personPage = null;
      *
      * do {
      *      // Keep making requests as long as there are more pages
@@ -339,15 +149,8 @@ public final class PeopleClient extends BaseClient {
                     "Page request cannot be null.");
         }
 
-        HashMap<String, Object> params = new HashMap<>();
-        if (pageRequest.getPageNum() != null) {
-            params.put("offset", pageRequest.getPageNum().toString());
-        }
-        if (pageRequest.getPageSize() != null) {
-            params.put("limit", pageRequest.getPageSize().toString());
-        }
-
-        String result = this.get("/crm/people", params);
+        String result = this.get("/crm/people",
+                pageRequest.buildParams());
 
         return this.getParserFacade()
                 .jsonStringToPage(result,
@@ -447,7 +250,8 @@ public final class PeopleClient extends BaseClient {
                     "Person request cannot be null.");
         }
 
-        String result = this.put("/crm/people/" + personId, new HashMap<>(),
+        String result = this.put("/crm/people/" + personId,
+                new HashMap<>(),
                 this.getParserFacade().objectToJsonString(personRequest));
 
         return this.getParserFacade().jsonStringToObject(result, Person.class);

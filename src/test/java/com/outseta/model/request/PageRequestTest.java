@@ -1,13 +1,18 @@
 package com.outseta.model.request;
 
+import com.outseta.constant.Sort;
 import com.outseta.exception.OutsetaPageBuildException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,6 +65,13 @@ public class PageRequestTest {
 
         assertEquals(page, r.getPageNum());
         assertEquals(pageSize, r.getPageSize());
+
+        final PageRequest.Builder builder1 = new PageRequest.Builder(r);
+
+        r = builder1.build();
+
+        assertEquals(page, r.getPageNum());
+        assertEquals(pageSize, r.getPageSize());
     }
 
     /**
@@ -80,6 +92,9 @@ public class PageRequestTest {
         PageRequest r = builder
                 .page(page)
                 .pageSize(pageSize)
+                .customParams(new HashMap<>())
+                .orderBy("id")
+                .orderByDirection(Sort.ASC)
                 .build();
 
         assertEquals(page, r.getPageNum());
@@ -177,7 +192,7 @@ public class PageRequestTest {
      * This method is used to test the next page request method.
      */
     @Test
-    public void testNextPageRequest() throws OutsetaPageBuildException {
+    public void testNextPageRequest() {
 
         final int expectedPage = 2;
         final int expectedPageSize = 10;
@@ -187,4 +202,98 @@ public class PageRequestTest {
         assertEquals(expectedPage, nextPageRequest.getPageNum());
         assertEquals(expectedPageSize, nextPageRequest.getPageSize());
     }
+
+    /**
+     * This method is used to test the build params method.
+     */
+    @Test
+    public void testBuildParams() {
+
+        final int expectedPage = 1;
+        final int expectedPageSize = 10;
+
+        Map<String, Object> params = pageRequest.buildParams();
+
+        assertEquals(Integer.toString(expectedPage), params.get("offset"));
+        assertEquals(Integer.toString(expectedPageSize),
+                params.get("limit"));
+        assertNull(params.get("orderBy"));
+
+        pageRequest.setOrderBy("");
+        pageRequest.setOrderByDirection(Sort.ASC);
+
+        params = pageRequest.buildParams();
+
+        assertFalse(params.containsKey("orderBy"));
+
+        pageRequest.setOrderBy("id");
+
+        params = pageRequest.buildParams();
+
+        assertEquals("id+ASC", params.get("orderBy"));
+    }
+
+    /**
+     * This method is used to test the setCustomParams method.
+     */
+    @Test
+    public void testSetCustomParams() {
+
+        final int expectedPage = 1;
+        final int expectedPageSize = 10;
+
+        Map<String, Object> params = pageRequest.buildParams();
+
+        assertEquals(Integer.toString(expectedPage), params.get("offset"));
+        assertEquals(Integer.toString(expectedPageSize),
+                params.get("limit"));
+        assertNull(params.get("orderBy"));
+
+        params.put("custom", "custom");
+
+        pageRequest.setCustomParams(params);
+
+        Map<String, Object> customParams = pageRequest.getCustomParams();
+        params = pageRequest.buildParams();
+
+        assertEquals("custom", params.get("custom"));
+        assertEquals(customParams, params);
+    }
+
+    /**
+     * This method is used to test the setOrderBy method.
+     */
+    @Test
+    public void testSetOrderBy() {
+
+        final int expectedPage = 1;
+        final int expectedPageSize = 10;
+
+        Map<String, Object> params = pageRequest.buildParams();
+
+        assertEquals(Integer.toString(expectedPage), params.get("offset"));
+        assertEquals(Integer.toString(expectedPageSize),
+                params.get("limit"));
+        assertNull(params.get("orderBy"));
+
+        pageRequest.setOrderBy("id");
+
+        params = pageRequest.buildParams();
+
+        assertEquals("id+ASC", params.get("orderBy"));
+        assertEquals("id", pageRequest.getOrderBy());
+    }
+
+    /**
+     * This method is used to test the setOrderByDirection method.
+     */
+    @Test
+    public void testSetOrderByDirection() {
+
+
+        pageRequest.setOrderByDirection(Sort.DESC);
+
+        assertEquals(Sort.DESC, pageRequest.getOrderByDirection());
+    }
+
 }

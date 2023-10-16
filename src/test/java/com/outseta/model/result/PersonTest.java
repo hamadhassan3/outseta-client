@@ -626,9 +626,9 @@ public class PersonTest {
      */
     @Test
     public void testSetMailingAddress() {
-        MailingAddress mailingAddress = new MailingAddress();
-        person.setMailingAddress(mailingAddress);
-        assertEquals(mailingAddress, person.getMailingAddress());
+        Address address = new Address();
+        person.setMailingAddress(address);
+        assertEquals(address, person.getMailingAddress());
     }
 
     /**
@@ -824,7 +824,7 @@ public class PersonTest {
         assertNotEquals(person, p4);
         p4.setPersonAccount(person.getPersonAccount());
 
-        p4.setMailingAddress(new MailingAddress());
+        p4.setMailingAddress(new Address());
         assertNotEquals(person, p4);
         p4.setMailingAddress(person.getMailingAddress());
 
