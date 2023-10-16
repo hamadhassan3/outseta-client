@@ -87,7 +87,7 @@ public final class Account implements BaseResult, BaseInput {
          * @return The builder.
          */
         public Builder accountStage(final AccountStage pAccountStage) {
-            account.setAccountStage(pAccountStage);
+            account.setAccountStage(pAccountStage.getValue());
             return this;
         }
 
@@ -128,6 +128,16 @@ public final class Account implements BaseResult, BaseInput {
          */
         public Builder updated(final Date pUpdated) {
             account.setUpdated(pUpdated);
+            return this;
+        }
+
+        /**
+         * Sets the Subscriptions associated with this account.
+         * @param subscriptions The Subscriptions associated with this account.
+         * @return The builder.
+         */
+        public Builder subscriptions(final List<Subscription> subscriptions) {
+            account.setSubscriptions(subscriptions);
             return this;
         }
 
@@ -174,7 +184,7 @@ public final class Account implements BaseResult, BaseInput {
      * The account's stage.
      */
     @JsonProperty("AccountStage")
-    private AccountStage accountStage;
+    private Integer accountStage;
 
     /**
      * The account's phone number.
@@ -187,6 +197,12 @@ public final class Account implements BaseResult, BaseInput {
      */
     @JsonProperty("PersonAccount")
     private List<PersonAccount> personAccount;
+
+    /**
+     * The Subscriptions associated with this account.
+     */
+    @JsonProperty("Subscriptions")
+    private List<Subscription> subscriptions;
 
     /**
      * The date this account was created.
@@ -300,7 +316,7 @@ public final class Account implements BaseResult, BaseInput {
      * Returns the account stage of the account.
      * @return The account stage of the account.
      */
-    public AccountStage getAccountStage() {
+    public Integer getAccountStage() {
         return accountStage;
     }
 
@@ -308,7 +324,7 @@ public final class Account implements BaseResult, BaseInput {
      * Sets the account stage of the account.
      * @param pAccountStage The account stage of the account.
      */
-    public void setAccountStage(final AccountStage pAccountStage) {
+    public void setAccountStage(final Integer pAccountStage) {
         this.accountStage = pAccountStage;
     }
 
@@ -378,6 +394,22 @@ public final class Account implements BaseResult, BaseInput {
     }
 
     /**
+     * Returns the Subscriptions associated with this account.
+     * @return The Subscriptions associated with this account.
+     */
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    /**
+     * Sets the Subscriptions associated with this account.
+     * @param pSubscriptions The Subscriptions associated with this account.
+     */
+    public void setSubscriptions(final List<Subscription> pSubscriptions) {
+        this.subscriptions = pSubscriptions;
+    }
+
+    /**
      * Compares this Account to the specified object.
      *
      * @param other The object to compare this Account against.
@@ -411,7 +443,9 @@ public final class Account implements BaseResult, BaseInput {
                     && Objects.equals(this.personAccount,
                     otherAccount.personAccount)
                     && Objects.equals(this.created, otherAccount.created)
-                    && Objects.equals(this.updated, otherAccount.updated));
+                    && Objects.equals(this.updated, otherAccount.updated)
+                    && Objects.equals(this.subscriptions,
+                        otherAccount.subscriptions));
     }
 
     /**
@@ -423,6 +457,6 @@ public final class Account implements BaseResult, BaseInput {
     public int hashCode() {
         return Objects.hash(uid, name, clientIdentifier, billingAddress,
                 mailingAddress, accountStage, paymentInformation,
-                personAccount, created, updated);
+                personAccount, created, updated, subscriptions);
     }
 }

@@ -50,6 +50,29 @@ public class PersonAccountTest {
     }
 
     /**
+     * This method tests the builder of PersonAccount with all the fields.
+     */
+    @Test
+    public void testBuilder() {
+
+        PersonAccount test = PersonAccount.builder()
+                .account(newAccount)
+                .person(person)
+                .uid("uid")
+                .created(new Date(TIMESTAMP))
+                .updated(new Date(TIMESTAMP))
+                .primary(true)
+                .build();
+
+        assertEquals(newAccount, test.getAccount());
+        assertEquals(person, test.getPerson());
+        assertEquals("uid", test.getUid());
+        assertEquals(new Date(TIMESTAMP), test.getCreated());
+        assertEquals(new Date(TIMESTAMP), test.getUpdated());
+        assertEquals(true, test.getPrimary());
+    }
+
+    /**
      * This method tests the PersonAccount class's constructor.
      */
     @Test

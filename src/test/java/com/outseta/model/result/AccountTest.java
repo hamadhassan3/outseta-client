@@ -66,6 +66,18 @@ public class AccountTest {
     private PersonAccount personAccount2;
 
     /**
+     * The Subscription object used for testing.
+     */
+    @Mock
+    private Subscription subscription1;
+
+    /**
+     * The Subscription object used for testing.
+     */
+    @Mock
+    private Subscription subscription2;
+
+    /**
      * This method is run before each test.
      */
     @BeforeEach
@@ -82,6 +94,7 @@ public class AccountTest {
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
                 .personAccount(List.of(personAccount1))
+                .subscriptions(List.of(subscription1))
                 .build();
     }
 
@@ -103,10 +116,11 @@ public class AccountTest {
     @Test
     public void testSetAccountStage() {
         // Setting the accountStage to a new value
-        account.setAccountStage(AccountStage.PastDue);
+        account.setAccountStage(AccountStage.PastDue.getValue());
 
         // Checking that the accountStage was set to the new value
-        assertEquals(AccountStage.PastDue, account.getAccountStage());
+        assertEquals(AccountStage.PastDue.getValue(),
+                account.getAccountStage());
     }
 
     /**
@@ -208,6 +222,19 @@ public class AccountTest {
     }
 
     /**
+     * This method tests the setter for subscriptions.
+     */
+    @Test
+    public void testSetSubscriptions() {
+        // Setting the subscriptions to a new value
+        account.setSubscriptions(List.of(subscription1, subscription2));
+
+        // Checking that the subscriptions was set to the new value
+        assertEquals(List.of(subscription1, subscription2),
+                account.getSubscriptions());
+    }
+
+    /**
      * This method tests the equals method.
      */
     @Test
@@ -224,6 +251,7 @@ public class AccountTest {
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
                 .personAccount(List.of(personAccount1))
+                .subscriptions(List.of(subscription1))
                 .build();
 
         // Checking that the two objects are equal
@@ -233,7 +261,7 @@ public class AccountTest {
         assertNotEquals(account, account2);
         account2.setUid(account.getUid());
 
-        account2.setAccountStage(AccountStage.PastDue);
+        account2.setAccountStage(AccountStage.PastDue.getValue());
         assertNotEquals(account, account2);
         account2.setAccountStage(account.getAccountStage());
 
@@ -269,6 +297,10 @@ public class AccountTest {
         assertNotEquals(account, account2);
         account2.setName(account.getName());
 
+        account2.setSubscriptions(List.of(subscription1, subscription2));
+        assertNotEquals(account, account2);
+        account2.setSubscriptions(account.getSubscriptions());
+
         assertNotEquals(account, null);
         assertNotEquals(account, new Object());
         assertEquals(account, account);
@@ -290,6 +322,7 @@ public class AccountTest {
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
                 .personAccount(List.of(personAccount1))
+                .subscriptions(List.of(subscription1))
                 .build();
         assertEquals(account.hashCode(), account2.hashCode());
     }

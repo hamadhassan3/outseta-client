@@ -16,17 +16,17 @@ public class PersonAccount implements BaseResult, BaseInput {
     /**
      * This class implements a Builder for the PersonAccount class.
      */
-    public static class PersonAccountBuilder {
+    public static class Builder {
 
         /**
          * The PersonAccount object that needs to be built.
          */
-        private PersonAccount personAccount;
+        private final PersonAccount personAccount;
 
         /**
          * Default constructor for the PersonAccountBuilder class.
          */
-        public PersonAccountBuilder() {
+        public Builder() {
             personAccount = new PersonAccount();
         }
 
@@ -37,7 +37,7 @@ public class PersonAccount implements BaseResult, BaseInput {
          * @return The PersonAccountBuilder object with the person object that
          * this PersonAccount is associated with set.
          */
-        public PersonAccountBuilder person(final Person pPerson) {
+        public Builder person(final Person pPerson) {
             personAccount.setPerson(pPerson);
             return this;
         }
@@ -49,7 +49,7 @@ public class PersonAccount implements BaseResult, BaseInput {
          * @return The PersonAccountBuilder object with the account object that
          * this PersonAccount is associated with set.
          */
-        public PersonAccountBuilder account(final Account pAccount) {
+        public Builder account(final Account pAccount) {
             personAccount.setAccount(pAccount);
             return this;
         }
@@ -62,8 +62,41 @@ public class PersonAccount implements BaseResult, BaseInput {
          * @return The PersonAccountBuilder object with whether this
          * PersonAccount is the primary PersonAccount for the Person set.
          */
-        public PersonAccountBuilder primary(final Boolean pPrimary) {
+        public Builder primary(final Boolean pPrimary) {
             personAccount.setPrimary(pPrimary);
+            return this;
+        }
+
+        /**
+         * Sets the uid of the PersonAccount object.
+         * @param uid The uid of the PersonAccount object.
+         * @return The PersonAccountBuilder object with the uid of the
+         *       PersonAccount object set.
+         */
+        public Builder uid(final String uid) {
+            personAccount.setUid(uid);
+            return this;
+        }
+
+        /**
+         * Sets the created date of the person account object.
+         * @param created The created date of the person account object.
+         * @return The PersonAccountBuilder object with the created date of the
+         *     person account object set.
+         */
+        public Builder created(final Date created) {
+            personAccount.setCreated(created);
+            return this;
+        }
+
+        /**
+         * Sets the updated date of the person account object.
+         * @param updated The updated date of the person account object.
+         * @return The PersonAccountBuilder object with the updated date of the
+         *     person account object set.
+         */
+        public Builder updated(final Date updated) {
+            personAccount.setUpdated(updated);
             return this;
         }
 
@@ -126,6 +159,14 @@ public class PersonAccount implements BaseResult, BaseInput {
      */
     @JsonProperty("Updated")
     private Date updated;
+
+    /**
+     * Returns a new Builder object.
+     * @return A new Builder object.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * Default constructor for the creation of a PersonAccount object.
