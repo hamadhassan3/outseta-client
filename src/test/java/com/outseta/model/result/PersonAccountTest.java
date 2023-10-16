@@ -3,6 +3,7 @@ package com.outseta.model.result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
@@ -28,12 +29,47 @@ public class PersonAccountTest {
     private static final long TIMESTAMP = 123456789L;
 
     /**
+     * The PersonAccount object used for testing.
+     */
+    @Mock
+    private Account newAccount;
+
+    /**
+     * The PersonAccount object used for testing.
+     */
+    @Mock
+    private Person person;
+
+    /**
      * This method is run before each test.
      */
     @BeforeEach
     public void setUp() {
         // Creating a PersonAccount object for testing
         personAccount = new PersonAccount();
+    }
+
+    /**
+     * This method tests the builder of PersonAccount with all the fields.
+     */
+    @Test
+    public void testBuilder() {
+
+        PersonAccount test = PersonAccount.builder()
+                .account(newAccount)
+                .person(person)
+                .uid("uid")
+                .created(new Date(TIMESTAMP))
+                .updated(new Date(TIMESTAMP))
+                .primary(true)
+                .build();
+
+        assertEquals(newAccount, test.getAccount());
+        assertEquals(person, test.getPerson());
+        assertEquals("uid", test.getUid());
+        assertEquals(new Date(TIMESTAMP), test.getCreated());
+        assertEquals(new Date(TIMESTAMP), test.getUpdated());
+        assertEquals(true, test.getPrimary());
     }
 
     /**
@@ -83,7 +119,6 @@ public class PersonAccountTest {
      */
     @Test
     public void testSetAccount() {
-        PersonAccount newAccount = new PersonAccount();
         personAccount.setAccount(newAccount);
         assertEquals(newAccount, personAccount.getAccount());
     }
@@ -198,8 +233,6 @@ public class PersonAccountTest {
     @Test
     public void testEquals() {
 
-        Person person = new Person();
-        PersonAccount account = new PersonAccount();
         String uid = "uid";
         Date created = new Date(TIMESTAMP);
         Date updated = new Date(TIMESTAMP);
@@ -212,7 +245,7 @@ public class PersonAccountTest {
         PersonAccount pa2 = new PersonAccount();
         PersonAccount pa3 = new PersonAccount();
         pa3.setPerson(person);
-        pa3.setAccount(account);
+        pa3.setAccount(newAccount);
         pa3.setUid(uid);
         pa3.setCreated(created);
         pa3.setUpdated(updated);
@@ -221,7 +254,7 @@ public class PersonAccountTest {
         pa3.setActivityEventData(activityEventData);
 
         personAccount.setPerson(person);
-        personAccount.setAccount(account);
+        personAccount.setAccount(newAccount);
         personAccount.setUid(uid);
         personAccount.setCreated(created);
         personAccount.setUpdated(updated);
@@ -276,7 +309,6 @@ public class PersonAccountTest {
     @Test
     public void testHashCode() {
 
-        Person person = new Person();
         PersonAccount account = new PersonAccount();
         String uid = "uid";
         Date created = new Date(TIMESTAMP);
@@ -290,7 +322,7 @@ public class PersonAccountTest {
         PersonAccount pa2 = new PersonAccount();
         PersonAccount pa3 = new PersonAccount();
         pa3.setPerson(person);
-        pa3.setAccount(account);
+        pa3.setAccount(newAccount);
         pa3.setUid(uid);
         pa3.setCreated(created);
         pa3.setUpdated(updated);
@@ -299,7 +331,7 @@ public class PersonAccountTest {
         pa3.setActivityEventData(activityEventData);
 
         personAccount.setPerson(person);
-        personAccount.setAccount(account);
+        personAccount.setAccount(newAccount);
         personAccount.setUid(uid);
         personAccount.setCreated(created);
         personAccount.setUpdated(updated);

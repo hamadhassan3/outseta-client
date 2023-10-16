@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.cfg.CoercionAction;
+import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
 import com.outseta.client_helper.parser.json.JsonParser;
 import com.outseta.exception.OutsetaParseException;
 import com.outseta.model.DataComponent;
@@ -42,7 +44,10 @@ public class JsonParserJackson implements JsonParser {
 
         // Configure the parser here
         this.objectMapper.configure(
-                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .coercionConfigDefaults().setCoercion(
+                        CoercionInputShape.EmptyString,
+                        CoercionAction.AsNull);
     }
 
     /**

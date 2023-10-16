@@ -28,10 +28,10 @@ public final class DealClient extends BaseClient {
 
     /**
      * This method is used to get a builder that can be used to build an
-     * ActivityClient object.
+     * DealClient object.
      *
      * @param baseUrl The base url for the api.
-     * @return The builder that can be used to build a ActivityClient object.
+     * @return The builder that can be used to build a DealClient object.
      * @throws OutsetaClientBuildException Thrown if the client cannot be
      *                                     built.
      */
@@ -75,7 +75,7 @@ public final class DealClient extends BaseClient {
      *      .defaultParser()
      *      .defaultRequestMaker()
      *      .build();
-     * DealRequest request = DealRequest.builder()
+     * PageRequest request = PageRequest.builder()
      *      .page(page)
      *      .pageSize(pageSize)
      *      .build();
@@ -88,10 +88,10 @@ public final class DealClient extends BaseClient {
      *      total = dealPage.getMetadata().getTotal();
      *
      *      // The current page's items are aggregated
-     *      allActivities.addAll(dealPage.getItems());
+     *      allDeals.addAll(dealPage.getItems());
      *      request = request.nextPageRequest();
      * }
-     * while (allActivities.size() < total);
+     * while (allDeals.size() < total);
      * }</pre>
      */
     public ItemPage<Deal> getDealPage(final PageRequest dealPageRequest)
