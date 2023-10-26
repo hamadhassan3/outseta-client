@@ -73,8 +73,8 @@ jobs:
           cache: gradle
       - name: Import GPG secret key
         run: |
-         echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
-         gpg --import --yes private.pgp
+          echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
+          gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --import private.pgp
         shell: bash
       - name: Make gradlew executable
         run: chmod +x gradlew
