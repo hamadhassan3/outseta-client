@@ -1,5 +1,6 @@
 package com.outseta.model.result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.constant.ActivityType;
 import com.outseta.constant.EntityType;
@@ -78,7 +79,7 @@ public class Activity implements BaseResult, BaseInput {
          * @param pActivityType The type of the activity.
          * @return The Builder object.
          */
-        public Builder activityType(final int pActivityType) {
+        public Builder activityType(final Integer pActivityType) {
             this.activity.activityType = pActivityType;
             return this;
         }
@@ -98,7 +99,7 @@ public class Activity implements BaseResult, BaseInput {
          * @param pEntityType The entity type of the activity.
          * @return The Builder object.
          */
-        public Builder entityType(final int pEntityType) {
+        public Builder entityType(final Integer pEntityType) {
             this.activity.entityType = pEntityType;
             return this;
         }
@@ -184,19 +185,21 @@ public class Activity implements BaseResult, BaseInput {
      * The date and time of the activity.
      */
     @JsonProperty("ActivityDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date activityDateTime;
 
     /**
      * The type of the activity.
      */
     @JsonProperty("ActivityType")
-    private int activityType;
+    private Integer activityType;
 
     /**
      * The entity type of the activity.
      */
     @JsonProperty("EntityType")
-    private int entityType;
+    private Integer entityType;
 
     /**
      * The entity uid of the activity.
@@ -214,12 +217,16 @@ public class Activity implements BaseResult, BaseInput {
      * The date this activity was created.
      */
     @JsonProperty("Created")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date created;
 
     /**
      * The date this activity was last updated.
      */
     @JsonProperty("Updated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updated;
 
     /**
@@ -305,7 +312,7 @@ public class Activity implements BaseResult, BaseInput {
      * Gets the type of the activity.
      * @return The type of the activity.
      */
-    public int getActivityType() {
+    public Integer getActivityType() {
         return activityType;
     }
 
@@ -313,7 +320,7 @@ public class Activity implements BaseResult, BaseInput {
      * Sets the type of the activity.
      * @param pActivityType The type of the activity.
      */
-    public void setActivityType(final int pActivityType) {
+    public void setActivityType(final Integer pActivityType) {
         this.activityType = pActivityType;
     }
 
@@ -321,7 +328,7 @@ public class Activity implements BaseResult, BaseInput {
      * Gets the entity type of the activity.
      * @return The entity type of the activity.
      */
-    public int getEntityType() {
+    public Integer getEntityType() {
         return entityType;
     }
 
@@ -329,7 +336,7 @@ public class Activity implements BaseResult, BaseInput {
      * Sets the entity type of the activity.
      * @param pEntityType The entity type of the activity.
      */
-    public void setEntityType(final int pEntityType) {
+    public void setEntityType(final Integer pEntityType) {
         this.entityType = pEntityType;
     }
 
@@ -414,18 +421,7 @@ public class Activity implements BaseResult, BaseInput {
 
         Activity otherActivity = (Activity) pObject;
 
-        return Objects.equals(this.title, otherActivity.title)
-                && Objects.equals(this.description, otherActivity.description)
-                && Objects.equals(this.activityData, otherActivity.activityData)
-                && Objects
-                    .equals(this.activityDateTime,
-                            otherActivity.activityDateTime)
-                && Objects.equals(this.activityType, otherActivity.activityType)
-                && Objects.equals(this.entityType, otherActivity.entityType)
-                && Objects.equals(this.entityUid, otherActivity.entityUid)
-                && Objects.equals(this.uid, otherActivity.uid)
-                && Objects.equals(this.created, otherActivity.created)
-                && Objects.equals(this.updated, otherActivity.updated);
+        return Objects.equals(this.uid, otherActivity.uid);
     }
 
     /**
@@ -434,8 +430,6 @@ public class Activity implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.title, this.description, this.activityData,
-                this.activityDateTime, this.activityType, this.entityType,
-                this.entityUid, this.uid, this.created, this.updated);
+        return Objects.hash(this.uid);
     }
 }

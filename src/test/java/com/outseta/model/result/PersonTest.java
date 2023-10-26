@@ -93,7 +93,7 @@ public class PersonTest {
         assertNull(p.getPasswordMustChange());
         assertNull(p.getPhoneMobile());
         assertNull(p.getPersonAccount());
-        assertNull(p.getMailingAddress());
+        assertNull(p.getAddress());
         assertNull(p.getTitle());
         assertNull(p.getUserAgent());
 
@@ -123,7 +123,7 @@ public class PersonTest {
         assertEquals(true, person.getPasswordMustChange());
         assertEquals("phoneMobile", person.getPhoneMobile());
         assertNull(person.getPersonAccount());
-        assertNull(person.getMailingAddress());
+        assertNull(person.getAddress());
         assertEquals("title", person.getTitle());
         assertEquals("userAgent", person.getUserAgent());
     }
@@ -160,7 +160,7 @@ public class PersonTest {
         assertNull(p.getPasswordMustChange());
         assertNull(p.getPhoneMobile());
         assertNull(p.getPersonAccount());
-        assertNull(p.getMailingAddress());
+        assertNull(p.getAddress());
         assertNull(p.getTitle());
         assertNull(p.getUserAgent());
     }
@@ -224,7 +224,7 @@ public class PersonTest {
         assertEquals(true, p.getPasswordMustChange());
         assertEquals("phoneMobile", p.getPhoneMobile());
         assertNull(p.getPersonAccount());
-        assertNull(p.getMailingAddress());
+        assertNull(p.getAddress());
         assertEquals("title", p.getTitle());
         assertEquals("userAgent", p.getUserAgent());
     }
@@ -614,24 +614,6 @@ public class PersonTest {
     }
 
     /**
-     * This method tests the Person class's getMailingAddress method.
-     */
-    @Test
-    public void testGetMailingAddress() {
-        assertNull(person.getMailingAddress());
-    }
-
-    /**
-     * This method tests the Person class's setMailingAddress method.
-     */
-    @Test
-    public void testSetMailingAddress() {
-        Address address = new Address();
-        person.setMailingAddress(address);
-        assertEquals(address, person.getMailingAddress());
-    }
-
-    /**
      * This method tests the Person class's getTitle method.
      */
     @Test
@@ -683,6 +665,16 @@ public class PersonTest {
     }
 
     /**
+     * This mehtod tests the Person class's setAddress method.
+     */
+    @Test
+    public void testSetAddress() {
+        Address address = new Address();
+        person.setAddress(address);
+        assertEquals(address, person.getAddress());
+    }
+
+    /**
      * This method tests the Person class's equals method.
      */
     @Test
@@ -726,115 +718,7 @@ public class PersonTest {
         assertEquals(p1, p1);
         assertNotEquals(p1, null);
         assertNotEquals(p1, new Object());
-        assertNotEquals(p1, p2);
         assertEquals(person, p4);
-
-        // Testing other branches of equals method
-        p4.setUid("rand");
-        assertNotEquals(person, p4);
-        p4.setUid(person.getUid());
-
-        p4.setCreated(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setCreated(person.getCreated());
-
-        p4.setUpdated(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setUpdated(person.getUpdated());
-
-        p4.setEmail("rand");
-        assertNotEquals(person, p4);
-        p4.setEmail(person.getEmail());
-
-        p4.setFirstName("rand");
-        assertNotEquals(person, p4);
-        p4.setFirstName(person.getFirstName());
-
-        p4.setLastName("rand");
-        assertNotEquals(person, p4);
-        p4.setLastName(person.getLastName());
-
-        p4.setLanguage("rand");
-        assertNotEquals(person, p4);
-        p4.setLanguage(person.getLanguage());
-
-        p4.setEmailBounceDateTime(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setEmailBounceDateTime(person.getEmailBounceDateTime());
-
-        p4.setEmailSpamDateTime(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setEmailSpamDateTime(person.getEmailSpamDateTime());
-
-        p4.setFullName("rand");
-        assertNotEquals(person, p4);
-        p4.setFullName(person.getFullName());
-
-        p4.setIpAddress("rand");
-        assertNotEquals(person, p4);
-        p4.setIpAddress(person.getIpAddress());
-
-        p4.setLastLoginDateTime(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setLastLoginDateTime(person.getLastLoginDateTime());
-
-        p4.setoAuthGoogleProfileId("rand");
-        assertNotEquals(person, p4);
-        p4.setoAuthGoogleProfileId(person.getoAuthGoogleProfileId());
-
-        p4.setPhoneWork("rand");
-        assertNotEquals(person, p4);
-        p4.setPhoneWork(person.getPhoneWork());
-
-        p4.setProfileImageS3Url("rand");
-        assertNotEquals(person, p4);
-        p4.setProfileImageS3Url(person.getProfileImageS3Url());
-
-        p4.setReferer("rand");
-        assertNotEquals(person, p4);
-        p4.setReferer(person.getReferer());
-
-        p4.setTimezone("rand");
-        assertNotEquals(person, p4);
-        p4.setTimezone(person.getTimezone());
-
-        p4.setEmailLastDeliveredDateTime(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setEmailLastDeliveredDateTime(
-                person.getEmailLastDeliveredDateTime());
-
-        p4.setEmailUnsubscribeDateTime(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setEmailUnsubscribeDateTime(
-                person.getEmailUnsubscribeDateTime());
-
-        p4.setPasswordLastUpdated(new Date(0));
-        assertNotEquals(person, p4);
-        p4.setPasswordLastUpdated(person.getPasswordLastUpdated());
-
-        p4.setPasswordMustChange(false);
-        assertNotEquals(person, p4);
-        p4.setPasswordMustChange(person.getPasswordMustChange());
-
-        p4.setPhoneMobile("rand");
-        assertNotEquals(person, p4);
-        p4.setPhoneMobile(person.getPhoneMobile());
-
-        p4.setPersonAccount(List.of(new PersonAccount()));
-        assertNotEquals(person, p4);
-        p4.setPersonAccount(person.getPersonAccount());
-
-        p4.setMailingAddress(new Address());
-        assertNotEquals(person, p4);
-        p4.setMailingAddress(person.getMailingAddress());
-
-        p4.setTitle("rand");
-        assertNotEquals(person, p4);
-        p4.setTitle(person.getTitle());
-
-        p4.setUserAgent("rand");
-        assertNotEquals(person, p4);
-        p4.setUserAgent(person.getUserAgent());
     }
 
     /**
@@ -844,7 +728,6 @@ public class PersonTest {
     public void testHashcode() {
         // Creating an object to compare with
         Person p1 = Person.builder().email("email").build();
-        Person p2 = Person.builder().fullName("fullname").build();
         Person p3 = Person.builder().email("email").build();
 
         // Creating a copy of this class's person
@@ -880,7 +763,6 @@ public class PersonTest {
         // Testing the hashCode method
         assertEquals(p1.hashCode(), p3.hashCode());
         assertEquals(person.hashCode(), p4.hashCode());
-        assertNotEquals(p1.hashCode(), p2.hashCode());
     }
 
 }

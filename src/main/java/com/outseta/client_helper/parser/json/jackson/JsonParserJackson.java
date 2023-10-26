@@ -1,5 +1,6 @@
 package com.outseta.client_helper.parser.json.jackson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,6 +46,7 @@ public class JsonParserJackson implements JsonParser {
         // Configure the parser here
         this.objectMapper.configure(
                 DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .coercionConfigDefaults().setCoercion(
                         CoercionInputShape.EmptyString,
                         CoercionAction.AsNull);

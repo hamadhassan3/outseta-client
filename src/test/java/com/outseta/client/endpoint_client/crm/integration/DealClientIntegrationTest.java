@@ -1,5 +1,6 @@
-package com.outseta.client.endpoint_client.crm;
+package com.outseta.client.endpoint_client.crm.integration;
 
+import com.outseta.client.endpoint_client.crm.DealClient;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.model.request.PageRequest;
@@ -108,7 +109,7 @@ public class DealClientIntegrationTest {
         assertDoesNotThrow(() -> {
             Deal createdDeal = dealClient.createDeal(Deal.builder()
                     .name("Hammad Test")
-                    .dealPipelineStage(new DealPipelineStage("vW5x1O94"))
+                    .dealPipelineStage(new DealPipelineStage("BWzAjN9E"))
                     .build());
 
             assertNotNull(createdDeal);

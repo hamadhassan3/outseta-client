@@ -1,5 +1,7 @@
-package com.outseta.client.endpoint_client.crm;
+package com.outseta.client.endpoint_client.crm.integration;
 
+import com.outseta.client.endpoint_client.crm.ActivityClient;
+import com.outseta.client.endpoint_client.crm.PeopleClient;
 import com.outseta.constant.ActivityType;
 import com.outseta.constant.EntityType;
 import com.outseta.exception.OutsetaClientBuildException;
@@ -7,6 +9,7 @@ import com.outseta.exception.OutsetaInvalidRequestMakerException;
 import com.outseta.model.request.PageRequest;
 import com.outseta.model.result.Activity;
 import com.outseta.model.result.ItemPage;
+import com.outseta.model.result.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -108,16 +111,28 @@ public class ActivityClientIntegrationTest {
     @Test
     public void testCreateCustomActivity() {
             assertDoesNotThrow(() -> {
+                PeopleClient peopleClient = PeopleClient.builder(outsetaUrl)
+                        .apiKey(outsetaKey)
+                        .defaultParser()
+                        .defaultRequestMaker()
+                        .build();
+                Person person = peopleClient.createPerson(Person.builder()
+                        .fullName("Hammad Hassan sdk test")
+                        .email("hammadCreateWithActivity@dummy.com")
+                        .build());
+
                 Activity activity = Activity.builder()
                         .activityType(ActivityType.CUSTOM)
                         .entityType(EntityType.PERSON)
-                        .entityUid("amRGPLpQ")
+                        .entityUid(person.getUid())
                         .description("Hammad outseta-java-sdk test")
                         .title("Hammad outseta-java-sdk test")
                         .build();
 
                 Activity createdActivity = activityClient
                         .createCustomActivity(activity);
+
+                peopleClient.deletePerson(person.getUid());
 
                 assertNotNull(createdActivity);
                 assertNotNull(createdActivity.getUid());

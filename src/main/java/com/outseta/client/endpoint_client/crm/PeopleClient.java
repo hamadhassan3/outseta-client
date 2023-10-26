@@ -86,7 +86,7 @@ public final class PeopleClient extends BaseClient {
 
         if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Person id cannot be null.");
+                    "Person id cannot be null or blank.");
         }
 
         String result = this.get("/crm/people/" + personId,
@@ -242,7 +242,7 @@ public final class PeopleClient extends BaseClient {
 
         if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Person id cannot be null.");
+                    "Person id cannot be null or blank.");
         }
 
         if (personRequest == null) {
@@ -289,7 +289,7 @@ public final class PeopleClient extends BaseClient {
 
         if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Person id cannot be null.");
+                    "Person id cannot be null or blank.");
         }
 
         this.delete("/crm/people/" + personId, new HashMap<>());
@@ -343,7 +343,7 @@ public final class PeopleClient extends BaseClient {
 
         if (personId == null || personId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Person id cannot be null.");
+                    "Person id cannot be null or blank.");
         }
 
         this.put("/crm/people/" + personId + "/setTemporaryPassword",

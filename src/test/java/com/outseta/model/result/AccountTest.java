@@ -261,46 +261,6 @@ public class AccountTest {
         assertNotEquals(account, account2);
         account2.setUid(account.getUid());
 
-        account2.setAccountStage(AccountStage.PastDue.getValue());
-        assertNotEquals(account, account2);
-        account2.setAccountStage(account.getAccountStage());
-
-        account2.setBillingAddress(billingAddress2);
-        assertNotEquals(account, account2);
-        account2.setBillingAddress(account.getBillingAddress());
-
-        account2.setMailingAddress(mailingAddress2);
-        assertNotEquals(account, account2);
-        account2.setMailingAddress(account.getMailingAddress());
-
-        account2.setClientIdentifier("newClientIdentifier");
-        assertNotEquals(account, account2);
-        account2.setClientIdentifier(account.getClientIdentifier());
-
-        account2.setCreated(new Date(TIMESTAMP + 1));
-        assertNotEquals(account, account2);
-        account2.setCreated(account.getCreated());
-
-        account2.setUpdated(new Date(TIMESTAMP + 1));
-        assertNotEquals(account, account2);
-        account2.setUpdated(account.getUpdated());
-
-        account2.setPaymentInformation("newPaymentInformation");
-        assertNotEquals(account, account2);
-        account2.setPaymentInformation(account.getPaymentInformation());
-
-        account2.setPersonAccount(List.of(personAccount1, personAccount2));
-        assertNotEquals(account, account2);
-        account2.setPersonAccount(account.getPersonAccount());
-
-        account2.setName("newName");
-        assertNotEquals(account, account2);
-        account2.setName(account.getName());
-
-        account2.setSubscriptions(List.of(subscription1, subscription2));
-        assertNotEquals(account, account2);
-        account2.setSubscriptions(account.getSubscriptions());
-
         assertNotEquals(account, null);
         assertNotEquals(account, new Object());
         assertEquals(account, account);

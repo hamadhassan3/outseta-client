@@ -65,7 +65,7 @@ public final class Deal implements BaseInput, BaseResult {
          * @param pAmount The amount of the Deal.
          * @return The Builder object.
          */
-        public Builder amount(final double pAmount) {
+        public Builder amount(final Double pAmount) {
             this.deal.amount = pAmount;
             return this;
         }
@@ -133,7 +133,7 @@ public final class Deal implements BaseInput, BaseResult {
      * The amount of the Deal.
      */
     @JsonProperty("Amount")
-    private double amount;
+    private Double amount;
 
     /**
      * The currency of the Deal.
@@ -198,7 +198,7 @@ public final class Deal implements BaseInput, BaseResult {
      * Returns the amount of the Deal.
      * @return The amount of the Deal.
      */
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
@@ -206,7 +206,7 @@ public final class Deal implements BaseInput, BaseResult {
      * Sets the amount of the Deal.
      * @param pAmount The amount of the Deal.
      */
-    public void setAmount(final double pAmount) {
+    public void setAmount(final Double pAmount) {
         this.amount = pAmount;
     }
 
@@ -262,37 +262,6 @@ public final class Deal implements BaseInput, BaseResult {
     }
 
     /**
-     * This method compares this object to another object.
-     * @param other The other object.
-     * @return True if the objects are equal, false otherwise.
-     */
-    @Override
-    public boolean equals(final Object other) {
-        if (other instanceof Deal) {
-            return Objects.equals(name, ((Deal) other).name)
-                    && Objects.equals(dealPipelineStage,
-                    ((Deal) other).dealPipelineStage)
-                    && Objects.equals(amount, ((Deal) other).amount)
-                    && Objects.equals(assignedToPersonClientIdentifier,
-                    ((Deal) other).assignedToPersonClientIdentifier)
-                    && Objects.equals(account, ((Deal) other).account)
-                    && Objects.equals(dealPeople, ((Deal) other).dealPeople)
-                    && Objects.equals(uid, ((Deal) other).uid);
-        }
-        return false;
-    }
-
-    /**
-     * This method returns the hash code for this object.
-     * @return The hash code for this object.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, name, dealPipelineStage, amount,
-                assignedToPersonClientIdentifier, account, dealPeople);
-    }
-
-    /**
      * This method returns the unique identifier of the Deal.
      * @return The unique identifier of the Deal.
      */
@@ -308,4 +277,25 @@ public final class Deal implements BaseInput, BaseResult {
         this.uid = pUid;
     }
 
+    /**
+     * This method compares this object to another object.
+     * @param other The other object.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(final Object other) {
+        if (other instanceof Deal) {
+            return Objects.equals(uid, ((Deal) other).uid);
+        }
+        return false;
+    }
+
+    /**
+     * This method returns the hash code for this object.
+     * @return The hash code for this object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid);
+    }
 }

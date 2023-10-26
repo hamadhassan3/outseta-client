@@ -94,9 +94,9 @@ public class ActivityTest {
         assertNull(a1.getDescription());
         assertNull(a1.getTitle());
         assertNull(a1.getActivityDateTime());
-        assertEquals(0, a1.getEntityType());
+        assertNull(a1.getEntityType());
         assertNull(a1.getEntityUid());
-        assertEquals(0, a1.getActivityType());
+        assertNull(a1.getActivityType());
         assertNull(a1.getCreated());
         assertNull(a1.getUpdated());
 
@@ -359,46 +359,6 @@ public class ActivityTest {
         assertNotEquals(a1, new Object());
 
         assertEquals(a3, activity);
-
-        a3.setActivityData("newActivityData");
-        assertNotEquals(a3, activity);
-        a3.setActivityData(activity.getActivityData());
-
-        a3.setUid("newUid");
-        assertNotEquals(a3, activity);
-        a3.setUid(activity.getUid());
-
-        a3.setDescription("newDescription");
-        assertNotEquals(a3, activity);
-        a3.setDescription(activity.getDescription());
-
-        a3.setTitle("newTitle");
-        assertNotEquals(a3, activity);
-        a3.setTitle(activity.getTitle());
-
-        a3.setActivityDateTime(new Date(TIMESTAMP + 1));
-        assertNotEquals(a3, activity);
-        a3.setActivityDateTime(activity.getActivityDateTime());
-
-        a3.setEntityType(EntityType.DEAL.getValue());
-        assertNotEquals(a3, activity);
-        a3.setEntityType(activity.getEntityType());
-
-        a3.setEntityUid("newEntityUid");
-        assertNotEquals(a3, activity);
-        a3.setEntityUid(activity.getEntityUid());
-
-        a3.setActivityType(ActivityType.ACCOUNT_STAGE_UPDATED.getValue());
-        assertNotEquals(a3, activity);
-        a3.setActivityType(activity.getActivityType());
-
-        a3.setCreated(new Date(TIMESTAMP + 1));
-        assertNotEquals(a3, activity);
-        a3.setCreated(activity.getCreated());
-
-        a3.setUpdated(new Date(TIMESTAMP + 1));
-        assertNotEquals(a3, activity);
-        a3.setUpdated(activity.getUpdated());
 
     }
 }

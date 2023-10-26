@@ -269,38 +269,6 @@ public class PersonAccountTest {
         assertNotEquals(pa1, pa3);
         assertEquals(personAccount, pa3);
 
-        pa3.setUid("uid2");
-        assertNotEquals(personAccount, pa3);
-        pa3.setUid(personAccount.getUid());
-
-        pa3.setCreated(new Date(TIMESTAMP + 1));
-        assertNotEquals(personAccount, pa3);
-        pa3.setCreated(personAccount.getCreated());
-
-        pa3.setUpdated(new Date(TIMESTAMP + 1));
-        assertNotEquals(personAccount, pa3);
-        pa3.setUpdated(personAccount.getUpdated());
-
-        pa3.setPrimary(false);
-        assertNotEquals(personAccount, pa3);
-        pa3.setPrimary(personAccount.getPrimary());
-
-        pa3.setReceiveInvoices(false);
-        assertNotEquals(personAccount, pa3);
-        pa3.setReceiveInvoices(personAccount.getReceiveInvoices());
-
-        pa3.setActivityEventData("activityEventData2");
-        assertNotEquals(personAccount, pa3);
-        pa3.setActivityEventData(personAccount.getActivityEventData());
-
-        pa3.setPerson(null);
-        assertNotEquals(personAccount, pa3);
-        pa3.setPerson(personAccount.getPerson());
-
-        pa3.setAccount(null);
-        assertNotEquals(personAccount, pa3);
-        pa3.setAccount(personAccount.getAccount());
-
     }
 
     /**

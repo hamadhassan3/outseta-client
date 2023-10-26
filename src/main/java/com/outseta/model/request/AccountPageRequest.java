@@ -140,11 +140,22 @@ public final class AccountPageRequest extends PageRequest {
     }
 
     @Override
+    public AccountPageRequest nextPageRequest()
+            throws OutsetaPageBuildException {
+        return AccountPageRequest.builder()
+                .page(this.getPageNum() + 1)
+                .pageSize(this.getPageSize())
+                .accountStage(this.accountStage)
+                .build();
+    }
+
+    @Override
     public Map<String, Object> buildParams() {
         Map<String, Object> params = super.buildParams();
 
-        params.put("AccountStage", accountStage.getValue());
-
+        if (accountStage != null) {
+            params.put("AccountStage", accountStage.getValue());
+        }
         return params;
     }
 }

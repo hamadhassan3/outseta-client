@@ -10,7 +10,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
@@ -90,6 +93,11 @@ public class AccountPageRequestTest {
         assertEquals(accountPageRequest.buildParams()
                         .get("AccountStage"),
                 ACCOUNT_STAGE.getValue());
+
+        // Testing with null in the accountStage param.
+        accountPageRequest.setAccountStage(null);
+        assertFalse(accountPageRequest.buildParams()
+                .containsKey("AccountStage"));
     }
 
     /**
@@ -101,5 +109,24 @@ public class AccountPageRequestTest {
         accountPageRequest.setAccountStage(AccountStage.Expired);
         assertEquals(accountPageRequest.getAccountStage(),
                 AccountStage.Expired);
+    }
+
+    /**
+     * This method tests the getNextPage method of AccountPageRequest.
+     */
+    @Test
+    public void testTransactionPageRequestGetNextPage() {
+
+        assertDoesNotThrow(() -> {
+
+            AccountPageRequest nextPageRequest = accountPageRequest
+                    .nextPageRequest();
+
+            assertNotNull(nextPageRequest);
+            assertEquals(nextPageRequest.getPageNum(), PAGE + 1);
+            assertEquals(nextPageRequest.getPageSize(), PAGE_SIZE);
+            assertEquals(nextPageRequest.getAccountStage(),
+                    ACCOUNT_STAGE);
+        });
     }
 }

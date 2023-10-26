@@ -49,7 +49,7 @@ public final class ActivityPageRequest extends PageRequest {
          * @param pEntityType The entity type.
          * @return A new Builder object so that method chaining can be used.
          */
-        public Builder entityType(final int pEntityType) {
+        public Builder entityType(final Integer pEntityType) {
             this.entityType = pEntityType;
             return this;
         }
@@ -59,7 +59,7 @@ public final class ActivityPageRequest extends PageRequest {
          * @param pActivityType The activity type.
          * @return A new Builder object so that method chaining can be used.
          */
-        public Builder activityType(final int pActivityType) {
+        public Builder activityType(final Integer pActivityType) {
             this.activityType = pActivityType;
             return this;
         }
@@ -169,6 +169,17 @@ public final class ActivityPageRequest extends PageRequest {
 
     private ActivityPageRequest() {
         super();
+    }
+
+    @Override
+    public ActivityPageRequest nextPageRequest()
+            throws OutsetaPageBuildException {
+        return ActivityPageRequest.builder()
+                .page(this.getPageNum() + 1)
+                .pageSize(this.getPageSize())
+                .activityType(this.getActivityType())
+                .entityType(this.getEntityType())
+                .build();
     }
 
     /**

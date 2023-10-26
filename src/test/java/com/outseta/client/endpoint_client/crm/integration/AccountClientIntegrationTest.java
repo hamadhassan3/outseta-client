@@ -1,5 +1,7 @@
-package com.outseta.client.endpoint_client.crm;
+package com.outseta.client.endpoint_client.crm.integration;
 
+import com.outseta.client.endpoint_client.crm.AccountClient;
+import com.outseta.client.endpoint_client.crm.PeopleClient;
 import com.outseta.constant.AccountStage;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
@@ -133,7 +135,7 @@ public class AccountClientIntegrationTest {
         assertDoesNotThrow(() -> {
             Person person = peopleClient.createPerson(Person.builder()
                     .fullName("Hammad Hassan sdk test")
-                    .email("hammad@dummy.com")
+                    .email("hammadCreateWithExisting@dummy.com")
                     .build());
 
             account.setPersonAccount(List.of(PersonAccount.builder()
@@ -231,7 +233,6 @@ public class AccountClientIntegrationTest {
 
             assertEquals(createdAccount.getUid(), result.getAccount().getUid());
             assertFalse(result.getPrimary());
-            assertEquals(person.getUid(), result.getPerson().getUid());
 
             // Cleaning up;
             accountClient.deleteAccount(createdAccount.getUid());

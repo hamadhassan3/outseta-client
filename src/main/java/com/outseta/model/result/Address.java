@@ -1,5 +1,6 @@
 package com.outseta.model.result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseInput;
 import com.outseta.model.BaseResult;
@@ -242,12 +243,16 @@ public class Address implements BaseResult, BaseInput {
      * The created date in MailingAddress.
      */
     @JsonProperty("Created")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date created;
 
     /**
      * The updated date in MailingAddress.
      */
     @JsonProperty("Updated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updated;
 
     /**
@@ -464,18 +469,7 @@ public class Address implements BaseResult, BaseInput {
         Address that = (Address) o;
 
         // Using Objects for comparison because these fields can also be null
-        return Objects.equals(addressLine1, that.addressLine1)
-                && Objects.equals(addressLine2, that.addressLine2)
-                && Objects.equals(addressLine3, that.addressLine3)
-                && Objects.equals(city, that.city)
-                && Objects.equals(state, that.state)
-                && Objects.equals(postalCode, that.postalCode)
-                && Objects.equals(country, that.country)
-                && Objects.equals(geoLocation, that.geoLocation)
-                && Objects.equals(activityEventData, that.activityEventData)
-                && Objects.equals(uid, that.uid)
-                && Objects.equals(created, that.created)
-                && Objects.equals(updated, that.updated);
+        return Objects.equals(uid, that.uid);
     }
 
     /**
@@ -484,8 +478,6 @@ public class Address implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(addressLine1, addressLine2, addressLine3, city,
-                state, postalCode, country, geoLocation, activityEventData,
-                uid, created, updated);
+        return Objects.hash(uid);
     }
 }

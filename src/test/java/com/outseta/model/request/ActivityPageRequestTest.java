@@ -11,8 +11,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
@@ -160,5 +162,31 @@ public class ActivityPageRequestTest {
         this.activityPageRequest.setEntityType(1);
         assertEquals(1, this.activityPageRequest.getEntityType());
 
+    }
+
+    /**
+     * This method tests the getNextPage method of ActivityPageRequest.
+     */
+    @Test
+    public void testTransactionPageRequestGetNextPage() {
+
+        final int page = 1;
+        final int pageSize = 10;
+        final ActivityType activityType = ActivityType.ACCOUNT_ADD_PERSON;
+        final EntityType entityType = EntityType.ACCOUNT;
+
+        assertDoesNotThrow(() -> {
+
+            ActivityPageRequest nextPageRequest = activityPageRequest
+                    .nextPageRequest();
+
+            assertNotNull(nextPageRequest);
+            assertEquals(nextPageRequest.getPageNum(), page + 1);
+            assertEquals(nextPageRequest.getPageSize(), pageSize);
+            assertEquals(nextPageRequest.getActivityType(),
+                    activityType.getValue());
+            assertEquals(nextPageRequest.getEntityType(),
+                    entityType.getValue());
+        });
     }
 }
