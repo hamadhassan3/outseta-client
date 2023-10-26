@@ -80,6 +80,6 @@ jobs:
         run: chmod +x gradlew
       - name: Publish with Gradle and GPG signing
         run: |
-          ./gradlew publish -Pgpg --no-daemon \
+          echo "${{ secrets.GPG_PASSPHRASE }}" | ./gradlew publish -Pgpg --no-daemon \
             -Dsigning.gnupg.optionsFile=gpg-options
         shell: bash
