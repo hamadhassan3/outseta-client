@@ -78,5 +78,8 @@ jobs:
         shell: bash
       - name: Make gradlew executable
         run: chmod +x gradlew
-      - name: Publish with Gradle
-        run: ./gradlew publish
+      - name: Publish with Gradle and GPG signing
+        run: |
+          ./gradlew publish -Pgpg --no-daemon \
+            -Dsigning.gnupg.optionsFile=gpg-options
+        shell: bash
