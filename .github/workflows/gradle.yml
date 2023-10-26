@@ -75,6 +75,7 @@ jobs:
         run: |
           echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
           gpg --batch --yes --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" --import private.pgp
+          export GPG_TTY=$(tty)
         shell: bash
       - name: Make gradlew executable
         run: chmod +x gradlew
