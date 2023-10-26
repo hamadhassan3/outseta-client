@@ -71,6 +71,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
+      - name: Import GPG secret key
+        run: |
+         echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
+         gpg --import private.pgp
+        shell: bash
       - name: Make gradlew executable
         run: chmod +x gradlew
       - name: Publish with Gradle
