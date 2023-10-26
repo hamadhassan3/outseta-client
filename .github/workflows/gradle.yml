@@ -59,7 +59,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: [test, build]
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      || (github.event_name == 'pull_request' && github.event.action == 'closed' 
+      && github.event.pull_request.base.ref == 'main' && github.event.workflow_run.conclusion == 'success')
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
