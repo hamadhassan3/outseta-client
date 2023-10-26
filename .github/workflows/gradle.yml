@@ -78,7 +78,7 @@ jobs:
       - name: Import GPG secret key
         run: |
          echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
-         gpg --import private.pgp
+         gpg --import --yes private.pgp
         shell: bash
       - name: Make gradlew executable
         run: chmod +x gradlew
