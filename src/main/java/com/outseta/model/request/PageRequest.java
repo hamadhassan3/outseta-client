@@ -15,7 +15,7 @@ public class PageRequest implements BaseInput {
     /**
      * The maximum page size.
      */
-    public static final  int MAX_PAGE_SIZE = 25;
+    public static final  Integer MAX_PAGE_SIZE = 25;
 
     /**
      * This class is used to build a page request.
@@ -175,8 +175,10 @@ public class PageRequest implements BaseInput {
     /**
      * Returns the next page.
      * @return The next page.
+     * @throws OutsetaPageBuildException Thrown when the page builder
+     *     fails to build a page.
      */
-    public PageRequest nextPageRequest() {
+    public PageRequest nextPageRequest() throws OutsetaPageBuildException {
         return new PageRequest(pageNum + 1, pageSize, customParams);
     }
 

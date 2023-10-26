@@ -1,5 +1,6 @@
 package com.outseta.model.result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.constant.AccountStage;
 import com.outseta.model.BaseInput;
@@ -208,12 +209,16 @@ public final class Account implements BaseResult, BaseInput {
      * The date this account was created.
      */
     @JsonProperty("Created")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date created;
 
     /**
      * The date this account was last updated.
      */
     @JsonProperty("Updated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updated;
 
     /**
@@ -428,24 +433,7 @@ public final class Account implements BaseResult, BaseInput {
 
             Account otherAccount = (Account) other;
 
-            return (Objects.equals(this.uid, otherAccount.uid)
-                    && Objects.equals(this.name, otherAccount.name)
-                    && Objects.equals(this.clientIdentifier,
-                    otherAccount.clientIdentifier)
-                    && Objects.equals(this.billingAddress,
-                    otherAccount.billingAddress)
-                    && Objects.equals(this.mailingAddress,
-                    otherAccount.mailingAddress)
-                    && Objects.equals(this.accountStage,
-                    otherAccount.accountStage)
-                    && Objects.equals(this.paymentInformation,
-                    otherAccount.paymentInformation)
-                    && Objects.equals(this.personAccount,
-                    otherAccount.personAccount)
-                    && Objects.equals(this.created, otherAccount.created)
-                    && Objects.equals(this.updated, otherAccount.updated)
-                    && Objects.equals(this.subscriptions,
-                        otherAccount.subscriptions));
+            return Objects.equals(this.uid, otherAccount.uid);
     }
 
     /**
@@ -455,8 +443,6 @@ public final class Account implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(uid, name, clientIdentifier, billingAddress,
-                mailingAddress, accountStage, paymentInformation,
-                personAccount, created, updated, subscriptions);
+        return Objects.hash(uid);
     }
 }

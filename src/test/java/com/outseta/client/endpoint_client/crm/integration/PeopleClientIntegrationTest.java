@@ -1,14 +1,22 @@
-package com.outseta.client.endpoint_client.crm;
+package com.outseta.client.endpoint_client.crm.integration;
 
+import com.outseta.client.endpoint_client.crm.PeopleClient;
 import com.outseta.exception.OutsetaClientBuildException;
 import com.outseta.exception.OutsetaInvalidArgumentException;
 import com.outseta.exception.OutsetaInvalidRequestMakerException;
+import com.outseta.exception.OutsetaInvalidURLException;
+import com.outseta.exception.OutsetaParseException;
+import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
+import com.outseta.exception.api_exception.OutsetaAPIFailedException;
+import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
+import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
 import com.outseta.model.request.PageRequest;
 import com.outseta.model.request.TemporaryPasswordRequest;
 import com.outseta.model.result.Address;
 import com.outseta.model.result.Person;
 import com.outseta.model.result.ItemPage;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,27 +52,32 @@ class PeopleClientIntegrationTest {
     /**
      * The PeopleClient object that will be making all requests.
      */
-    private static PeopleClient peopleClient;
+    private PeopleClient peopleClient;
 
     /**
      * The Person object that will be used to make requests.
      */
-    private static Person personRequest;
+    private Person personRequest;
 
     /**
      * The MailingAddress object that will be used to make requests.
      */
-    private static Address address;
+    private Address address;
 
     /**
      * The MailingAddress object that will be used to make update request.
      */
-    private static Address updatedAddress;
+    private Address updatedAddress;
 
     /**
      * The Person object that will be used to make update requests.
      */
-    private static Person updatedPerson;
+    private Person updatedPerson;
+
+    /**
+     * The Person object that will be used to test apis.
+     */
+    private Person createdPerson;
 
     /**
      * This method sets up the PeopleClient object that will be used to make
@@ -72,9 +85,13 @@ class PeopleClientIntegrationTest {
      * @throws OutsetaClientBuildException This exception is thrown if the
      *      PeopleClient object cannot be created.
      */
-    @BeforeAll
-    public static void setUp() throws OutsetaClientBuildException,
-            OutsetaInvalidRequestMakerException {
+    @BeforeEach
+    public void setUp() throws OutsetaClientBuildException,
+            OutsetaInvalidRequestMakerException,
+            OutsetaInvalidResponseCodeException, OutsetaInvalidURLException,
+            OutsetaAPIBadRequestException, OutsetaParseException,
+            OutsetaAPIFailedException, OutsetaAPIUnknownException,
+            OutsetaInvalidArgumentException {
         peopleClient = PeopleClient.builder(outsetaUrl)
                 .apiKey(outsetaKey)
                 .defaultParser()
@@ -110,6 +127,20 @@ class PeopleClientIntegrationTest {
                 .lastName("updated-client")
                 .mailingAddress(updatedAddress)
                 .build();
+
+        createdPerson = peopleClient.createPerson(personRequest);
+    }
+
+    /**
+     * This method cleans up after each test.
+     */
+    @AfterEach
+    public void tearDown() throws
+            OutsetaInvalidResponseCodeException, OutsetaInvalidURLException,
+            OutsetaAPIBadRequestException,
+            OutsetaAPIFailedException, OutsetaAPIUnknownException,
+            OutsetaInvalidArgumentException {
+        peopleClient.deletePerson(createdPerson.getUid());
     }
 
     /**
@@ -121,13 +152,9 @@ class PeopleClientIntegrationTest {
 
         assertDoesNotThrow(() -> {
             // Create a person
-            Person createdPerson = peopleClient.createPerson(personRequest);
             Person person = peopleClient.getPerson(createdPerson.getUid());
 
             assertNotNull(person);
-
-            // Cleaning up
-            peopleClient.deletePerson(createdPerson.getUid());
         });
     }
 
@@ -197,23 +224,21 @@ class PeopleClientIntegrationTest {
 
 
         assertDoesNotThrow(() -> {
-            Person person = peopleClient.createPerson(personRequest);
-            assertEquals(personRequest.getEmail(), person.getEmail());
-            assertEquals(personRequest.getFirstName(), person.getFirstName());
-            assertEquals(personRequest.getLastName(), person.getLastName());
-            assertEquals(personRequest.getMailingAddress().getAddressLine1(),
-                    person.getMailingAddress().getAddressLine1());
-            assertEquals(personRequest.getMailingAddress().getAddressLine2(),
-                    person.getMailingAddress().getAddressLine2());
-            assertEquals(personRequest.getMailingAddress().getAddressLine3(),
-                    person.getMailingAddress().getAddressLine3());
-            assertEquals(personRequest.getMailingAddress().getCity(),
-                    person.getMailingAddress().getCity());
-            assertEquals(personRequest.getMailingAddress().getCountry(),
-                    person.getMailingAddress().getCountry());
-
-            // Cleaning up
-            peopleClient.deletePerson(person.getUid());
+            assertEquals(personRequest.getEmail(), createdPerson.getEmail());
+            assertEquals(personRequest.getFirstName(),
+                    createdPerson.getFirstName());
+            assertEquals(personRequest.getLastName(),
+                    createdPerson.getLastName());
+            assertEquals(personRequest.getAddress().getAddressLine1(),
+                    createdPerson.getAddress().getAddressLine1());
+            assertEquals(personRequest.getAddress().getAddressLine2(),
+                    createdPerson.getAddress().getAddressLine2());
+            assertEquals(personRequest.getAddress().getAddressLine3(),
+                    createdPerson.getAddress().getAddressLine3());
+            assertEquals(personRequest.getAddress().getCity(),
+                    createdPerson.getAddress().getCity());
+            assertEquals(personRequest.getAddress().getCountry(),
+                    createdPerson.getAddress().getCountry());
         });
     }
 
@@ -237,7 +262,6 @@ class PeopleClientIntegrationTest {
     public void testUpdatePerson() {
 
         assertDoesNotThrow(() -> {
-            Person createdPerson = peopleClient.createPerson(personRequest);
             Person updatedPersonActual = peopleClient
                     .updatePerson(createdPerson.getUid(), updatedPerson);
             assertEquals(updatedPerson.getEmail(),
@@ -246,18 +270,17 @@ class PeopleClientIntegrationTest {
                     updatedPersonActual.getFirstName());
             assertEquals(updatedPerson.getLastName(),
                     updatedPersonActual.getLastName());
-            assertEquals(updatedPerson.getMailingAddress().getAddressLine1(),
-                    updatedPersonActual.getMailingAddress().getAddressLine1());
-            assertEquals(updatedPerson.getMailingAddress().getAddressLine2(),
-                    updatedPersonActual.getMailingAddress().getAddressLine2());
-            assertEquals(updatedPerson.getMailingAddress().getAddressLine3(),
-                    updatedPersonActual.getMailingAddress().getAddressLine3());
-            assertEquals(updatedPerson.getMailingAddress().getCity(),
-                    updatedPersonActual.getMailingAddress().getCity());
-            assertEquals(updatedPerson.getMailingAddress().getCountry(),
-                    updatedPersonActual.getMailingAddress().getCountry());
-            // Cleaning up
-            peopleClient.deletePerson(createdPerson.getUid());
+            assertEquals(updatedPerson.getAddress().getAddressLine1(),
+                    updatedPersonActual.getAddress().getAddressLine1());
+            assertEquals(updatedPerson.getAddress().getAddressLine2(),
+                    updatedPersonActual.getAddress().getAddressLine2());
+            assertEquals(updatedPerson.getAddress().getAddressLine3(),
+                    updatedPersonActual.getAddress().getAddressLine3());
+            assertEquals(updatedPerson.getAddress().getCity(),
+                    updatedPersonActual.getAddress().getCity());
+            assertEquals(updatedPerson.getAddress().getCountry(),
+                    updatedPersonActual.getAddress().getCountry());
+
         });
     }
 
@@ -286,18 +309,6 @@ class PeopleClientIntegrationTest {
 
     /**
      * This method tests the deletePerson method of the PeopleClient class.
-     */
-    @Test
-    public void testDeletePerson() {
-
-        assertDoesNotThrow(() -> {
-            Person createdPerson = peopleClient.createPerson(personRequest);
-            peopleClient.deletePerson(createdPerson.getUid());
-        });
-    }
-
-    /**
-     * This method tests the deletePerson method of the PeopleClient class.
      * It tests the failure scenario.
      */
     @Test
@@ -321,10 +332,8 @@ class PeopleClientIntegrationTest {
                         .build();
 
         assertDoesNotThrow(() -> {
-            Person createdPerson = peopleClient.createPerson(personRequest);
             peopleClient.setTemporaryPassword(createdPerson.getUid(),
                     temporaryPasswordRequest);
-            peopleClient.deletePerson(createdPerson.getUid());
         });
     }
 

@@ -148,7 +148,7 @@ public final class DealClient extends BaseClient {
 
         if (dealId == null || dealId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Deal id cannot be null.");
+                    "Deal id cannot be null or blank.");
         }
 
         String result = this.get("/crm/deals/" + dealId,
@@ -234,7 +234,7 @@ public final class DealClient extends BaseClient {
 
         if (dealId == null || dealId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Deal id cannot be null.");
+                    "Deal id cannot be null or blank.");
         }
 
         this.delete("/crm/deals/" + dealId, new HashMap<>());
@@ -280,7 +280,7 @@ public final class DealClient extends BaseClient {
 
         if (dealId == null || dealId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Deal id cannot be null.");
+                    "Deal id cannot be null or blank.");
         }
 
         if (dealRequest == null) {

@@ -7,6 +7,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * This class tests the Metadata class.
@@ -46,9 +47,9 @@ public class MetadataTest {
         Metadata m1 = new Metadata();
         Metadata m2 = new Metadata(limit, offset, total);
 
-        assertEquals(zero, m1.getLimit());
-        assertEquals(zero, m1.getOffset());
-        assertEquals(zero, m1.getTotal());
+        assertNull(m1.getLimit());
+        assertNull(m1.getOffset());
+        assertNull(m1.getTotal());
 
         assertEquals(limit, m2.getLimit());
         assertEquals(offset, m2.getOffset());

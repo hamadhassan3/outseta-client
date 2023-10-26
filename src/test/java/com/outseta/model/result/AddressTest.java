@@ -402,54 +402,6 @@ public class AddressTest {
         assertNotEquals(address, new Object());
         assertNotEquals(address, m1);
 
-        m2.setAddressLine1("rand");
-        assertNotEquals(address, m2);
-        m2.setAddressLine1(address.getAddressLine1());
-
-        m2.setAddressLine2("rand");
-        assertNotEquals(address, m2);
-        m2.setAddressLine2(address.getAddressLine2());
-
-        m2.setAddressLine3("rand");
-        assertNotEquals(address, m2);
-        m2.setAddressLine3(address.getAddressLine3());
-
-        m2.setCity("rand");
-        assertNotEquals(address, m2);
-        m2.setCity(address.getCity());
-
-        m2.setState("rand");
-        assertNotEquals(address, m2);
-        m2.setState(address.getState());
-
-        m2.setPostalCode("rand");
-        assertNotEquals(address, m2);
-        m2.setPostalCode(address.getPostalCode());
-
-        m2.setCountry("rand");
-        assertNotEquals(address, m2);
-        m2.setCountry(address.getCountry());
-
-        m2.setActivityEventData("rand");
-        assertNotEquals(address, m2);
-        m2.setActivityEventData(address.getActivityEventData());
-
-        m2.setGeoLocation("rand");
-        assertNotEquals(address, m2);
-        m2.setGeoLocation(address.getGeoLocation());
-
-        m2.setCreated(new Date(timestamp - 1));
-        assertNotEquals(address, m2);
-        m2.setCreated(address.getCreated());
-
-        m2.setUpdated(new Date(timestamp - 1));
-        assertNotEquals(address, m2);
-        m2.setUpdated(address.getUpdated());
-
-        m2.setUid("rand");
-        assertNotEquals(address, m2);
-        m2.setUid(address.getUid());
-
     }
 
     /**

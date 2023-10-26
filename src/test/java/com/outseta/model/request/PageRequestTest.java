@@ -197,10 +197,12 @@ public class PageRequestTest {
         final int expectedPage = 2;
         final int expectedPageSize = 10;
 
-        final PageRequest nextPageRequest = pageRequest.nextPageRequest();
+        assertDoesNotThrow(() -> {
+            final PageRequest nextPageRequest = pageRequest.nextPageRequest();
 
-        assertEquals(expectedPage, nextPageRequest.getPageNum());
-        assertEquals(expectedPageSize, nextPageRequest.getPageSize());
+            assertEquals(expectedPage, nextPageRequest.getPageNum());
+            assertEquals(expectedPageSize, nextPageRequest.getPageSize());
+        });
     }
 
     /**

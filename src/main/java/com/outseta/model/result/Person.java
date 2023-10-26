@@ -1,5 +1,6 @@
 package com.outseta.model.result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseInput;
 import com.outseta.model.BaseResult;
@@ -395,12 +396,16 @@ public class Person implements BaseResult, BaseInput {
      * The password last updated of the Person object.
      */
     @JsonProperty("PasswordLastUpdated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date passwordLastUpdated;
 
     /**
      * The password must change of the Person object.
      */
     @JsonProperty("PasswordMustChange")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Boolean passwordMustChange;
 
     /**
@@ -461,6 +466,8 @@ public class Person implements BaseResult, BaseInput {
      * The last login date time of the Person object.
      */
     @JsonProperty("LastLoginDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date lastLoginDateTime;
 
     /**
@@ -479,24 +486,32 @@ public class Person implements BaseResult, BaseInput {
      * The email bounce date time of the Person object.
      */
     @JsonProperty("EmailBounceDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date emailBounceDateTime;
 
     /**
      * The email spam date time of the Person object.
      */
     @JsonProperty("EmailSpamDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date emailSpamDateTime;
 
     /**
      * The email unsubscribe date time of the Person object.
      */
     @JsonProperty("EmailUnsubscribeDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date emailUnsubscribeDateTime;
 
     /**
      * The email last delivered date time of the Person object.
      */
     @JsonProperty("EmailLastDeliveredDateTime")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date emailLastDeliveredDateTime;
 
     /**
@@ -515,12 +530,16 @@ public class Person implements BaseResult, BaseInput {
      * The created date of the Person object.
      */
     @JsonProperty("Created")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date created;
 
     /**
      * The updated date of the Person object.
      */
     @JsonProperty("Updated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updated;
 
     /**
@@ -575,22 +594,6 @@ public class Person implements BaseResult, BaseInput {
      */
     public void setLastName(final String pLastName) {
         this.lastName = pLastName;
-    }
-
-    /**
-     * Returns the mailing address of the Person object.
-     * @return The mailing address of the Person object.
-     */
-    public Address getMailingAddress() {
-        return address;
-    }
-
-    /**
-     * Sets the mailing address of the Person object.
-     * @param pMailingAddress The mailing address to set.
-     */
-    public void setMailingAddress(final Address pMailingAddress) {
-        this.address = pMailingAddress;
     }
 
     /**
@@ -949,6 +952,22 @@ public class Person implements BaseResult, BaseInput {
     }
 
     /**
+     * This method returns a string representation of the Person object.
+     * @return A string representation of the Person object.
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * This method sets the mailing address of the person.
+     * @param pAddress The mailing address of the person.
+     */
+    public void setAddress(final Address pAddress) {
+        this.address = pAddress;
+    }
+
+    /**
      * This method compares this Person object to the specified object.
      * @param o The object to compare this Person object against.
      * @return True if the given object represents a Person equivalent to this,
@@ -963,37 +982,7 @@ public class Person implements BaseResult, BaseInput {
             return false;
         }
         Person person = (Person) o;
-        return Objects.equals(email, person.email)
-                && Objects.equals(firstName, person.firstName)
-                && Objects.equals(lastName, person.lastName)
-                && Objects.equals(address, person.address)
-                && Objects.equals(passwordLastUpdated,
-                    person.passwordLastUpdated)
-                && Objects.equals(passwordMustChange, person.passwordMustChange)
-                && Objects.equals(phoneMobile, person.phoneMobile)
-                && Objects.equals(phoneWork, person.phoneWork)
-                && Objects.equals(profileImageS3Url, person.profileImageS3Url)
-                && Objects.equals(title, person.title)
-                && Objects.equals(timezone, person.timezone)
-                && Objects.equals(language, person.language)
-                && Objects.equals(ipAddress, person.ipAddress)
-                && Objects.equals(referer, person.referer)
-                && Objects.equals(userAgent, person.userAgent)
-                && Objects.equals(lastLoginDateTime, person.lastLoginDateTime)
-                && Objects.equals(oAuthGoogleProfileId,
-                    person.oAuthGoogleProfileId)
-                && Objects.equals(personAccount, person.personAccount)
-                && Objects.equals(emailBounceDateTime,
-                    person.emailBounceDateTime)
-                && Objects.equals(emailSpamDateTime, person.emailSpamDateTime)
-                && Objects.equals(emailUnsubscribeDateTime,
-                    person.emailUnsubscribeDateTime)
-                && Objects.equals(emailLastDeliveredDateTime,
-                    person.emailLastDeliveredDateTime)
-                && Objects.equals(fullName, person.fullName)
-                && Objects.equals(uid, person.uid)
-                && Objects.equals(created, person.created)
-                && Objects.equals(updated, person.updated);
+        return Objects.equals(uid, person.uid);
     }
 
     /**
@@ -1002,12 +991,6 @@ public class Person implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(email, firstName, lastName, address,
-                passwordLastUpdated, passwordMustChange, phoneMobile,
-                phoneWork, profileImageS3Url, title, timezone, language,
-                ipAddress, referer, userAgent, lastLoginDateTime,
-                oAuthGoogleProfileId, personAccount, emailBounceDateTime,
-                emailSpamDateTime, emailUnsubscribeDateTime,
-                emailLastDeliveredDateTime, fullName, uid, created, updated);
+        return Objects.hash(uid);
     }
 }

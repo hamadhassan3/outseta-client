@@ -90,7 +90,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         String result = this.get("/crm/accounts/" + accountId,
@@ -312,7 +312,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         String result = this.post(
@@ -373,7 +373,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         String result = this.post(
@@ -472,7 +472,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         if (accountRequest == null) {
@@ -528,7 +528,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         if (cancelAccountRequest == null) {
@@ -575,7 +575,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         this.put("/crm/accounts/removecancellation/"
@@ -627,12 +627,12 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         if (membershipId == null || membershipId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Membership id cannot be null.");
+                    "Membership id cannot be null or blank.");
         }
 
         if (personAccountRequest == null) {
@@ -679,7 +679,7 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         this.delete("/crm/accounts/" + accountId, new HashMap<>());
@@ -721,12 +721,12 @@ public final class AccountClient extends BaseClient {
 
         if (accountId == null || accountId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Account id cannot be null.");
+                    "Account id cannot be null or blank.");
         }
 
         if (membershipId == null || membershipId.isBlank()) {
             throw new OutsetaInvalidArgumentException(
-                    "Membership id cannot be null.");
+                    "Membership id cannot be null or blank.");
         }
 
         this.delete("/crm/accounts/" + accountId

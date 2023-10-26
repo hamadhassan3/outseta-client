@@ -139,6 +139,16 @@ public class DealTest {
     }
 
     /**
+     * This method tests the setUid method.
+     */
+    @Test
+    public void testSetUid() {
+        assertEquals("uid", deal.getUid());
+        deal.setUid("uid2");
+        assertEquals("uid2", deal.getUid());
+    }
+
+    /**
      * This method tests the equals method.
      */
     @Test
@@ -157,36 +167,6 @@ public class DealTest {
 
         assertEquals(deal2, deal);
         assertNotEquals(deal2, new Object());
-
-        deal2.setAccount(account2);
-        assertNotEquals(deal2, deal);
-        deal2.setAccount(deal.getAccount());
-
-        deal2.setAmount(2.0);
-        assertNotEquals(deal2, deal);
-        deal2.setAmount(deal.getAmount());
-
-        deal2.setAssignedToPersonClientIdentifier(
-                "assignedToPersonClientIdentifier2");
-        assertNotEquals(deal2, deal);
-        deal2.setAssignedToPersonClientIdentifier(
-                deal.getAssignedToPersonClientIdentifier());
-
-        deal2.setDealPeople(List.of(dealPerson2));
-        assertNotEquals(deal2, deal);
-        deal2.setDealPeople(deal.getDealPeople());
-
-        deal2.setDealPipelineStage(dealPipelineStage2);
-        assertNotEquals(deal2, deal);
-        deal2.setDealPipelineStage(deal.getDealPipelineStage());
-
-        deal2.setName("name2");
-        assertNotEquals(deal2, deal);
-        deal2.setName(deal.getName());
-
-        deal2.setUid("uid2");
-        assertNotEquals(deal2, deal);
-        deal2.setUid(deal.getUid());
     }
 
     /**

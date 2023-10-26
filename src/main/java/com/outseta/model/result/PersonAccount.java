@@ -1,5 +1,6 @@
 package com.outseta.model.result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.outseta.model.BaseInput;
 import com.outseta.model.BaseResult;
@@ -152,12 +153,16 @@ public class PersonAccount implements BaseResult, BaseInput {
      * The date this PersonAccount was created.
      */
     @JsonProperty("Created")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date created;
 
     /**
      * The date this PersonAccount was last updated.
      */
     @JsonProperty("Updated")
+    @JsonFormat(shape =
+            JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date updated;
 
     /**
@@ -325,16 +330,7 @@ public class PersonAccount implements BaseResult, BaseInput {
 
         PersonAccount otherPersonAccount = (PersonAccount) pObject;
 
-        return Objects.equals(this.person, otherPersonAccount.person)
-                && Objects.equals(this.account, otherPersonAccount.account)
-                && Objects.equals(this.isPrimary, otherPersonAccount.isPrimary)
-                && Objects.equals(this.receiveInvoices,
-                otherPersonAccount.receiveInvoices)
-                && Objects.equals(this.activityEventData,
-                otherPersonAccount.activityEventData)
-                && Objects.equals(this.uid, otherPersonAccount.uid)
-                && Objects.equals(this.created, otherPersonAccount.created)
-                && Objects.equals(this.updated, otherPersonAccount.updated);
+        return Objects.equals(this.uid, otherPersonAccount.uid);
     }
 
     /**
@@ -342,7 +338,6 @@ public class PersonAccount implements BaseResult, BaseInput {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(person, account, isPrimary, receiveInvoices,
-                activityEventData, uid, created, updated);
+        return Objects.hash(uid);
     }
 }

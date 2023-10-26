@@ -17,19 +17,19 @@ public class Metadata implements BaseResult {
      * The limit of the page.
      */
     @JsonProperty("limit")
-    private int limit;
+    private Integer limit;
 
     /**
      * The offset of the page.
      */
     @JsonProperty("offset")
-    private int offset;
+    private Integer offset;
 
     /**
      * The total number of items in the page.
      */
     @JsonProperty("total")
-    private int total;
+    private Integer total;
 
     /**
      * Default constructor for the creation of a Metadata object.
@@ -43,7 +43,8 @@ public class Metadata implements BaseResult {
      * @param pOffset The offset of the page.
      * @param pTotal The total number of items in the page.
      */
-    public Metadata(final int pLimit, final int pOffset, final int pTotal) {
+    public Metadata(final Integer pLimit, final Integer pOffset,
+                    final Integer pTotal) {
         this.limit = pLimit;
         this.offset = pOffset;
         this.total = pTotal;
@@ -53,7 +54,7 @@ public class Metadata implements BaseResult {
      * Returns the limit of the page.
      * @return The limit of the page.
      */
-    public int getLimit() {
+    public Integer getLimit() {
         return limit;
     }
 
@@ -61,7 +62,7 @@ public class Metadata implements BaseResult {
      * Sets the limit of the page.
      * @param pLimit The limit of the page.
      */
-    public void setLimit(final int pLimit) {
+    public void setLimit(final Integer pLimit) {
         this.limit = pLimit;
     }
 
@@ -69,7 +70,7 @@ public class Metadata implements BaseResult {
      * Returns the offset of the page.
      * @return The offset of the page.
      */
-    public int getOffset() {
+    public Integer getOffset() {
         return offset;
     }
 
@@ -77,7 +78,7 @@ public class Metadata implements BaseResult {
      * Sets the offset of the page.
      * @param pOffset The offset of the page.
      */
-    public void setOffset(final int pOffset) {
+    public void setOffset(final Integer pOffset) {
         this.offset = pOffset;
     }
 
@@ -85,7 +86,7 @@ public class Metadata implements BaseResult {
      * Returns the total number of items in the page.
      * @return The total number of items in the page.
      */
-    public int getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
@@ -93,7 +94,7 @@ public class Metadata implements BaseResult {
      * Sets the total number of items in the page.
      * @param pTotal The total number of items in the page.
      */
-    public void setTotal(final int pTotal) {
+    public void setTotal(final Integer pTotal) {
         this.total = pTotal;
     }
 
