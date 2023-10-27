@@ -183,9 +183,7 @@
         <!-- See https://checkstyle.org/checks/misc/index.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
-        <!-- Commented temporarily because the project needs TODOs as it's a WIP -->
-        <!-- Re-enable the TodoComment check once the project is more stable -->
-        <!-- <module name="TodoComment"/> -->
+        <module name="TodoComment"/>
         <module name="UpperEll"/>
 
         <!-- https://checkstyle.org/filters/suppressionxpathfilter.html -->

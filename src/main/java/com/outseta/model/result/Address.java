@@ -221,14 +221,12 @@ public class Address implements BaseResult, BaseInput {
 
     /**
      * The geolocation in MailingAddress.
-     * TODO: Replace with GeoLocation class once its created.
      */
     @JsonProperty("GeoLocation")
     private Object geoLocation;
 
     /**
      * The activity event data in MailingAddress.
-     * TODO: Replace with ActivityEventData class once its created.
      */
     @JsonProperty("ActivityEventData")
     private Object activityEventData;

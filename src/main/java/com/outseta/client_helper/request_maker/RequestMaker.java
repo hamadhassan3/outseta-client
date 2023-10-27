@@ -105,4 +105,11 @@ public interface RequestMaker {
                     OutsetaInvalidResponseCodeException,
                     OutsetaAPIUnknownException,
                     OutsetaInvalidURLException;
+
+    /**
+     * This method is used to url encode a payload attribute.
+     * @param value The value to be encoded.
+     * @return The encoded value.
+     */
+    String urlEncodePayloadAttribute(String value);
 }
