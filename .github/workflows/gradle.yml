@@ -71,8 +71,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Import GPG secret key
         run: |
           echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
@@ -82,6 +80,7 @@ jobs:
         run: chmod +x gradlew
       - name: Publish with Gradle and GPG signing
         run: |
-          ./gradlew clean publish -Pgpg --no-daemon
+          ./gradlew clean publish
         env:
-          GPG_TTY: $(tty)
+          GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
