@@ -82,6 +82,7 @@ jobs:
         run: chmod +x gradlew
       - name: Publish with Gradle and GPG signing
         run: |
-          ./gradlew clean publish -Pgpg --no-daemon
+          ./gradlew clean publish
         env:
-          GPG_TTY: $(tty)
+          GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
