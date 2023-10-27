@@ -277,4 +277,12 @@ public class ClientBuilder<T extends BaseClient> {
 
         return this.baseClient;
     }
+
+    /**
+     * This method is used to get the base client.
+     * @return The base client.
+     */
+    public T getBaseClient() {
+        return baseClient;
+    }
 }

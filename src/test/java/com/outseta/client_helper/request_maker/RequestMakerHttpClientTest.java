@@ -13,11 +13,14 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -794,6 +797,22 @@ class RequestMakerHttpClientTest {
             assertEquals(res, response);
         });
 
+
+    }
+
+    /**
+     * This method tests the urlEncodePayloadAttribute method.
+     */
+    @Test
+    public void testUrlEncodePayloadAttribute() {
+
+        String encoded = URLEncoder.encode("test", StandardCharsets.UTF_8);
+
+        String encodedAttribute = requestMakerHttpClient
+                .urlEncodePayloadAttribute("test");
+
+        assertNotNull(encodedAttribute);
+        assertEquals(encodedAttribute, encoded);
 
     }
 }

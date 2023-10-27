@@ -8,6 +8,7 @@ import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -284,6 +285,11 @@ class RequestMakerHttpClient implements RequestMaker {
         }
 
         return response.body();
+    }
+
+    @Override
+    public String urlEncodePayloadAttribute(final String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
 }

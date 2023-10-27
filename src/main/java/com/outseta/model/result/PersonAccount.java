@@ -118,7 +118,6 @@ public class PersonAccount implements BaseResult, BaseInput {
 
     /**
      * The account object that this PersonAccount is associated with.
-     * TODO: Replace with Account class once its created.
      */
     @JsonProperty("Account")
     private Account account;
@@ -138,7 +137,6 @@ public class PersonAccount implements BaseResult, BaseInput {
 
     /**
      * The activity event data for this PersonAccount.
-     * TODO: Replace with ActivityEventData class once its created.
      */
     @JsonProperty("ActivityEventData")
     private Object activityEventData;
