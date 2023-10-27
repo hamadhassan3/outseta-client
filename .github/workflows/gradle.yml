@@ -71,6 +71,8 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Import GPG secret key
         run: |
           echo "${{ secrets.GPG_SECRET_KEY }}" > private.pgp
