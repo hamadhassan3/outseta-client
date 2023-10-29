@@ -88,7 +88,7 @@ public final class ProfileClient extends BaseClient {
      * note that you can not call this method with the API keys. You'll need to
      * call it with the auth token generated from the Get Auth token method.
      * Make sure to construct the auth token as described in the Getting started
-     * >> Client Side section.
+     * Client Side section.
      *
      * Reference:
      * https://documenter.getpostman.com/view/3613332/outseta-rest-api-v1/
@@ -144,7 +144,7 @@ public final class ProfileClient extends BaseClient {
      * Please note that you can not call this method with the API keys. You'll
      * need to call it with the auth token generated from the Get Auth token
      * method. Make sure to construct the auth token as described in the
-     * Getting started >> Client Side section.
+     * Getting started Client Side section.
      *
      * Also, the body of the request needs to include the UID property that
      * matches the person that you generated the token for.
@@ -211,7 +211,7 @@ public final class ProfileClient extends BaseClient {
      * Use this method to update the password for a user. Please note that you
      * can not call this method with the API keys. You'll need to call it with
      * the auth token generated from the Get Auth token method. Make sure to
-     * construct the auth token as described in the Getting started >> Client
+     * construct the auth token as described in the Getting started Client
      * Side section.
      *
      * Reference:
