@@ -138,6 +138,7 @@ public class SubscriptionClientUnitTest {
         createOrChangeSubscriptionRequestStr =
                 "createOrChangeSubscriptionRequest";
         subscriptionStr = "subscription";
+        subscriptionAddOnStr = "subscriptionAddOn";
     }
 
     /**
