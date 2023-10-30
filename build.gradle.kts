@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.hamadhassan3"
-version = "1.5.0"
+version = "1.6.0"
 
 // Extra property to determine if the version is a release version or not
 extra["isReleaseVersion"] = !version.toString().endsWith("SNAPSHOT")
