@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.hamadhassan3"
-version = "1.6.0"
+version = "2.0.0"
 
 // Extra property to determine if the version is a release version or not
 extra["isReleaseVersion"] = !version.toString().endsWith("SNAPSHOT")
@@ -41,6 +41,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("org.apache.httpcomponents:httpclient:4.5.14")
 }
 
 publishing {
@@ -99,8 +100,8 @@ signing {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withJavadocJar()
     withSourcesJar()
 }
