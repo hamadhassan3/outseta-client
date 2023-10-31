@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -94,7 +94,7 @@ public class UpdatePaymentInfoClientIntegrationTest {
                 .build().createAccountWithExistingPerson(Account.builder()
                         .name("hammad-test-outseta-client")
                         .accountStage(AccountStage.Trialing)
-                        .personAccount(List.of(PersonAccount.builder()
+                        .personAccount(Arrays.asList(PersonAccount.builder()
                                 .person(createdPerson)
                                 .primary(true)
                                 .build()))

@@ -100,13 +100,15 @@ public class AuthenticationClientUnitTest {
             ClientBuilder<AuthenticationClient> builder1 =
                     AuthenticationClient
                             .builder(OUTSETA_URL);
+            Map<String, String> m = new HashMap<>();
+            m.put("Authorization", "dummy");
             assertEquals(builder1, builder1.defaultParser());
             assertEquals(builder1, builder1.defaultRequestMaker());
             assertEquals(builder1, builder1.apiKey(OUTSETA_KEY));
             assertEquals(builder1, builder1.baseUrl(OUTSETA_URL));
             assertEquals(builder1, builder1.accessKey("dummy"));
             assertEquals(builder1, builder1
-                    .headers(Map.of("Authorization", "dummy")));
+                    .headers(m));
             assertEquals(builder1, builder1
                     .requestMaker("DEFAULT"));
             assertEquals(builder1, builder1

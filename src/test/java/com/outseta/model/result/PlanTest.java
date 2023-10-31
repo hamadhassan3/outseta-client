@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -133,8 +133,8 @@ public class PlanTest {
                 .postLoginPath("postLoginPath")
                 .stripeTaxCodeId("stripeTaxCodeId")
                 .unitOfMeasure("unitOfMeasure")
-                .planAddOns(List.of(addOn1, addOn2))
-                .contentGroups(List.of("contentGroup1", "contentGroup2"))
+                .planAddOns(Arrays.asList(addOn1, addOn2))
+                .contentGroups(Arrays.asList("contentGroup1", "contentGroup2"))
                 .numberOfSubscriptions(NUMBER_OF_SUBSCRIPTIONS)
                 .activityEventData("activityEventData")
                 .uid("uid")
@@ -172,8 +172,8 @@ public class PlanTest {
         assertEquals("postLoginPath", plan.getPostLoginPath());
         assertEquals("stripeTaxCodeId", plan.getStripeTaxCodeId());
         assertEquals("unitOfMeasure", plan.getUnitOfMeasure());
-        assertEquals(List.of(addOn1, addOn2), plan.getPlanAddOns());
-        assertEquals(List.of("contentGroup1", "contentGroup2"),
+        assertEquals(Arrays.asList(addOn1, addOn2), plan.getPlanAddOns());
+        assertEquals(Arrays.asList("contentGroup1", "contentGroup2"),
                 plan.getContentGroups());
         assertEquals(NUMBER_OF_SUBSCRIPTIONS, plan.getNumberOfSubscriptions());
         assertEquals("activityEventData", plan.getActivityEventData());
@@ -437,8 +437,8 @@ public class PlanTest {
      */
     @Test
     public void testGetAndSetPlanAddOns() {
-        plan.setPlanAddOns(List.of(addOn1));
-        assertEquals(List.of(addOn1), plan.getPlanAddOns());
+        plan.setPlanAddOns(Arrays.asList(addOn1));
+        assertEquals(Arrays.asList(addOn1), plan.getPlanAddOns());
     }
 
     /**
@@ -446,8 +446,8 @@ public class PlanTest {
      */
     @Test
     public void testGetAndSetContentGroups() {
-        plan.setContentGroups(List.of("newContentGroup"));
-        assertEquals(List.of("newContentGroup"), plan.getContentGroups());
+        plan.setContentGroups(Arrays.asList("newContentGroup"));
+        assertEquals(Arrays.asList("newContentGroup"), plan.getContentGroups());
     }
 
     /**

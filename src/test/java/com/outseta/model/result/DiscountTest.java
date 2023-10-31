@@ -7,8 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -84,7 +84,7 @@ public class DiscountTest {
                 .durationInMonths(DURATION_IN_MONTHS)
                 .maxRedemptions(MAX_REDEMPTIONS)
                 .redeemBy(new Date(TIMESTAMP))
-                .discountCouponPlans(List.of(plan1))
+                .discountCouponPlans(Arrays.asList(plan1))
                 .active(false)
                 .uid("uid")
                 .build();
@@ -105,7 +105,7 @@ public class DiscountTest {
         assertEquals(DURATION_IN_MONTHS, discount.getDurationInMonths());
         assertEquals(MAX_REDEMPTIONS, discount.getMaxRedemptions());
         assertEquals(new Date(TIMESTAMP), discount.getRedeemBy());
-        assertEquals(List.of(plan1), discount.getDiscountCouponPlans());
+        assertEquals(Arrays.asList(plan1), discount.getDiscountCouponPlans());
         assertEquals("uid", discount.getUid());
     }
 
@@ -225,8 +225,8 @@ public class DiscountTest {
     @Test
     public void testSetAndGetDiscountCouponPlans() {
         // Tests the setter and getter for the discount coupon plans.
-        discount.setDiscountCouponPlans(List.of(plan2));
-        assertEquals(List.of(plan2), discount.getDiscountCouponPlans());
+        discount.setDiscountCouponPlans(Arrays.asList(plan2));
+        assertEquals(Arrays.asList(plan2), discount.getDiscountCouponPlans());
     }
 
     /**
@@ -266,7 +266,7 @@ public class DiscountTest {
                 .durationInMonths(DURATION_IN_MONTHS)
                 .maxRedemptions(MAX_REDEMPTIONS)
                 .redeemBy(new Date(TIMESTAMP))
-                .discountCouponPlans(List.of(plan1))
+                .discountCouponPlans(Arrays.asList(plan1))
                 .active(false)
                 .uid("uid")
                 .build();
@@ -300,7 +300,7 @@ public class DiscountTest {
                 .durationInMonths(DURATION_IN_MONTHS)
                 .maxRedemptions(MAX_REDEMPTIONS)
                 .redeemBy(new Date(TIMESTAMP))
-                .discountCouponPlans(List.of(plan1))
+                .discountCouponPlans(Arrays.asList(plan1))
                 .active(false)
                 .uid("uid")
                 .build().hashCode());

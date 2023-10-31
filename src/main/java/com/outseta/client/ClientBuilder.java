@@ -58,7 +58,7 @@ public class ClientBuilder<T extends BaseClient> {
         if (baseUrl == null) {
             throw new OutsetaClientBuildException(
                     "Cannot initialize with null base url.");
-        } else if (baseUrl.isBlank()) {
+        } else if (baseUrl.trim().isEmpty()) {
             throw new OutsetaClientBuildException(
                     "The base url cannot be blank.");
         }
@@ -79,7 +79,7 @@ public class ClientBuilder<T extends BaseClient> {
         if (apiKey == null) {
             throw new OutsetaClientBuildException(
                     "Cannot initialize with null api key.");
-        } else if (apiKey.isBlank()) {
+        } else if (apiKey.trim().isEmpty()) {
             throw new OutsetaClientBuildException(
                     "The api key cannot be blank.");
         }
@@ -100,7 +100,7 @@ public class ClientBuilder<T extends BaseClient> {
         if (accessKey == null) {
             throw new OutsetaClientBuildException(
                     "Cannot initialize with null api key.");
-        } else if (accessKey.isBlank()) {
+        } else if (accessKey.trim().isEmpty()) {
             throw new OutsetaClientBuildException(
                     "The api key cannot be blank.");
         }
@@ -197,7 +197,7 @@ public class ClientBuilder<T extends BaseClient> {
         if (requestMakerType == null) {
             throw new OutsetaInvalidRequestMakerException(
                     "Request maker type cannot be null.");
-        } else if (requestMakerType.isBlank()) {
+        } else if (requestMakerType.trim().isEmpty()) {
             throw new OutsetaInvalidRequestMakerException(
                     "Request maker type cannot be blank.");
         }

@@ -32,12 +32,12 @@ Install the library using Maven or Gradle. The library is available on [Maven Ce
 <dependency>
     <groupId>io.github.hamadhassan3</groupId>
     <artifactId>outseta-client</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 ### Gradle
 ```groovy
-implementation group: 'io.github.hamadhassan3', name: 'outseta-client', version: '2.0.0'
+implementation group: 'io.github.hamadhassan3', name: 'outseta-client', version: '3.0.0'
 ```
 
 ## The library provides following API Clients
@@ -62,7 +62,7 @@ Billing
 - [UpdatePaymentInfoClient](src/main/java/com/outseta/client/endpoint_client/billing/UpdatePaymentInfoClient.java)
 
 ## Authentication
-The library provides two ways to authenticate with the Outseta API. The first way is to use the [AuthenticationClient](src/main/java/com/outseta/client/endpoint_client/AuthenticationClient.java) to get an auth token and then use that token to make requests to the other APIs. This provides access to user specific APIs like profile endpoints. The second way is to use the API Key. The second way is to use the API key directly in the other API clients. This provides access to most APIs.
+The library provides two ways to authenticate with the Outseta API. The first way is to use the [AuthenticationClient](src/main/java/com/outseta/client/endpoint_client/AuthenticationClient.java) to get an auth token and then use that token to make requests to the other APIs. This provides access to user specific APIs like profile endpoints. The second way is to use the API key directly in the other API clients. This provides access to most APIs.
 Please note that either the API key or the Access Key needs to be specified when creating a Client object. Otherwise, client creation fails. PeopleClient can only be created using an Access Key and AuthenticationClient can be built without any keys.
 
 ## Usage:
@@ -86,7 +86,7 @@ GetAuthTokenRequest request = GetAuthTokenRequest.builder()
 AuthToken token = client.getAuthToken(request);
 ```
 
-### Pagination (Using Marketing Client)
+### Pagination (Using People Client)
 ```java
 PeopleClient client = PeopleClient.builder(outsetaUrl)
     .apiKey(outsetaKey)

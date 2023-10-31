@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +46,7 @@ public class ItemPageTest {
         metadata = new Metadata(limit, offset, total);
 
         // Initializing the list of Person objects
-        items = List.of(new Person(),
+        items = Arrays.asList(new Person(),
                 Person.builder().language("language").build());
 
         // Creating a MultiplePerson object for testing
@@ -108,7 +109,7 @@ public class ItemPageTest {
     public void testSetItems() {
 
         // Testing the setItems method
-        List<Person> newItems = List.of(new Person());
+        List<Person> newItems = Arrays.asList(new Person());
         itemPage.setItems(newItems);
         assertEquals(newItems, itemPage.getItems());
     }

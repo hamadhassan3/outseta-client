@@ -91,7 +91,7 @@ public final class MarketingClient extends BaseClient {
             OutsetaInvalidArgumentException {
 
         if (emailListId == null
-                || emailListId.isBlank()) {
+                || emailListId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Email list id cannot be null or blank.");
         }
@@ -218,7 +218,7 @@ public final class MarketingClient extends BaseClient {
             OutsetaParseException, OutsetaInvalidArgumentException {
 
         if (emailListId == null
-                || emailListId.isBlank()) {
+                || emailListId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Email list id cannot be null or blank.");
         }
@@ -282,7 +282,7 @@ public final class MarketingClient extends BaseClient {
             OutsetaInvalidArgumentException {
 
         if (emailListId == null
-                || emailListId.isBlank()) {
+                || emailListId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Email list id cannot be null or blank.");
         }
@@ -338,13 +338,13 @@ public final class MarketingClient extends BaseClient {
             OutsetaInvalidArgumentException {
 
         if (emailListId == null
-                || emailListId.isBlank()) {
+                || emailListId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Email list id cannot be null or blank.");
         }
 
         if (subscriptionId == null
-                || subscriptionId.isBlank()) {
+                || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscriber id cannot be null or blank.");
         }

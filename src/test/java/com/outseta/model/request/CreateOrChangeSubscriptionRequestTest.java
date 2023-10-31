@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -72,7 +72,7 @@ public class CreateOrChangeSubscriptionRequestTest {
                 .account(account1)
                 .billingRenewalTerm(BillingRenewalTerm.OneTime.getValue())
                 .plan(plan1)
-                .subscriptionAddOns(List.of(subscriptionAddOn1))
+                .subscriptionAddOns(Arrays.asList(subscriptionAddOn1))
                 .build();
 
     }
@@ -86,7 +86,7 @@ public class CreateOrChangeSubscriptionRequestTest {
         assertEquals(BillingRenewalTerm.OneTime.getValue(),
                 createOrChangeSubscriptionRequest.getBillingRenewalTerm());
         assertEquals(plan1, createOrChangeSubscriptionRequest.getPlan());
-        assertEquals(List.of(subscriptionAddOn1),
+        assertEquals(Arrays.asList(subscriptionAddOn1),
                 createOrChangeSubscriptionRequest.getSubscriptionAddOns());
     }
 
@@ -143,11 +143,11 @@ public class CreateOrChangeSubscriptionRequestTest {
      */
     @Test
     public void testGetSetSubscriptionAddOns() {
-        assertEquals(List.of(subscriptionAddOn1),
+        assertEquals(Arrays.asList(subscriptionAddOn1),
                 createOrChangeSubscriptionRequest.getSubscriptionAddOns());
         createOrChangeSubscriptionRequest.setSubscriptionAddOns(
-                List.of(subscriptionAddOn2));
-        assertEquals(List.of(subscriptionAddOn2),
+                Arrays.asList(subscriptionAddOn2));
+        assertEquals(Arrays.asList(subscriptionAddOn2),
                 createOrChangeSubscriptionRequest.getSubscriptionAddOns());
     }
 

@@ -163,7 +163,7 @@ public final class InvoiceClient extends BaseClient {
                     "Page request cannot be null.");
         }
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }

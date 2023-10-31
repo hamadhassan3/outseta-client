@@ -25,8 +25,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -144,6 +144,8 @@ public class PeopleClientUnitTest {
 
             ClientBuilder<PeopleClient> test =
                     PeopleClient.builder(OUTSETA_URL);
+            Map<String, String> m = new HashMap<>();
+            m.put("Authorization", "dummy");
 
             assertEquals(test, test.apiKey(OUTSETA_KEY));
             assertEquals(test, test.accessKey(OUTSETA_KEY));
@@ -151,7 +153,7 @@ public class PeopleClientUnitTest {
             assertEquals(test, test.baseUrl(OUTSETA_URL));
             assertEquals(test, test.requestMaker("DEFAULT"));
             assertEquals(test, test.headers(
-                    Map.of("Authorization", "dummy")));
+                    m));
             assertEquals(test, test.requestMaker(RequestMakerType.DEFAULT));
 
             PeopleClient peopleClient1 = test.build();
@@ -915,7 +917,7 @@ public class PeopleClientUnitTest {
 
             ItemPage<Person> itemPage = new ItemPage<Person>(
                     new Metadata(1, 0, 1),
-                    List.of(personObj)
+                    Arrays.asList(personObj)
             );
 
             when(requestMaker.get(OUTSETA_URL + "/crm/people",

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -89,8 +89,8 @@ public class AddOnTest {
                 .taxable(false)
                 .billedDuringTrial(false)
                 .stripeTaxCodeId("stripeTaxCodeId")
-                .planAddOns(List.of(planAddOn))
-                .contentGroups(List.of("contentGroups"))
+                .planAddOns(Arrays.asList(planAddOn))
+                .contentGroups(Arrays.asList("contentGroups"))
                 .subscriptionCount(SUBSCRIPTION_COUNT)
                 .quantity(QUANTITY)
                 .activityEventData("activityEventData")
@@ -116,8 +116,8 @@ public class AddOnTest {
         assertFalse(addOn.isTaxable());
         assertFalse(addOn.isBilledDuringTrial());
         assertEquals("stripeTaxCodeId", addOn.getStripeTaxCodeId());
-        assertEquals(List.of(planAddOn), addOn.getPlanAddOns());
-        assertEquals(List.of("contentGroups"), addOn.getContentGroups());
+        assertEquals(Arrays.asList(planAddOn), addOn.getPlanAddOns());
+        assertEquals(Arrays.asList("contentGroups"), addOn.getContentGroups());
         assertEquals(SUBSCRIPTION_COUNT, addOn.getSubscriptionCount());
         assertEquals(QUANTITY, addOn.getQuantity());
         assertEquals("activityEventData", addOn.getActivityEventData());
@@ -259,8 +259,8 @@ public class AddOnTest {
      */
     @Test
     public void testGetAndSetPlanAddOns() {
-        addOn.setPlanAddOns(List.of(planAddOn));
-        assertEquals(List.of(planAddOn), addOn.getPlanAddOns());
+        addOn.setPlanAddOns(Arrays.asList(planAddOn));
+        assertEquals(Arrays.asList(planAddOn), addOn.getPlanAddOns());
     }
 
     /**
@@ -268,8 +268,9 @@ public class AddOnTest {
      */
     @Test
     public void testGetAndSetContentGroups() {
-        addOn.setContentGroups(List.of("newContentGroups"));
-        assertEquals(List.of("newContentGroups"), addOn.getContentGroups());
+        addOn.setContentGroups(Arrays.asList("newContentGroups"));
+        assertEquals(Arrays.asList("newContentGroups"), addOn
+                .getContentGroups());
     }
 
     /**
@@ -343,8 +344,8 @@ public class AddOnTest {
                 .taxable(false)
                 .billedDuringTrial(false)
                 .stripeTaxCodeId("stripeTaxCodeId")
-                .planAddOns(List.of(planAddOn))
-                .contentGroups(List.of("contentGroups"))
+                .planAddOns(Arrays.asList(planAddOn))
+                .contentGroups(Arrays.asList("contentGroups"))
                 .subscriptionCount(SUBSCRIPTION_COUNT)
                 .quantity(QUANTITY)
                 .activityEventData("activityEventData")
@@ -379,8 +380,8 @@ public class AddOnTest {
                 .taxable(false)
                 .billedDuringTrial(false)
                 .stripeTaxCodeId("stripeTaxCodeId")
-                .planAddOns(List.of(planAddOn))
-                .contentGroups(List.of("contentGroups"))
+                .planAddOns(Arrays.asList(planAddOn))
+                .contentGroups(Arrays.asList("contentGroups"))
                 .subscriptionCount(SUBSCRIPTION_COUNT)
                 .quantity(QUANTITY)
                 .activityEventData("activityEventData")

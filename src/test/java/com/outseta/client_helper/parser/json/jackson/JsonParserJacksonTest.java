@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -190,7 +190,7 @@ class JsonParserJacksonTest {
         final Metadata metadataObj = new Metadata(10, 0, 1);
 
         when(objectReader.readValue(itemsStr)).thenReturn(
-                List.of(testDataComponent, testDataComponent)
+                Arrays.asList(testDataComponent, testDataComponent)
         );
 
         // Mock ObjectMapper's readValue method
@@ -242,7 +242,7 @@ class JsonParserJacksonTest {
         final Metadata metadataObj = new Metadata(10, 0, 1);
 
         when(objectReader.readValue(itemsStr)).thenReturn(
-                List.of(testDataComponent, testDataComponent)
+                Arrays.asList(testDataComponent, testDataComponent)
         );
 
         // Mock ObjectMapper's readValue method

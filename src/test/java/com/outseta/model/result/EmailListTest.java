@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -72,7 +72,7 @@ public class EmailListTest {
                 .welcomeBody("welcomeBody")
                 .welcomeFromName("welcomeFromName")
                 .welcomeFromEmail("welcomeFromEmail")
-                .emailListPerson(List.of(person1))
+                .emailListPerson(Arrays.asList(person1))
                 .countSubscriptionsActive(COUNT_SUBSCRIPTIONS_ACTIVE)
                 .countSubscriptionsBounce(COUNT_SUBSCRIPTIONS_BOUNCE)
                 .countSubscriptionsSpam(COUNT_SUBSCRIPTIONS_SPAM)
@@ -94,7 +94,7 @@ public class EmailListTest {
         assertEquals("welcomeBody", emailList.getWelcomeBody());
         assertEquals("welcomeFromName", emailList.getWelcomeFromName());
         assertEquals("welcomeFromEmail", emailList.getWelcomeFromEmail());
-        assertEquals(List.of(person1), emailList.getEmailListPerson());
+        assertEquals(Arrays.asList(person1), emailList.getEmailListPerson());
         assertEquals(COUNT_SUBSCRIPTIONS_ACTIVE,
                 emailList.getCountSubscriptionsActive());
         assertEquals(COUNT_SUBSCRIPTIONS_BOUNCE,
@@ -179,8 +179,8 @@ public class EmailListTest {
      */
     @Test
     public void testGetSetEmailListPerson() {
-        emailList.setEmailListPerson(List.of(person2));
-        assertEquals(List.of(person2), emailList.getEmailListPerson());
+        emailList.setEmailListPerson(Arrays.asList(person2));
+        assertEquals(Arrays.asList(person2), emailList.getEmailListPerson());
     }
 
     /**
@@ -263,7 +263,7 @@ public class EmailListTest {
                 .welcomeBody("welcomeBody")
                 .welcomeFromName("welcomeFromName")
                 .welcomeFromEmail("welcomeFromEmail")
-                .emailListPerson(List.of(person1))
+                .emailListPerson(Arrays.asList(person1))
                 .countSubscriptionsActive(COUNT_SUBSCRIPTIONS_ACTIVE)
                 .countSubscriptionsBounce(COUNT_SUBSCRIPTIONS_BOUNCE)
                 .countSubscriptionsSpam(COUNT_SUBSCRIPTIONS_SPAM)
@@ -291,7 +291,7 @@ public class EmailListTest {
                 .welcomeBody("welcomeBody")
                 .welcomeFromName("welcomeFromName")
                 .welcomeFromEmail("welcomeFromEmail")
-                .emailListPerson(List.of(person1))
+                .emailListPerson(Arrays.asList(person1))
                 .countSubscriptionsActive(COUNT_SUBSCRIPTIONS_ACTIVE)
                 .countSubscriptionsBounce(COUNT_SUBSCRIPTIONS_BOUNCE)
                 .countSubscriptionsSpam(COUNT_SUBSCRIPTIONS_SPAM)

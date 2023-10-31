@@ -91,7 +91,7 @@ public final class SupportClient extends BaseClient {
             OutsetaInvalidArgumentException {
 
         if (caseId == null
-                || caseId.isBlank()) {
+                || caseId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Case id cannot be null or blank.");
         }
@@ -257,12 +257,12 @@ public final class SupportClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (caseUid == null || caseUid.isBlank()) {
+        if (caseUid == null || caseUid.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Case uid cannot be null or blank.");
         }
 
-        if (comment == null || comment.isBlank()) {
+        if (comment == null || comment.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Comment cannot be null or blank.");
         }
@@ -313,7 +313,7 @@ public final class SupportClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (caseUid == null || caseUid.isBlank()) {
+        if (caseUid == null || caseUid.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Case uid cannot be null or blank.");
         }

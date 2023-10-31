@@ -146,7 +146,7 @@ public final class DealClient extends BaseClient {
             OutsetaAPIBadRequestException, OutsetaAPIFailedException,
             OutsetaAPIUnknownException, OutsetaParseException {
 
-        if (dealId == null || dealId.isBlank()) {
+        if (dealId == null || dealId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Deal id cannot be null or blank.");
         }
@@ -232,7 +232,7 @@ public final class DealClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (dealId == null || dealId.isBlank()) {
+        if (dealId == null || dealId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Deal id cannot be null or blank.");
         }
@@ -278,7 +278,7 @@ public final class DealClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (dealId == null || dealId.isBlank()) {
+        if (dealId == null || dealId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Deal id cannot be null or blank.");
         }

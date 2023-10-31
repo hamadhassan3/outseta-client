@@ -92,7 +92,7 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (subscriptionId == null || subscriptionId.isBlank()) {
+        if (subscriptionId == null || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscription id cannot be null or blank.");
         }
@@ -339,7 +339,7 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (subscriptionId == null || subscriptionId.isBlank()) {
+        if (subscriptionId == null || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscription id cannot be null or blank.");
         }
@@ -405,7 +405,7 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (subscriptionId == null || subscriptionId.isBlank()) {
+        if (subscriptionId == null || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscription id cannot be null or blank.");
         }
@@ -471,7 +471,7 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (subscriptionId == null || subscriptionId.isBlank()) {
+        if (subscriptionId == null || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscription id cannot be null or blank.");
         }
@@ -529,12 +529,12 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
 
-        if (date == null || date.isBlank()) {
+        if (date == null || date.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Date cannot be null or blank.");
         }
@@ -638,12 +638,12 @@ public final class SubscriptionClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (subscriptionId == null || subscriptionId.isBlank()) {
+        if (subscriptionId == null || subscriptionId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Subscription id cannot be null or blank.");
         }
 
-        if (discountId == null || discountId.isBlank()) {
+        if (discountId == null || discountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Discount Id cannot be null");
         }

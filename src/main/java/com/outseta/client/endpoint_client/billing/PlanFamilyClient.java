@@ -87,7 +87,7 @@ public final class PlanFamilyClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (planFamilyId == null || planFamilyId.isBlank()) {
+        if (planFamilyId == null || planFamilyId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Plan Family id cannot be null or blank.");
         }

@@ -87,7 +87,7 @@ public final class PlanClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (planId == null || planId.isBlank()) {
+        if (planId == null || planId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Plan id cannot be null or blank.");
         }
