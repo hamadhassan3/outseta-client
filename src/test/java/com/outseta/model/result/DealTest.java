@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -67,7 +67,7 @@ public class DealTest {
                 .uid("uid")
                 .name("name")
                 .account(account1)
-                .dealPeople(List.of(dealPerson1))
+                .dealPeople(Arrays.asList(dealPerson1))
                 .dealPipelineStage(dealPipelineStage1)
                 .assignedToPersonClientIdentifier(
                         "assignedToPersonClientIdentifier")
@@ -100,9 +100,9 @@ public class DealTest {
      */
     @Test
     public void testSetDealPeople() {
-        assertEquals(List.of(dealPerson1), deal.getDealPeople());
-        deal.setDealPeople(List.of(dealPerson2));
-        assertEquals(List.of(dealPerson2), deal.getDealPeople());
+        assertEquals(Arrays.asList(dealPerson1), deal.getDealPeople());
+        deal.setDealPeople(Arrays.asList(dealPerson2));
+        assertEquals(Arrays.asList(dealPerson2), deal.getDealPeople());
     }
 
     /**
@@ -158,7 +158,7 @@ public class DealTest {
                 .uid("uid")
                 .name("name")
                 .account(account1)
-                .dealPeople(List.of(dealPerson1))
+                .dealPeople(Arrays.asList(dealPerson1))
                 .dealPipelineStage(dealPipelineStage1)
                 .assignedToPersonClientIdentifier(
                         "assignedToPersonClientIdentifier")
@@ -178,7 +178,7 @@ public class DealTest {
                 .uid("uid")
                 .name("name")
                 .account(account1)
-                .dealPeople(List.of(dealPerson1))
+                .dealPeople(Arrays.asList(dealPerson1))
                 .dealPipelineStage(dealPipelineStage1)
                 .assignedToPersonClientIdentifier(
                         "assignedToPersonClientIdentifier")

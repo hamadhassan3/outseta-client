@@ -7,8 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -93,8 +93,8 @@ public class AccountTest {
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
-                .personAccount(List.of(personAccount1))
-                .subscriptions(List.of(subscription1))
+                .personAccount(Arrays.asList(personAccount1))
+                .subscriptions(Arrays.asList(subscription1))
                 .build();
     }
 
@@ -202,10 +202,10 @@ public class AccountTest {
     @Test
     public void testSetPersonAccounts() {
         // Setting the personAccounts to a new value
-        account.setPersonAccount(List.of(personAccount1, personAccount2));
+        account.setPersonAccount(Arrays.asList(personAccount1, personAccount2));
 
         // Checking that the personAccounts was set to the new value
-        assertEquals(List.of(personAccount1, personAccount2),
+        assertEquals(Arrays.asList(personAccount1, personAccount2),
                 account.getPersonAccount());
     }
 
@@ -227,10 +227,10 @@ public class AccountTest {
     @Test
     public void testSetSubscriptions() {
         // Setting the subscriptions to a new value
-        account.setSubscriptions(List.of(subscription1, subscription2));
+        account.setSubscriptions(Arrays.asList(subscription1, subscription2));
 
         // Checking that the subscriptions was set to the new value
-        assertEquals(List.of(subscription1, subscription2),
+        assertEquals(Arrays.asList(subscription1, subscription2),
                 account.getSubscriptions());
     }
 
@@ -250,8 +250,8 @@ public class AccountTest {
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
-                .personAccount(List.of(personAccount1))
-                .subscriptions(List.of(subscription1))
+                .personAccount(Arrays.asList(personAccount1))
+                .subscriptions(Arrays.asList(subscription1))
                 .build();
 
         // Checking that the two objects are equal
@@ -281,8 +281,8 @@ public class AccountTest {
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .paymentInformation("paymentInformation")
-                .personAccount(List.of(personAccount1))
-                .subscriptions(List.of(subscription1))
+                .personAccount(Arrays.asList(personAccount1))
+                .subscriptions(Arrays.asList(subscription1))
                 .build();
         assertEquals(account.hashCode(), account2.hashCode());
     }

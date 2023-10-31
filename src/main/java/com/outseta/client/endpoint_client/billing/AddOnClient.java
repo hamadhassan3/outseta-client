@@ -88,7 +88,7 @@ public final class AddOnClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (addOnId == null || addOnId.isBlank()) {
+        if (addOnId == null || addOnId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "AddOn id cannot be null or blank.");
         }

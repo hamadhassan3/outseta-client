@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -52,7 +52,7 @@ public class PlanFamilyTest {
                 .name("name")
                 .active(false)
                 .isDefault(false)
-                .plans(List.of(plan1, plan2))
+                .plans(Arrays.asList(plan1, plan2))
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .uid("uid")
@@ -68,7 +68,7 @@ public class PlanFamilyTest {
         assertEquals("name", planFamily.getName());
         assertFalse(planFamily.isActive());
         assertFalse(planFamily.isDefault());
-        assertEquals(List.of(plan1, plan2), planFamily.getPlans());
+        assertEquals(Arrays.asList(plan1, plan2), planFamily.getPlans());
         assertEquals(new Date(TIMESTAMP), planFamily.getCreated());
         assertEquals(new Date(TIMESTAMP), planFamily.getUpdated());
         assertEquals("uid", planFamily.getUid());
@@ -123,8 +123,8 @@ public class PlanFamilyTest {
      */
     @Test
     void testGetAndSetPlans() {
-        planFamily.setPlans(List.of(plan1));
-        assertEquals(List.of(plan1), planFamily.getPlans());
+        planFamily.setPlans(Arrays.asList(plan1));
+        assertEquals(Arrays.asList(plan1), planFamily.getPlans());
     }
 
     /**
@@ -172,7 +172,7 @@ public class PlanFamilyTest {
                 .name("name")
                 .active(false)
                 .isDefault(false)
-                .plans(List.of(plan1, plan2))
+                .plans(Arrays.asList(plan1, plan2))
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .uid("uid")
@@ -196,7 +196,7 @@ public class PlanFamilyTest {
                 .name("name")
                 .active(false)
                 .isDefault(false)
-                .plans(List.of(plan1, plan2))
+                .plans(Arrays.asList(plan1, plan2))
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
                 .uid("uid")

@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -147,7 +147,7 @@ class ParserFacadeTest {
 
         final ItemPage<TestDataComponent> itemPage = new ItemPage<>(
                 new Metadata(),
-                List.of(testDataComponent, testDataComponent));
+                Arrays.asList(testDataComponent, testDataComponent));
 
         // Mock JsonParser's jsonStringToPage method
         when(jsonParser.jsonStringToPage(any(String.class),

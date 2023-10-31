@@ -110,6 +110,8 @@ public interface RequestMaker {
      * This method is used to url encode a payload attribute.
      * @param value The value to be encoded.
      * @return The encoded value.
+     * @throws OutsetaInvalidURLException If the value cannot be encoded.
      */
-    String urlEncodePayloadAttribute(String value);
+    String urlEncodePayloadAttribute(String value)
+            throws OutsetaInvalidURLException;
 }

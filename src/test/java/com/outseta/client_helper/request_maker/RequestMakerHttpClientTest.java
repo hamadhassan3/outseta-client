@@ -2,25 +2,34 @@ package com.outseta.client_helper.request_maker;
 
 import com.outseta.exception.OutsetaInvalidURLException;
 import com.outseta.exception.api_exception.OutsetaAPIBadRequestException;
-import com.outseta.exception.api_exception.OutsetaAPIFailedException;
 import com.outseta.exception.api_exception.OutsetaAPIUnknownException;
 import com.outseta.exception.api_exception.OutsetaInvalidResponseCodeException;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicStatusLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +47,7 @@ class RequestMakerHttpClientTest {
      * Creating HttpClient mock object.
      */
     @Mock
-    private HttpClient httpClient;
+    private CloseableHttpClient httpClient;
 
     /**
      * Creating RequestMakerHttpClient object with the mocked HttpClient.
@@ -224,8 +233,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaBadRequestException is thrown when request
         // fails with IOException
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
+        when(httpClient.execute(any(HttpGet.class))).thenThrow(
                 new IOException());
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
@@ -263,8 +271,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaBadRequestException is thrown when request
         // fails with IOException
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
+        when(httpClient.execute(any(HttpPost.class))).thenThrow(
                 new IOException());
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
@@ -288,8 +295,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaBadRequestException is thrown when request
         // fails with IOException
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
+        when(httpClient.execute(any(HttpPut.class))).thenThrow(
                 new IOException());
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
@@ -313,112 +319,10 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaBadRequestException is thrown when
         // request fails with IOException
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
+        when(httpClient.execute(any(HttpDelete.class))).thenThrow(
                 new IOException());
 
         assertThrows(OutsetaAPIBadRequestException.class, () -> {
-            requestMakerHttpClient.delete("http://validurl",
-                    params, headers);
-        });
-
-    }
-
-    /**
-     * A test that checks if OutsetaAPIFailedException is thrown when get
-     * request fails with InterruptedException.
-     */
-    @Test
-    public void testGetInterruptedException()
-            throws IOException, InterruptedException {
-
-        HashMap<String, Object> params = new HashMap<>();
-        HashMap<String, String> headers = new HashMap<>();
-
-        // Assert that OutsetaAPIFailedException is thrown when request
-        // fails with InterruptedException
-
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
-                new InterruptedException());
-
-        assertThrows(OutsetaAPIFailedException.class, () -> {
-            requestMakerHttpClient.get("http://validurl", params, headers);
-        });
-
-    }
-
-    /**
-     * A test that checks if OutsetaAPIFailedException is thrown when
-     * post request fails with InterruptedException.
-     */
-    @Test
-    public void testPostInterruptedException()
-            throws IOException, InterruptedException {
-
-        HashMap<String, Object> params = new HashMap<>();
-        HashMap<String, String> headers = new HashMap<>();
-        String payload = "";
-
-        // Assert that OutsetaAPIFailedException is thrown when
-        // request fails with InterruptedException
-
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
-                new InterruptedException());
-
-        assertThrows(OutsetaAPIFailedException.class, () -> {
-            requestMakerHttpClient.post("http://validurl", params, payload,
-                    headers);
-        });
-
-    }
-
-    /**
-     * A test that checks if OutsetaAPIFailedException is thrown
-     * when put request fails with InterruptedException.
-     */
-    @Test
-    public void testPutInterruptedException()
-            throws IOException, InterruptedException {
-
-        HashMap<String, Object> params = new HashMap<>();
-        HashMap<String, String> headers = new HashMap<>();
-        String payload = "";
-
-        // Assert that OutsetaAPIFailedException is thrown when
-        // request fails with InterruptedException
-
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
-                new InterruptedException());
-
-        assertThrows(OutsetaAPIFailedException.class, () -> {
-            requestMakerHttpClient.put("http://validurl", params, payload,
-                    headers);
-        });
-
-    }
-
-    /**
-     * A test that checks if OutsetaAPIFailedException is thrown when
-     * delete request fails with InterruptedException.
-     */
-    @Test
-    public void testDeleteInterruptedException()
-            throws IOException, InterruptedException {
-
-        HashMap<String, Object> params = new HashMap<>();
-        HashMap<String, String> headers = new HashMap<>();
-
-        // Assert that OutsetaAPIFailedException is thrown when
-        // request fails with InterruptedException
-
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenThrow(
-                new InterruptedException());
-
-        assertThrows(OutsetaAPIFailedException.class, () -> {
             requestMakerHttpClient.delete("http://validurl",
                     params, headers);
         });
@@ -438,8 +342,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaAPIUnknownException is thrown when
         // request fails with null response
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(null);
+        when(httpClient.execute(any(HttpGet.class))).thenReturn(null);
 
         assertThrows(OutsetaAPIUnknownException.class, () -> {
             requestMakerHttpClient.get("http://validurl", params, headers);
@@ -462,8 +365,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaAPIUnknownException is thrown when
         // request fails with null response
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(null);
+        when(httpClient.execute(any(HttpPost.class))).thenReturn(null);
 
         assertThrows(OutsetaAPIUnknownException.class, () -> {
             requestMakerHttpClient.post("http://validurl", params, payload,
@@ -486,8 +388,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaAPIUnknownException is thrown when
         // request fails with null response
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(null);
+        when(httpClient.execute(any(HttpPut.class))).thenReturn(null);
 
         assertThrows(OutsetaAPIUnknownException.class, () -> {
             requestMakerHttpClient.put("http://validurl", params, payload,
@@ -510,8 +411,7 @@ class RequestMakerHttpClientTest {
         // Assert that OutsetaAPIUnknownException is thrown when
         // request fails with null response
 
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(null);
+        when(httpClient.execute(any(HttpDelete.class))).thenReturn(null);
 
         assertThrows(OutsetaAPIUnknownException.class, () -> {
             requestMakerHttpClient.delete("http://validurl",
@@ -531,27 +431,36 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                        new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+                .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             requestMakerHttpClient.get("http://validurl", params, headers);
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_1, "NOT_OK"));
+        when(httpClient.execute(any(HttpGet.class))).thenReturn(mockResponse);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.get("http://validurl", params, headers);
         });
 
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_2, "NOT_OK"));
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.get("http://validurl", params, headers);
@@ -570,12 +479,18 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPost.class))).thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             requestMakerHttpClient.post("http://validurl", params, payload,
@@ -583,16 +498,19 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_1, "NOT_OK"));
+        when(httpClient.execute(any(HttpPost.class))).thenReturn(mockResponse);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.post("http://validurl", params, payload,
                     headers);
         });
 
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_2, "NOT_OK"));
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.post("http://validurl", params, payload,
                     headers);
@@ -613,12 +531,18 @@ class RequestMakerHttpClientTest {
         HashMap<String, String> headers = new HashMap<>();
         String payload = "";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class))).thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             requestMakerHttpClient.put("http://validurl", params, payload,
@@ -626,16 +550,19 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_1, "NOT_OK"));
+        when(httpClient.execute(any(HttpPut.class))).thenReturn(mockResponse);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.put("http://validurl", params, payload,
                     headers);
         });
 
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_2, "NOT_OK"));
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.put("http://validurl", params, payload,
@@ -655,12 +582,18 @@ class RequestMakerHttpClientTest {
         HashMap<String, Object> params = new HashMap<>();
         HashMap<String, String> headers = new HashMap<>();
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpDelete.class)))
+                .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             requestMakerHttpClient.delete("http://validurl", params,
@@ -668,20 +601,441 @@ class RequestMakerHttpClientTest {
         });
 
         // Assert that exception is thrown when status code is invalid
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_1);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_1, "NOT_OK"));
+        when(httpClient.execute(any(HttpDelete.class)))
+                .thenReturn(mockResponse);
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.delete("http://validurl", params,
                     headers);
         });
 
-        when(mockResponse.statusCode()).thenReturn(FAILURE_CODE_2);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                FAILURE_CODE_2, "NOT_OK"));
+
 
         assertThrows(OutsetaInvalidResponseCodeException.class, () -> {
             requestMakerHttpClient.delete("http://validurl", params,
                     headers);
+        });
+
+    }
+
+    /**
+     * This method tests with parameters.
+     */
+    @Test
+    public void testGetWithParams() throws IOException, InterruptedException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        params.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.get("http://validurl", params, headers);
+        });
+
+    }
+
+    /**
+     * This method tests with null parameters.
+     */
+    @Test
+    public void testGetWithNullParams()
+            throws IOException, InterruptedException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        params.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.get("http://validurl", null, headers);
+        });
+
+    }
+
+    /**
+     * This method tests with headers.
+     */
+    @Test
+    public void testGetWithHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.get("http://validurl", params, headers);
+        });
+
+    }
+
+    /**
+     * This method tests with null headers.
+     */
+    @Test
+    public void testGetWithNullHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.get("http://validurl", params, null);
+        });
+
+    }
+
+    /**
+     * This method tests put with headers.
+     */
+    @Test
+    public void testPutWithHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+        String payload = "";
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.put("http://validurl", params, payload,
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests put with null headers.
+     */
+    @Test
+    public void testPutWithNullHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        String payload = "";
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.put("http://validurl", params, payload,
+                    null);
+        });
+
+    }
+
+    /**
+     * This method tests post with headers.
+     */
+    @Test
+    public void testPostWithHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+        String payload = "";
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPost.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.post("http://validurl", params, payload,
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests post with null headers.
+     */
+    @Test
+    public void testPostWithNullHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        String payload = "";
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPost.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.post("http://validurl", params, payload,
+                    null);
+        });
+
+    }
+
+    /**
+     * This method tests post with null payload.
+     */
+    @Test
+    public void testPostWithNullPayload() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is thrown when payload is null
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPost.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.post("http://validurl", params, null,
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests put with null payload.
+     */
+    @Test
+    public void testPutWithNullPayload() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is thrown when payload is null
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.put("http://validurl", params, null,
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests put with empty payload.
+     */
+    @Test
+    public void testPutWithEmptyPayload() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is thrown when payload is empty
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.put("http://validurl", params, "",
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests delete with headers.
+     */
+    @Test
+    public void testDeleteWithHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+        HashMap<String, String> headers = new HashMap<>();
+
+        headers.put("key", "value");
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpDelete.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.delete("http://validurl", params,
+                    headers);
+        });
+
+    }
+
+    /**
+     * This method tests delete with null headers.
+     */
+    @Test
+    public void testDeleteWithNullHeaders() throws IOException {
+
+        HashMap<String, Object> params = new HashMap<>();
+
+        CloseableHttpResponse mockResponse = Mockito
+                .mock(CloseableHttpResponse.class);
+
+        // Assert that exception is not thrown when status code
+        // is valid
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity("content",
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpDelete.class)))
+                .thenReturn(mockResponse);
+
+        assertDoesNotThrow(() -> {
+            requestMakerHttpClient.delete("http://validurl", params,
+                    null);
         });
 
     }
@@ -697,13 +1051,18 @@ class RequestMakerHttpClientTest {
 
         String response = "response";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito.mock(
+                CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(mockResponse.body()).thenReturn(response);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity(response,
+                        ContentType.TEXT_PLAIN));
+        when(httpClient.execute(any(HttpGet.class)))
+          .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             String res = requestMakerHttpClient.get("http://validurl",
@@ -726,16 +1085,23 @@ class RequestMakerHttpClientTest {
 
         String response = "response";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito.mock(
+                CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(mockResponse.body()).thenReturn(response);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity(response,
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPost.class)))
+          .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
-            String res = requestMakerHttpClient.post("http://validurl", params,
+            String res = requestMakerHttpClient
+              .post("http://validurl", params,
                     payload, headers);
             assertEquals(res, response);
         });
@@ -755,13 +1121,19 @@ class RequestMakerHttpClientTest {
 
         String response = "response";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito.mock(
+                CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(mockResponse.body()).thenReturn(response);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity(response,
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpPut.class)))
+          .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             String res = requestMakerHttpClient.put("http://validurl", params,
@@ -782,13 +1154,19 @@ class RequestMakerHttpClientTest {
 
         String response = "response";
 
-        HttpResponse mockResponse = Mockito.mock(HttpResponse.class);
+        CloseableHttpResponse mockResponse = Mockito.mock(
+                CloseableHttpResponse.class);
 
         // Assert that exception is not thrown when status code is valid
-        when(mockResponse.statusCode()).thenReturn(SUCCESS_CODE);
-        when(mockResponse.body()).thenReturn(response);
-        when(httpClient.send(any(HttpRequest.class),
-                any(HttpResponse.BodyHandler.class))).thenReturn(mockResponse);
+        when(mockResponse.getStatusLine()).thenReturn(new BasicStatusLine(
+                new ProtocolVersion("", 1, 1),
+                SUCCESS_CODE, "OK"));
+        when(mockResponse.getEntity()).thenReturn(
+                new StringEntity(response,
+                        ContentType.TEXT_PLAIN));
+
+        when(httpClient.execute(any(HttpDelete.class)))
+          .thenReturn(mockResponse);
 
         assertDoesNotThrow(() -> {
             String res =
@@ -804,15 +1182,42 @@ class RequestMakerHttpClientTest {
      * This method tests the urlEncodePayloadAttribute method.
      */
     @Test
-    public void testUrlEncodePayloadAttribute() {
+    public void testUrlEncodePayloadAttribute()
+            throws UnsupportedEncodingException {
 
-        String encoded = URLEncoder.encode("test", StandardCharsets.UTF_8);
+        String encoded = URLEncoder.encode("test",
+                StandardCharsets.UTF_8.toString());
 
-        String encodedAttribute = requestMakerHttpClient
-                .urlEncodePayloadAttribute("test");
+        assertDoesNotThrow(() -> {
+            String encodedAttribute = requestMakerHttpClient
+                    .urlEncodePayloadAttribute("test");
+            assertNotNull(encodedAttribute);
+            assertEquals(encodedAttribute, encoded);
 
-        assertNotNull(encodedAttribute);
-        assertEquals(encodedAttribute, encoded);
+            assertNull(requestMakerHttpClient
+                    .urlEncodePayloadAttribute(null));
+        });
 
+    }
+
+    /**
+     * This method tests the urlEncodePayloadAttribute method.
+     */
+    @Test
+    public void testUrlEncodePayloadAttributeNull() {
+        String value = "your_value_to_encode";
+
+        // Mock URLEncoder.encode to throw UnsupportedEncodingException
+        try (MockedStatic<URLEncoder> mockedEncoder = Mockito
+                .mockStatic(URLEncoder.class)) {
+            mockedEncoder.when(() -> URLEncoder.encode(any(), any()))
+                    .thenThrow(new UnsupportedEncodingException(
+                            "Mocked exception"));
+
+            // Assert that OutsetaInvalidURLException is
+            // thrown when encoding fails
+            assertThrows(OutsetaInvalidURLException.class, () ->
+                    requestMakerHttpClient.urlEncodePayloadAttribute(value));
+        }
     }
 }

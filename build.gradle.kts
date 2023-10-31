@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.hamadhassan3"
-version = "2.0.0"
+version = "3.0.0"
 
 // Extra property to determine if the version is a release version or not
 extra["isReleaseVersion"] = !version.toString().endsWith("SNAPSHOT")
@@ -17,7 +17,7 @@ val releaseRepo = uri("https://s01.oss.sonatype.org/service/local/staging/deploy
 val snapshotRepo = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 
 checkstyle {
-    toolVersion = "10.12.3"
+    toolVersion = "8.44"
     maxWarnings = 0
     configFile = file("${rootDir}/checkstyle.xml")
 }
@@ -35,8 +35,8 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.5.0")
+    testImplementation("org.mockito:mockito-inline:4.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.11.0")
 
     implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")

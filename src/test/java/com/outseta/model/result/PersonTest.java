@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -607,7 +608,7 @@ public class PersonTest {
      */
     @Test
     public void testSetPersonAccount() {
-        List<PersonAccount> personAccount = List.of(new PersonAccount(),
+        List<PersonAccount> personAccount = Arrays.asList(new PersonAccount(),
                 new PersonAccount());
         person.setPersonAccount(personAccount);
         assertEquals(personAccount, person.getPersonAccount());

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -96,7 +96,7 @@ public class SubscriptionTest {
                 .newRequiredQuantity(NEW_REQUIRED_QUANTITY)
                 .planUpgradeRequired(false)
                 .planUpgradeRequiredMessage("message")
-                .subscriptionAddOns(List.of(subscriptionAddOn1))
+                .subscriptionAddOns(Arrays.asList(subscriptionAddOn1))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
@@ -120,7 +120,7 @@ public class SubscriptionTest {
         assertFalse(subscription.isPlanUpgradeRequired());
         assertEquals("message", subscription
                 .getPlanUpgradeRequiredMessage());
-        assertEquals(List.of(subscriptionAddOn1), subscription
+        assertEquals(Arrays.asList(subscriptionAddOn1), subscription
                 .getSubscriptionAddOns());
         assertEquals("uid", subscription.getUid());
         assertEquals(new Date(TIMESTAMP), subscription.getCreated());
@@ -249,8 +249,8 @@ public class SubscriptionTest {
      */
     @Test
     public void testGetSetSubscriptionAddOns() {
-        subscription.setSubscriptionAddOns(List.of(subscriptionAddOn2));
-        assertEquals(List.of(subscriptionAddOn2),
+        subscription.setSubscriptionAddOns(Arrays.asList(subscriptionAddOn2));
+        assertEquals(Arrays.asList(subscriptionAddOn2),
                 subscription.getSubscriptionAddOns());
     }
 
@@ -298,7 +298,7 @@ public class SubscriptionTest {
                 .newRequiredQuantity(NEW_REQUIRED_QUANTITY)
                 .planUpgradeRequired(false)
                 .planUpgradeRequiredMessage("message")
-                .subscriptionAddOns(List.of(subscriptionAddOn1))
+                .subscriptionAddOns(Arrays.asList(subscriptionAddOn1))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
@@ -329,7 +329,7 @@ public class SubscriptionTest {
                 .newRequiredQuantity(NEW_REQUIRED_QUANTITY)
                 .planUpgradeRequired(false)
                 .planUpgradeRequiredMessage("message")
-                .subscriptionAddOns(List.of(subscriptionAddOn1))
+                .subscriptionAddOns(Arrays.asList(subscriptionAddOn1))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))

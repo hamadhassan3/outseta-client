@@ -8,8 +8,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -72,7 +72,7 @@ public class CaseTest {
                 .status(1)
                 .source(CaseSource.EMAIL)
                 .source(2)
-                .caseHistories(List.of(caseHistory1, caseHistory2))
+                .caseHistories(Arrays.asList(caseHistory1, caseHistory2))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
@@ -95,7 +95,7 @@ public class CaseTest {
         assertEquals("userAgent", this.caseObject.getUserAgent());
         assertEquals(1, this.caseObject.getStatus());
         assertEquals(2, this.caseObject.getSource());
-        assertEquals(List.of(caseHistory1, caseHistory2), this.caseObject
+        assertEquals(Arrays.asList(caseHistory1, caseHistory2), this.caseObject
                 .getCaseHistories());
         assertEquals("uid", this.caseObject.getUid());
         assertEquals(new Date(TIMESTAMP), this.caseObject.getCreated());
@@ -203,8 +203,8 @@ public class CaseTest {
      */
     @Test
     public void testGetSetCaseHistories() {
-        this.caseObject.setCaseHistories(List.of(caseHistory2));
-        assertEquals(List.of(caseHistory2), this.caseObject
+        this.caseObject.setCaseHistories(Arrays.asList(caseHistory2));
+        assertEquals(Arrays.asList(caseHistory2), this.caseObject
                 .getCaseHistories());
     }
 
@@ -252,7 +252,7 @@ public class CaseTest {
                 .userAgent("userAgent")
                 .status(1)
                 .source(2)
-                .caseHistories(List.of(caseHistory1, caseHistory2))
+                .caseHistories(Arrays.asList(caseHistory1, caseHistory2))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))
@@ -280,7 +280,7 @@ public class CaseTest {
                 .userAgent("userAgent")
                 .status(1)
                 .source(2)
-                .caseHistories(List.of(caseHistory1, caseHistory2))
+                .caseHistories(Arrays.asList(caseHistory1, caseHistory2))
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
                 .updated(new Date(TIMESTAMP))

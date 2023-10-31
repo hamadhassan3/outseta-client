@@ -84,7 +84,7 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIUnknownException, OutsetaInvalidURLException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null || personId.isBlank()) {
+        if (personId == null || personId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null or blank.");
         }
@@ -240,7 +240,7 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null || personId.isBlank()) {
+        if (personId == null || personId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null or blank.");
         }
@@ -287,7 +287,7 @@ public final class PeopleClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (personId == null || personId.isBlank()) {
+        if (personId == null || personId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null or blank.");
         }
@@ -341,7 +341,7 @@ public final class PeopleClient extends BaseClient {
                     "Temporary password request cannot be null.");
         }
 
-        if (personId == null || personId.isBlank()) {
+        if (personId == null || personId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Person id cannot be null or blank.");
         }

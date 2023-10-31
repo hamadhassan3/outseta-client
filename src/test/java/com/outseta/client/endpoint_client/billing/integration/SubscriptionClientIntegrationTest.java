@@ -38,6 +38,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -136,7 +137,7 @@ public class SubscriptionClientIntegrationTest {
                 .build().createAccountWithExistingPerson(Account.builder()
                         .name("hammad-test-outseta-client")
                         .accountStage(AccountStage.Trialing)
-                        .personAccount(List.of(PersonAccount.builder()
+                        .personAccount(Arrays.asList(PersonAccount.builder()
                                 .person(createdPerson)
                                 .primary(true)
                                 .build()))
@@ -259,7 +260,7 @@ public class SubscriptionClientIntegrationTest {
                             .plan(createdPlan)
                             .billingRenewalTerm(
                                     BillingRenewalTerm.Monthly.getValue())
-                            .subscriptionAddOns(List.of(SubscriptionAddOn
+                            .subscriptionAddOns(Arrays.asList(SubscriptionAddOn
                                     .builder()
                                             .addOn(AddOn.builder()
                                                     .uid("zWZz3bWp")

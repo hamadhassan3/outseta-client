@@ -79,8 +79,8 @@ public class AuthenticationClientIntegrationTest {
             assertNotNull(authToken);
             assertNotNull(authToken.getAccessToken());
             assertNotNull(authToken.getTokenType());
-            assertFalse(authToken.getAccessToken().isBlank());
-            assertFalse(authToken.getAccessToken().isBlank());
+            assertFalse(authToken.getAccessToken().trim().isEmpty());
+            assertFalse(authToken.getAccessToken().trim().isEmpty());
             assertNotEquals(0, authToken.getExpiresIn());
         });
     }
@@ -111,8 +111,8 @@ public class AuthenticationClientIntegrationTest {
             assertNotNull(authToken);
             assertNotNull(authToken.getAccessToken());
             assertNotNull(authToken.getTokenType());
-            assertFalse(authToken.getAccessToken().isBlank());
-            assertFalse(authToken.getAccessToken().isBlank());
+            assertFalse(authToken.getAccessToken().trim().isEmpty());
+            assertFalse(authToken.getAccessToken().trim().isEmpty());
             assertNotEquals(0, authToken.getExpiresIn());
         });
     }

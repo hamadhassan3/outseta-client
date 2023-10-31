@@ -98,11 +98,10 @@ public final class AuthenticationClient extends BaseClient {
         // The authentication client accepts payload as urlencoded.
         // This is an exceptional case, so it's okay to handle it here
         // without disrupting other clients.
-        this.updateHeaders(
-                Map.of("Content-Type",
-                        "application/x-www-form-urlencoded",
-                        "Accept",
-                        "application/x-www-form-urlencoded"));
+        Map<String, String> map = new HashMap<>();
+        map.put("Content-Type", "application/x-www-form-urlencoded");
+        map.put("Accept", "application/x-www-form-urlencoded");
+        this.updateHeaders(map);
     }
 
     /**
@@ -161,7 +160,7 @@ public final class AuthenticationClient extends BaseClient {
         }
 
         if (getAuthTokenRequest.getUsername() == null
-                || getAuthTokenRequest.getUsername().isBlank()) {
+                || getAuthTokenRequest.getUsername().trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "The username cannot be null or empty.");
         }
@@ -171,7 +170,7 @@ public final class AuthenticationClient extends BaseClient {
             // be a password defined.
 
             if (getAuthTokenRequest.getPassword() == null
-                    || getAuthTokenRequest.getPassword().isBlank()) {
+                    || getAuthTokenRequest.getPassword().trim().isEmpty()) {
                 throw new OutsetaInvalidArgumentException(
                         "The password cannot be null or empty if there is no"
                                 + "authentication header specified.");
@@ -184,7 +183,7 @@ public final class AuthenticationClient extends BaseClient {
                                 getAuthTokenRequest.getUsername());
 
         if (getAuthTokenRequest.getPassword() != null
-                && !getAuthTokenRequest.getPassword().isBlank()) {
+                && !getAuthTokenRequest.getPassword().trim().isEmpty()) {
             urlEncoded += "&password="
                     + this.getRequestMaker()
                     .urlEncodePayloadAttribute(

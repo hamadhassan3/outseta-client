@@ -200,7 +200,7 @@ public class PageRequest implements BaseInput {
             params.put("limit", pageSize.toString());
         }
 
-        if (orderBy != null && !orderBy.isBlank()) {
+        if (orderBy != null && !orderBy.trim().isEmpty()) {
 
             String orderByWithDir = orderBy;
             if (orderByDirection != null) {

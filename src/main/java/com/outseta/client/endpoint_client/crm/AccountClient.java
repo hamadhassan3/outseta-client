@@ -88,7 +88,7 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIBadRequestException, OutsetaAPIFailedException,
             OutsetaAPIUnknownException, OutsetaParseException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -310,7 +310,7 @@ public final class AccountClient extends BaseClient {
                     "Account request cannot be null.");
         }
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -371,7 +371,7 @@ public final class AccountClient extends BaseClient {
                     "Account request cannot be null.");
         }
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -470,7 +470,7 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -526,7 +526,7 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -573,7 +573,7 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -625,12 +625,12 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
 
-        if (membershipId == null || membershipId.isBlank()) {
+        if (membershipId == null || membershipId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Membership id cannot be null or blank.");
         }
@@ -677,7 +677,7 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
@@ -719,12 +719,12 @@ public final class AccountClient extends BaseClient {
             OutsetaAPIFailedException, OutsetaAPIUnknownException,
             OutsetaInvalidArgumentException {
 
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Account id cannot be null or blank.");
         }
 
-        if (membershipId == null || membershipId.isBlank()) {
+        if (membershipId == null || membershipId.trim().isEmpty()) {
             throw new OutsetaInvalidArgumentException(
                     "Membership id cannot be null or blank.");
         }

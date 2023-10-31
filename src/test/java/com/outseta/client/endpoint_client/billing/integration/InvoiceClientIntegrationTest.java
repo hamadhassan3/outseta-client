@@ -37,6 +37,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -128,7 +129,7 @@ public class InvoiceClientIntegrationTest {
                 .name("Hammad sdk test invoice")
                 .build();
 
-        account.setPersonAccount(List.of(PersonAccount.builder()
+        account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                 .person(Person.builder().uid(person.getUid()).build())
                 .primary(true)
                 .build()));
@@ -225,7 +226,7 @@ public class InvoiceClientIntegrationTest {
             final double amount = 10.1;
             Invoice invoice = Invoice.builder()
                     .subscription(sub)
-                    .invoiceLineItems(List.of(InvoiceLineItem.builder()
+                    .invoiceLineItems(Arrays.asList(InvoiceLineItem.builder()
                                     .amount(amount)
                                     .description("test")
                             .build()))
@@ -265,7 +266,7 @@ public class InvoiceClientIntegrationTest {
             final double amount = 10.1;
             Invoice invoice = Invoice.builder()
                     .subscription(sub)
-                    .invoiceLineItems(List.of(InvoiceLineItem.builder()
+                    .invoiceLineItems(Arrays.asList(InvoiceLineItem.builder()
                             .amount(amount)
                             .description("test")
                             .build()))

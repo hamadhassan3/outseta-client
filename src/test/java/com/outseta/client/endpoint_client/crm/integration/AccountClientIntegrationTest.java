@@ -18,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -138,7 +139,7 @@ public class AccountClientIntegrationTest {
                     .email("hammadCreateWithExisting@dummy.com")
                     .build());
 
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                     .person(Person.builder().uid(person.getUid()).build())
                     .primary(true)
                     .build()));
@@ -167,7 +168,7 @@ public class AccountClientIntegrationTest {
     @Test
     public void testGetAccount() {
 
-        account.setPersonAccount(List.of(PersonAccount.builder()
+        account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                 .person(Person.builder()
                         .fullName("Hammad Hassan sdk test")
                         .email("hammad@dummy.com")
@@ -203,7 +204,7 @@ public class AccountClientIntegrationTest {
         assertDoesNotThrow(() -> {
 
             account.setAccountStage(AccountStage.Trialing.getValue());
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                     .person(Person.builder()
                             .fullName("Primary Hammad Hassan sdk test")
                             .email("hammad4@dummy.com")
@@ -249,7 +250,7 @@ public class AccountClientIntegrationTest {
         assertDoesNotThrow(() -> {
 
             account.setAccountStage(AccountStage.Trialing.getValue());
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                     .person(Person.builder()
                             .fullName("Primary Hammad Hassan sdk test")
                             .email("hammad5@dummy.com")
@@ -295,7 +296,7 @@ public class AccountClientIntegrationTest {
         assertDoesNotThrow(() -> {
 
             account.setAccountStage(AccountStage.Trialing.getValue());
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                     .person(Person.builder()
                             .fullName("Primary Hammad Hassan sdk test")
                             .email("hammad5@dummy.com")
@@ -307,7 +308,7 @@ public class AccountClientIntegrationTest {
                             account
                     );
 
-            assertFalse(result.getUid().isBlank());
+            assertFalse(result.getUid().trim().isEmpty());
             assertFalse(result.getUid().isEmpty());
             assertEquals(account.getName(), result.getName());
             assertEquals(account.getAccountStage(), result.getAccountStage());
@@ -331,7 +332,7 @@ public class AccountClientIntegrationTest {
                     .email("hammad16@dummy.com")
                     .build());
             account.setAccountStage(AccountStage.Trialing.getValue());
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                     .person(person1)
                     .primary(true)
                     .build()));
@@ -341,7 +342,8 @@ public class AccountClientIntegrationTest {
                     );
 
             createdAccount.setName("Updated Name");
-            createdAccount.setPersonAccount(List.of(PersonAccount.builder()
+            createdAccount.setPersonAccount(Arrays.asList(PersonAccount
+                    .builder()
                     .person(person1)
                     .primary(true)
                     .build()));
@@ -350,7 +352,7 @@ public class AccountClientIntegrationTest {
             Account updatedAccount = accountClient
                     .updateAccount(createdAccount.getUid(), createdAccount);
 
-            assertFalse(updatedAccount.getUid().isBlank());
+            assertFalse(updatedAccount.getUid().trim().isEmpty());
             assertFalse(updatedAccount.getUid().isEmpty());
             assertEquals(createdAccount.getName(), updatedAccount.getName());
 
@@ -429,7 +431,7 @@ public class AccountClientIntegrationTest {
                     .email("hammad20@dummy.com")
                     .build());
             account.setAccountStage(AccountStage.Trialing.getValue());
-            account.setPersonAccount(List.of(PersonAccount.builder()
+            account.setPersonAccount(Arrays.asList(PersonAccount.builder()
                         .person(person1)
                         .primary(true)
                         .build(), PersonAccount.builder()

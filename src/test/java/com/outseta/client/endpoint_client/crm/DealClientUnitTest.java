@@ -16,8 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -109,7 +109,7 @@ public class DealClientUnitTest {
 
             ItemPage<Deal> itemPage = new ItemPage<>(
                     new Metadata(1, 0, 1),
-                    List.of(deal)
+                    Arrays.asList(deal)
             );
 
             when(requestMaker.get(OUTSETA_URL + "/crm/deals",

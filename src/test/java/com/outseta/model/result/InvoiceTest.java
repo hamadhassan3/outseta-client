@@ -6,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -124,7 +124,8 @@ public class InvoiceTest {
                 .subscription(subscription1)
                 .amount(AMOUNT)
                 .amountOutstanding(AMOUNT_OUTSTANDING)
-                .invoiceLineItems(List.of(invoiceLineItem1, invoiceLineItem2))
+                .invoiceLineItems(
+                        Arrays.asList(invoiceLineItem1, invoiceLineItem2))
                 .isUserGenerated(false)
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
@@ -133,7 +134,7 @@ public class InvoiceTest {
                 .tax(TAX)
                 .taxBehaviour("taxBehaviour")
                 .paid(PAID)
-                .invoiceDisplayItems(List.of(invoiceDisplayItem1))
+                .invoiceDisplayItems(Arrays.asList(invoiceDisplayItem1))
                 .total(TOTAL)
                 .balance(BALANCE)
                 .build();
@@ -150,7 +151,7 @@ public class InvoiceTest {
         assertEquals(subscription1, invoice.getSubscription());
         assertEquals(AMOUNT, invoice.getAmount());
         assertEquals(AMOUNT_OUTSTANDING, invoice.getAmountOutstanding());
-        assertEquals(List.of(invoiceLineItem1, invoiceLineItem2),
+        assertEquals(Arrays.asList(invoiceLineItem1, invoiceLineItem2),
                 invoice.getInvoiceLineItems());
         assertFalse(invoice.isUserGenerated());
         assertEquals("uid", invoice.getUid());
@@ -160,7 +161,7 @@ public class InvoiceTest {
         assertEquals(TAX, invoice.getTax());
         assertEquals("taxBehaviour", invoice.getTaxBehaviour());
         assertEquals(PAID, invoice.getPaid());
-        assertEquals(List.of(invoiceDisplayItem1),
+        assertEquals(Arrays.asList(invoiceDisplayItem1),
                 invoice.getInvoiceDisplayItems());
         assertEquals(TOTAL, invoice.getTotal());
         assertEquals(BALANCE, invoice.getBalance());
@@ -254,8 +255,9 @@ public class InvoiceTest {
      */
     @Test
     public void testGetSetInvoiceLineItems() {
-        invoice.setInvoiceLineItems(List.of(invoiceLineItem2));
-        assertEquals(List.of(invoiceLineItem2), invoice.getInvoiceLineItems());
+        invoice.setInvoiceLineItems(Arrays.asList(invoiceLineItem2));
+        assertEquals(Arrays.asList(invoiceLineItem2),
+                invoice.getInvoiceLineItems());
     }
 
     /**
@@ -337,8 +339,8 @@ public class InvoiceTest {
      */
     @Test
     public void testGetSetInvoiceDisplayItems() {
-        invoice.setInvoiceDisplayItems(List.of(invoiceDisplayItem2));
-        assertEquals(List.of(invoiceDisplayItem2),
+        invoice.setInvoiceDisplayItems(Arrays.asList(invoiceDisplayItem2));
+        assertEquals(Arrays.asList(invoiceDisplayItem2),
                 invoice.getInvoiceDisplayItems());
     }
 
@@ -372,7 +374,8 @@ public class InvoiceTest {
                 .subscription(subscription1)
                 .amount(AMOUNT)
                 .amountOutstanding(AMOUNT_OUTSTANDING)
-                .invoiceLineItems(List.of(invoiceLineItem1, invoiceLineItem2))
+                .invoiceLineItems(Arrays.asList(invoiceLineItem1,
+                        invoiceLineItem2))
                 .isUserGenerated(false)
                 .uid("uid")
                 .created(new Date(TIMESTAMP))
@@ -398,7 +401,8 @@ public class InvoiceTest {
                 .subscription(subscription1)
                 .amount(AMOUNT)
                 .amountOutstanding(AMOUNT_OUTSTANDING)
-                .invoiceLineItems(List.of(invoiceLineItem1, invoiceLineItem2))
+                .invoiceLineItems(Arrays.asList(invoiceLineItem1,
+                        invoiceLineItem2))
                 .isUserGenerated(false)
                 .uid("uid")
                 .created(new Date(TIMESTAMP))

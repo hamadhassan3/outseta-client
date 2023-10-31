@@ -18,8 +18,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -123,7 +123,7 @@ public class InvoiceClientUnitTest {
 
             ItemPage<Transaction> itemPage = new ItemPage<>(
                     new Metadata(1, 0, 1),
-                    List.of(transaction)
+                    Arrays.asList(transaction)
             );
 
             when(requestMaker.get(OUTSETA_URL
